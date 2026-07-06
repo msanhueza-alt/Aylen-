@@ -1,0 +1,900 @@
+<title>Tablas Continental — Práctica de Matemáticas</title>
+<style>
+  :root{
+    --bg:#eef1f9; --surface:#ffffff; --surface-2:#f7f9ff;
+    --ink:#1e2340; --muted:#6b7092; --border:#e2e7f4; --border-strong:#cfd6ea;
+    --shadow:0 10px 30px -12px rgba(28,34,72,.28);
+    --success:#1f9d63; --success-soft:#e3f6ec; --error:#d83a41; --error-soft:#fce8e8;
+    --accent:#4b57c9; --accent-ink:#ffffff; --accent-soft:#eaecff; --accent-deep:#3a45a8;
+    --radius:22px; --radius-sm:14px;
+    --font: "Segoe UI Variable","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#10142a; --surface:#191e39; --surface-2:#141833; --ink:#eef1fb; --muted:#9aa2c8; --border:#29305a; --border-strong:#39416f; --shadow:0 16px 40px -16px rgba(0,0,0,.6); --success:#3fc783; --success-soft:#153a2a; --error:#ff6b70; --error-soft:#3a1a1d; --accent-soft:#20264b;}
+  }
+  :root[data-theme="light"]{--bg:#eef1f9; --surface:#ffffff; --surface-2:#f7f9ff; --ink:#1e2340; --muted:#6b7092; --border:#e2e7f4; --border-strong:#cfd6ea; --shadow:0 10px 30px -12px rgba(28,34,72,.28); --success:#1f9d63; --success-soft:#e3f6ec; --error:#d83a41; --error-soft:#fce8e8; --accent-soft:#eaecff;}
+  :root[data-theme="dark"]{--bg:#10142a; --surface:#191e39; --surface-2:#141833; --ink:#eef1fb; --muted:#9aa2c8; --border:#29305a; --border-strong:#39416f; --shadow:0 16px 40px -16px rgba(0,0,0,.6); --success:#3fc783; --success-soft:#153a2a; --error:#ff6b70; --error-soft:#3a1a1d; --accent-soft:#20264b;}
+
+  [data-track="basica"]{ --accent:#e07708; --accent-deep:#b85f04; --accent-ink:#fff; --accent-soft:#fdefdc; }
+  [data-track="media"]{ --accent:#0f9b8e; --accent-deep:#0b7a70; --accent-ink:#fff; --accent-soft:#dcf5f1; }
+  @media (prefers-color-scheme:dark){ [data-track="basica"]{--accent:#f79322;--accent-soft:#3a2708;} [data-track="media"]{--accent:#26c3b3;--accent-soft:#0c332f;} }
+  :root[data-theme="dark"] [data-track="basica"]{--accent:#f79322;--accent-soft:#3a2708;}
+  :root[data-theme="dark"] [data-track="media"]{--accent:#26c3b3;--accent-soft:#0c332f;}
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:radial-gradient(1100px 560px at 100% -8%, var(--accent-soft), transparent 60%), var(--bg); color:var(--ink); font-family:var(--font); -webkit-font-smoothing:antialiased; line-height:1.5; min-height:100vh; transition:background .4s}
+  .bg{position:fixed; inset:0; overflow:hidden; z-index:-1; pointer-events:none}
+  .bg span{position:absolute; font-weight:800; color:var(--accent); opacity:.06; font-size:clamp(2rem,6vw,4.2rem); animation:float 15s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-24px) rotate(6deg)}}
+  .wrap{max-width:780px; margin:0 auto; padding:20px 18px 50px; min-height:100vh; display:flex; flex-direction:column}
+
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px}
+  .brand{display:flex; align-items:center; gap:12px; min-width:0}
+  .logo{width:48px; height:48px; border-radius:14px; flex:none; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); display:grid; place-items:center; font-weight:800; font-size:23px; box-shadow:var(--shadow); transition:background .4s}
+  .brand h1{font-size:1.08rem; margin:0; line-height:1.15; letter-spacing:-.01em}
+  .brand p{margin:0; font-size:.76rem; color:var(--muted)}
+  .top-actions{display:flex; align-items:center; gap:8px; flex:none}
+  .student-pill{display:inline-flex; align-items:center; gap:7px; max-width:46vw; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:999px; padding:8px 13px; cursor:pointer; font-weight:700; font-size:.86rem; transition:.2s}
+  .student-pill:hover{border-color:var(--accent)}
+  .student-pill b{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .student-pill .av{width:24px; height:24px; border-radius:50%; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); display:grid; place-items:center; font-size:.95rem; flex:none}
+  .theme-btn{flex:none; width:42px; height:42px; border-radius:12px; cursor:pointer; background:var(--surface); border:1px solid var(--border); color:var(--ink); font-size:1.12rem; display:grid; place-items:center; transition:.2s}
+  .theme-btn:hover{border-color:var(--border-strong)}
+
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+  .screen{animation:rise .35s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+  .eyebrow{font-size:.72rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-deep)}
+  .lead{font-size:1.55rem; font-weight:800; letter-spacing:-.02em; margin:.15em 0 .1em; text-wrap:balance}
+  .sub{color:var(--muted); margin:0 0 20px; font-size:.95rem}
+  .hidden{display:none !important}
+
+  /* Bienvenida */
+  .welcome{padding:30px 24px; text-align:center; position:relative; overflow:hidden}
+  .welcome .hero-ico{font-size:3rem; margin-bottom:6px}
+  .welcome h2{font-size:1.9rem; margin:.1em 0; letter-spacing:-.02em; text-wrap:balance}
+  .welcome .by{display:inline-flex; align-items:center; gap:8px; margin:8px auto 4px; padding:6px 14px; border-radius:999px; background:var(--accent-soft); color:var(--accent-deep); font-weight:700; font-size:.82rem}
+  .name-form{display:flex; flex-direction:column; gap:12px; max-width:360px; margin:22px auto 0}
+  .name-input{font-size:1.1rem; font-weight:700; text-align:center; padding:14px 16px; border-radius:14px; border:2px solid var(--border-strong); background:var(--surface-2); color:var(--ink); font-family:inherit}
+  .name-input:focus{outline:none; border-color:var(--accent)}
+  .recent{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:16px}
+  .recent .r{background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:7px 13px; cursor:pointer; font-weight:700; font-size:.84rem; color:var(--ink)}
+  .recent .r:hover{border-color:var(--accent)}
+  .recent .r .x{color:var(--muted); margin-left:6px; font-weight:400}
+
+  .levels{display:grid; gap:16px}
+  @media(min-width:560px){.levels{grid-template-columns:1fr 1fr}}
+  .level{text-align:left; cursor:pointer; border:1px solid var(--border); background:var(--surface); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:6px; position:relative; overflow:hidden; transition:transform .18s, border-color .18s}
+  .level:hover{transform:translateY(-4px); border-color:var(--accent)}
+  .level:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .level .badge{width:54px; height:54px; border-radius:16px; display:grid; place-items:center; font-size:27px; color:#fff; box-shadow:var(--shadow); margin-bottom:4px}
+  .level[data-track="basica"] .badge{background:linear-gradient(145deg,#f79322,#d96f05)}
+  .level[data-track="media"] .badge{background:linear-gradient(145deg,#26c3b3,#0b7a70)}
+  .level h3{margin:0; font-size:1.24rem; letter-spacing:-.01em}
+  .level .who{color:var(--muted); font-size:.9rem}
+  .level .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
+  .tag{font-size:.72rem; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--surface-2); border:1px solid var(--border); color:var(--muted)}
+  .lvl-bar{height:9px; border-radius:99px; background:var(--surface-2); border:1px solid var(--border); overflow:hidden; margin-top:14px}
+  .lvl-bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-deep)); transition:width .5s}
+  .lvl-meta{font-size:.74rem; color:var(--muted); margin-top:6px; font-weight:600}
+
+  .back{background:none; border:none; color:var(--muted); cursor:pointer; font-size:.9rem; font-weight:600; padding:6px 2px; display:inline-flex; align-items:center; gap:6px; margin-bottom:10px}
+  .back:hover{color:var(--accent-deep)}
+
+  .prog-card{display:flex; align-items:center; gap:16px; padding:16px 18px; margin-bottom:16px}
+  .ring{position:relative; width:66px; height:66px; border-radius:50%; flex:none; background:conic-gradient(var(--accent) calc(var(--p)*3.6deg), var(--border) 0)}
+  .ring span{position:absolute; inset:6px; background:var(--surface); border-radius:50%; display:grid; place-items:center; font-weight:800; font-size:.82rem; font-variant-numeric:tabular-nums}
+  .prog-card .pt{min-width:0; flex:1}
+  .prog-card .pt b{display:block; font-size:1rem}
+  .prog-card .pt span{font-size:.82rem; color:var(--muted)}
+  .mini-link{background:none; border:none; color:var(--accent-deep); font-weight:700; cursor:pointer; font-size:.85rem; padding:0}
+  .mini-link:hover{text-decoration:underline}
+
+  .contents{display:grid; gap:12px}
+  .content-btn{display:flex; align-items:center; gap:16px; text-align:left; cursor:pointer; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px 18px; box-shadow:var(--shadow); transition:transform .15s, border-color .15s}
+  .content-btn:hover{transform:translateX(4px); border-color:var(--accent)}
+  .content-btn:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .content-btn .ico{width:46px; height:46px; border-radius:13px; flex:none; display:grid; place-items:center; font-size:22px; background:var(--accent-soft); color:var(--accent-deep); font-weight:800}
+  .content-btn .txt{min-width:0}
+  .content-btn .txt b{display:block; font-size:1.02rem}
+  .content-btn .txt span{color:var(--muted); font-size:.86rem}
+  .content-btn .dots{margin-left:auto; flex:none; display:flex; gap:4px}
+  .content-btn .dots i{width:9px; height:9px; border-radius:50%; background:var(--border-strong)}
+  .content-btn .dots i.on{background:var(--accent)}
+
+  .chips{display:flex; flex-wrap:wrap; gap:10px; margin:6px 0 22px}
+  .chip{min-width:58px; padding:12px 10px; border-radius:14px; cursor:pointer; font-weight:800; font-size:1.05rem; background:var(--surface); border:1px solid var(--border-strong); color:var(--ink); box-shadow:var(--shadow); transition:transform .12s, border-color .12s; font-variant-numeric:tabular-nums; text-align:center; flex:1 0 auto}
+  .chip:hover{transform:translateY(-3px); border-color:var(--accent)}
+  .chip.all{flex-basis:100%; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); border:none}
+  .chip:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
+  .chal{padding:16px 18px; margin-bottom:12px}
+  .chal .chd{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:12px}
+  .chal .chd b{font-size:1rem}
+  .chal .chd small{color:var(--muted); font-variant-numeric:tabular-nums; font-weight:700; flex:none}
+  .badges{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+  .bchip{text-align:center; padding:12px 6px; border-radius:12px; border:1px solid var(--border); background:var(--surface-2)}
+  .bchip .em{font-size:1.6rem; display:block; filter:grayscale(1); opacity:.4; transition:.2s}
+  .bchip.on .em{filter:none; opacity:1}
+  .bchip.on{border-color:var(--accent); background:var(--accent-soft)}
+  .bchip small{display:block; font-size:.64rem; color:var(--muted); margin-top:4px; line-height:1.25; font-weight:600}
+  .bchip.on small{color:var(--accent-deep)}
+
+  .quiz-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; gap:10px}
+  .pill{font-size:.8rem; font-weight:700; padding:6px 12px; border-radius:999px; background:var(--surface); border:1px solid var(--border); color:var(--muted); font-variant-numeric:tabular-nums}
+  .pill b{color:var(--ink)}
+  .progress{height:10px; border-radius:99px; background:var(--surface); border:1px solid var(--border); overflow:hidden; margin-bottom:20px}
+  .progress > i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-deep)); border-radius:99px; transition:width .35s}
+
+  .qcard{padding:24px 20px 22px; text-align:center; position:relative}
+  .streak{position:absolute; top:14px; right:16px; font-size:.8rem; font-weight:700; color:var(--accent-deep); opacity:0; transition:.2s}
+  .streak.on{opacity:1}
+  .question{font-size:clamp(2.6rem,11vw,3.6rem); font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums; line-height:1.1; margin:6px 0 4px; word-break:break-word}
+  .question.sm{font-size:clamp(1.5rem,6.2vw,2.2rem)}
+  .question.word{font-size:clamp(1.02rem,3.6vw,1.24rem); font-weight:600; line-height:1.5; text-align:left; letter-spacing:0; background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:15px 17px; margin:6px 0 12px; word-break:normal}
+  .qhint{color:var(--muted); font-size:.9rem; min-height:1.2em; margin-bottom:16px}
+  .ans-input{font-size:2.3rem; font-weight:800; text-align:center; font-variant-numeric:tabular-nums; border:2px dashed var(--border-strong); border-radius:14px; padding:8px 10px; margin:0 auto 6px; max-width:280px; width:100%; display:block; background:var(--surface-2); color:var(--ink); font-family:inherit; transition:.15s}
+  .ans-input::placeholder{color:var(--muted); font-weight:600; font-size:1.1rem}
+  .ans-input:focus{outline:none}
+  .ans-input.filled{border-style:solid; border-color:var(--accent)}
+  .ans-input.good{border-color:var(--success); background:var(--success-soft); color:var(--success); animation:pop .3s}
+  .ans-input.bad{border-color:var(--error); background:var(--error-soft); color:var(--error); animation:shake .35s}
+  @keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.09)}100%{transform:scale(1)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+  .feedback{min-height:1.4em; font-weight:700; font-size:.95rem; margin-top:8px}
+  .feedback.good{color:var(--success)} .feedback.bad{color:var(--error)}
+  .typehint{font-size:.76rem; color:var(--muted); margin-top:2px}
+
+  .keypad{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; max-width:340px; margin-left:auto; margin-right:auto}
+  .key{padding:15px 0; font-size:1.35rem; font-weight:800; border-radius:14px; cursor:pointer; background:var(--surface); border:1px solid var(--border); color:var(--ink); font-variant-numeric:tabular-nums; transition:transform .08s, background .15s; box-shadow:0 3px 0 var(--border)}
+  .key:hover{background:var(--accent-soft)}
+  .key:active{transform:translateY(2px); box-shadow:none}
+  .key:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .key.del{color:var(--error)} .key.sign{font-size:1.5rem}
+  .key.enter{grid-column:1 / -1; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); border:none; font-size:1.1rem; box-shadow:0 4px 0 var(--accent-deep)}
+
+  /* Explicación gráfica */
+  .ex-panel{text-align:left; animation:rise .35s both; margin-top:6px}
+  .ex-title{font-weight:800; font-size:1.05rem; color:var(--accent-deep); text-align:center; margin-bottom:14px}
+  .ex-steps{display:flex; flex-direction:column; gap:10px; margin-bottom:14px}
+  .ex-step{display:flex; gap:12px; align-items:flex-start; background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:11px 13px}
+  .ex-n{flex:none; width:26px; height:26px; border-radius:50%; background:var(--accent); color:var(--accent-ink); display:grid; place-items:center; font-weight:800; font-size:.85rem}
+  .ex-t{font-size:.96rem; line-height:1.45} .ex-t b{color:var(--accent-deep); font-variant-numeric:tabular-nums}
+  .ex-grid{display:grid; gap:5px; justify-content:center; margin:0 auto 14px; width:max-content; max-width:100%}
+  .ex-dot{width:16px; height:16px; border-radius:50%; background:var(--accent); opacity:.85}
+  .ex-parts{display:flex; gap:6px; justify-content:center; margin:0 auto 14px; max-width:320px; flex-wrap:wrap}
+  .ex-part{width:34px; height:44px; border-radius:8px; border:2px solid var(--border-strong); background:var(--surface-2)}
+  .ex-part.on{background:var(--accent); border-color:var(--accent)}
+  .ex-line{display:flex; align-items:center; gap:8px; margin:2px 0 4px}
+  .ex-end{font-weight:800; font-size:.85rem; color:var(--muted); font-variant-numeric:tabular-nums; flex:none}
+  .ex-track{position:relative; flex:1; height:8px; border-radius:99px; background:var(--surface-2); border:1px solid var(--border)}
+  .ex-mark{position:absolute; top:50%; width:16px; height:16px; border-radius:50%; background:var(--accent); border:2px solid var(--surface); transform:translate(-50%,-50%); box-shadow:var(--shadow)}
+  .ex-linecap{text-align:center; font-size:.85rem; color:var(--muted); margin-bottom:14px; font-weight:600}
+  .ex-panel .btn{display:block; margin:4px auto 0}
+
+  .result{padding:32px 24px 28px; text-align:center; position:relative; overflow:hidden}
+  .medal{font-size:3.8rem; line-height:1; margin-bottom:4px; animation:pop .5s}
+  .score{font-size:3rem; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .score span{color:var(--muted); font-size:1.3rem; font-weight:700}
+  .result h2{margin:.2em 0 .1em; font-size:1.5rem}
+  .result .msg{color:var(--muted); margin:0 auto 18px; max-width:42ch}
+  .stat-row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:20px}
+  .stat{background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:12px 18px; min-width:96px}
+  .stat b{display:block; font-size:1.4rem; font-variant-numeric:tabular-nums}
+  .stat span{font-size:.76rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:600}
+  .unlocked{display:flex; flex-direction:column; gap:8px; margin:0 auto 20px; max-width:360px}
+  .unlocked .u{display:flex; align-items:center; gap:10px; text-align:left; background:var(--accent-soft); border:1px solid var(--accent); border-radius:12px; padding:9px 12px; animation:rise .4s both}
+  .unlocked .u .em{font-size:1.5rem}
+  .unlocked .u b{font-size:.9rem} .unlocked .u span{display:block; font-size:.74rem; color:var(--muted)}
+
+  .btn-row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+  .btn{border:none; cursor:pointer; font-weight:700; font-size:1rem; padding:14px 22px; border-radius:14px; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); box-shadow:var(--shadow); transition:transform .12s, filter .15s}
+  .btn:hover{transform:translateY(-2px); filter:brightness(1.05)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{background:var(--surface); color:var(--ink); border:1px solid var(--border-strong); box-shadow:none}
+  .btn:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .btn[disabled]{opacity:.5; cursor:not-allowed}
+
+  /* Modo de juego */
+  .mode-toggle{display:inline-flex; gap:4px; background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:4px; margin-bottom:16px}
+  .mode-toggle button{border:none; background:none; cursor:pointer; font-weight:700; font-size:.85rem; color:var(--muted); padding:7px 14px; border-radius:999px; transition:.15s}
+  .mode-toggle button.on{background:var(--accent); color:var(--accent-ink)}
+  .timerbar{height:9px; border-radius:99px; background:var(--surface); border:1px solid var(--border); overflow:hidden; margin:-8px 0 18px}
+  .timerbar i{display:block; height:100%; width:100%; background:linear-gradient(90deg,#1f9d63,#f5a524); transition:width .12s linear}
+  .timerbar i.warn{background:var(--error)}
+  .confetti{position:absolute; top:-12px; width:9px; height:14px; border-radius:2px; opacity:.9; animation:fall 1.8s ease-in forwards; pointer-events:none}
+  @keyframes fall{to{transform:translateY(380px) rotate(400deg); opacity:0}}
+
+  /* Panel de la profesora */
+  .tlink{display:inline-flex; align-items:center; gap:7px; margin-top:20px; background:none; border:1px dashed var(--border-strong); color:var(--muted); border-radius:999px; padding:9px 16px; cursor:pointer; font-weight:600; font-size:.82rem}
+  .tlink:hover{border-color:var(--accent); color:var(--accent-deep)}
+  .tstudent{padding:16px 18px; margin-bottom:12px}
+  .tstudent .th{display:flex; align-items:center; gap:12px; margin-bottom:10px}
+  .tstudent .av{width:42px; height:42px; border-radius:50%; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); display:grid; place-items:center; font-weight:800; font-size:1.1rem; flex:none}
+  .tstudent .th b{font-size:1.05rem}
+  .tstudent .th small{display:block; color:var(--muted); font-weight:600; font-size:.78rem}
+  .tactions{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+  .tbtn{border:1px solid var(--border-strong); background:var(--surface-2); color:var(--ink); border-radius:10px; padding:8px 13px; cursor:pointer; font-weight:700; font-size:.82rem}
+  .tbtn:hover{border-color:var(--accent)}
+  .tbtn.danger{color:var(--error); border-color:var(--error)}
+  .tbtn.danger:hover{background:var(--error-soft)}
+  .tconfirm{background:var(--error-soft); border:1px solid var(--error); border-radius:12px; padding:11px 13px; font-size:.88rem; font-weight:600; margin-top:12px}
+  .tconfirm .row{display:flex; gap:8px; margin-top:10px}
+  .tdrow{display:flex; flex-wrap:wrap; gap:6px 12px; align-items:baseline; padding:9px 0; border-top:1px solid var(--border); font-size:.85rem}
+  .tdrow:first-child{border-top:none}
+  .tdrow .cn{font-weight:700; flex:1 0 140px}
+  .tdrow .v{font-variant-numeric:tabular-nums; color:var(--muted); font-weight:700}
+  .tdrow .v b{color:var(--accent-deep)}
+
+  /* Guía de estudio */
+  .guide{padding:18px 20px}
+  .g-head{font-weight:800; color:var(--accent-deep); margin-bottom:12px; font-size:1.05rem}
+  .g-idea{font-size:1.02rem; font-weight:600; line-height:1.5; margin-bottom:12px}
+  .g-list{margin:0 0 14px; padding-left:20px; display:flex; flex-direction:column; gap:7px}
+  .g-list li{line-height:1.45}
+  .g-ex{display:flex; flex-direction:column; gap:8px; margin-bottom:14px}
+  .g-exrow{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:10px 13px; font-weight:700; font-variant-numeric:tabular-nums}
+  .g-tip{background:var(--accent-soft); border:1px solid var(--accent); border-radius:12px; padding:11px 14px; font-size:.92rem; line-height:1.45}
+  .study-hint{display:inline-flex; align-items:center; gap:7px; background:var(--accent-soft); color:var(--accent-deep); border-radius:999px; padding:7px 14px; font-weight:700; font-size:.82rem; margin-bottom:14px}
+  /* Ampolleta de ayuda */
+  .hintbtn{position:absolute; top:12px; left:14px; width:38px; height:38px; border-radius:11px; border:1px solid var(--border); background:var(--surface-2); cursor:pointer; font-size:1.15rem; display:grid; place-items:center; transition:.15s; z-index:2}
+  .hintbtn:hover{border-color:var(--accent); background:var(--accent-soft)}
+  .hintbtn.on{background:var(--accent); border-color:var(--accent)}
+  .hintpop{background:var(--accent-soft); border:1px solid var(--accent); border-radius:12px; padding:12px 14px; margin:0 auto 14px; max-width:360px; font-size:.9rem; line-height:1.5; text-align:left; animation:rise .25s both}
+  .hintpop b{color:var(--accent-deep)}
+
+  /* Nombre de la creadora (grande) */
+  .creator{display:flex; flex-direction:column; align-items:center; gap:3px; margin:14px 0 4px}
+  .creator-label{font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+  .creator-name{font-size:clamp(1.6rem,7vw,2.15rem); font-weight:800; letter-spacing:-.02em; line-height:1.1; background:linear-gradient(135deg,var(--accent),var(--accent-deep)); -webkit-background-clip:text; background-clip:text; color:transparent; text-wrap:balance}
+  .creator-sub{font-size:.82rem; color:var(--muted); margin-top:2px}
+  /* Diagrama dentro de la guía */
+  .g-visual{background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:15px; margin:0 0 14px; text-align:center}
+  .g-cap{font-size:.82rem; color:var(--muted); font-weight:700; margin-top:6px}
+  /* Selector de avatar */
+  .av-picker{margin:18px 0 4px; text-align:left}
+  .av-picker .pl{font-size:.76rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px}
+  .av-grid{display:grid; grid-template-columns:repeat(8,1fr); gap:7px}
+  @media(max-width:430px){.av-grid{grid-template-columns:repeat(6,1fr)}}
+  .av-opt{aspect-ratio:1; border:2px solid var(--border); background:var(--surface-2); border-radius:12px; cursor:pointer; font-size:1.3rem; display:grid; place-items:center; transition:.12s}
+  .av-opt:hover{border-color:var(--accent)}
+  .av-opt.sel{border-color:var(--accent); background:var(--accent-soft); transform:scale(1.06)}
+  .av-colors{display:flex; gap:9px; margin-top:12px; flex-wrap:wrap}
+  .av-color{width:34px; height:34px; border-radius:50%; cursor:pointer; border:3px solid transparent; transition:.12s}
+  .av-color.sel{border-color:var(--ink); transform:scale(1.1)}
+  .av-preview{width:78px; height:78px; border-radius:50%; display:grid; place-items:center; font-size:2.6rem; margin:0 auto 8px; box-shadow:var(--shadow)}
+  /* Clave del panel */
+  .gate{padding:28px 24px; text-align:center; max-width:400px; margin:0 auto}
+  .gate .lock{font-size:2.6rem; margin-bottom:4px}
+  .gate .err{color:var(--error); font-weight:700; font-size:.86rem; min-height:1.2em; margin-top:2px}
+
+  .foot{margin-top:auto; padding-top:26px; text-align:center; color:var(--muted); font-size:.78rem; line-height:1.7}
+  .foot b{color:var(--accent-deep)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+
+<div class="bg" aria-hidden="true">
+  <span style="left:6%;top:12%">+</span><span style="left:86%;top:8%;animation-delay:-3s">×</span>
+  <span style="left:14%;top:70%;animation-delay:-6s">÷</span><span style="left:78%;top:66%;animation-delay:-2s">=</span>
+  <span style="left:46%;top:20%;animation-delay:-9s">√</span><span style="left:32%;top:44%;animation-delay:-5s">−</span>
+  <span style="left:66%;top:38%;animation-delay:-7s">%</span><span style="left:90%;top:82%;animation-delay:-4s">π</span>
+  <span style="left:4%;top:40%;animation-delay:-8s">7</span><span style="left:54%;top:78%;animation-delay:-1s">3</span>
+</div>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div class="brand">
+      <div class="logo" id="logo">×</div>
+      <div><h1>Tablas Continental</h1><p>Colegio Continental · Curanilahue</p></div>
+    </div>
+    <div class="top-actions">
+      <button class="student-pill hidden" id="studentBtn" title="Cambiar de alumno"><span class="av" id="studentAv">A</span><b id="studentName"></b></button>
+      <button class="theme-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+    </div>
+  </header>
+  <main id="main"></main>
+  <footer class="foot">Diseñada por la <b>profesora Aylen Pereira</b> · Colegio Continental, Curanilahue<br>Practica un poco cada día y verás cómo mejoras 🚀</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var app=document.getElementById('app'), main=document.getElementById('main'), logo=document.getElementById('logo');
+  var studentBtn=document.getElementById('studentBtn'), studentName=document.getElementById('studentName'), studentAv=document.getElementById('studentAv');
+  function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function fmt(x){return x<0?'(−'+Math.abs(x)+')':''+x;}
+  var store={get:function(k){try{return JSON.parse(localStorage.getItem('tc_'+k));}catch(e){return null;}}, set:function(k,v){try{localStorage.setItem('tc_'+k,JSON.stringify(v));}catch(e){}}};
+  function bindAll(sel,fn){Array.prototype.forEach.call(main.querySelectorAll(sel),function(b){b.addEventListener('click',function(){fn(b);});});}
+
+  // ===== ALUMNO =====
+  var CURRENT=store.get('current');
+  function keyify(n){return (String(n).toLowerCase().replace(/[^a-z0-9áéíóúñ]/gi,'')||'alumno');}
+  function students(){return store.get('students')||[];}
+  function setStudent(n,av){
+    n=n.trim(); if(!n) return;
+    CURRENT=n; store.set('current',n);
+    if(av) setAvatar(n,av);
+    var list=students().filter(function(x){return keyify(x)!==keyify(n);}); list.unshift(n); store.set('students',list.slice(0,12));
+    updateStudentUI();
+  }
+  var AV_EMOJIS=['🦊','🐼','🐵','🐯','🦁','🐨','🐸','🐧','🦄','🐙','🐢','🦉','🐱','🐶','🐰','🐷'];
+  var AV_COLORS=['#e07708','#0f9b8e','#4b57c9','#1f9d63','#d83a41','#8b5cf6'];
+  function getAvatar(n){return store.get('avatar_'+keyify(n))||null;}
+  function setAvatar(n,av){store.set('avatar_'+keyify(n),av);}
+  function avatarEmoji(n){var a=getAvatar(n);return a&&a.emoji?a.emoji:(n?n.charAt(0).toUpperCase():'A');}
+  function avatarColor(n){var a=getAvatar(n);return a&&a.color?a.color:null;}
+  function updateStudentUI(){
+    if(CURRENT){ studentBtn.classList.remove('hidden'); studentName.textContent=CURRENT; studentAv.textContent=avatarEmoji(CURRENT); studentAv.style.background=avatarColor(CURRENT)||''; }
+    else studentBtn.classList.add('hidden');
+  }
+  studentBtn.addEventListener('click', screenWelcome);
+
+  // ===== HELPERS DE EXPLICACIÓN GRÁFICA =====
+  function steps(arr){return '<div class="ex-steps">'+arr.map(function(s,i){return '<div class="ex-step"><span class="ex-n">'+(i+1)+'</span><span class="ex-t">'+s+'</span></div>';}).join('')+'</div>';}
+  function dots(cols,rows){var h='<div class="ex-grid" style="grid-template-columns:repeat('+cols+',16px)">';for(var i=0;i<cols*rows;i++)h+='<span class="ex-dot"></span>';return h+'</div>';}
+  function partsBar(n,k){var h='<div class="ex-parts">';for(var i=0;i<n;i++)h+='<span class="ex-part'+(i<k?' on':'')+'"></span>';return h+'</div>';}
+  function numLine(lo,val,hi,ans){var p=(val-lo)/(hi-lo)*100;return '<div class="ex-line"><span class="ex-end">'+lo+'</span><div class="ex-track"><span class="ex-mark" style="left:'+p+'%"></span></div><span class="ex-end">'+hi+'</span></div><div class="ex-linecap">'+val+' está más cerca de <b style="color:var(--accent-deep)">'+ans+'</b></div>';}
+  function repsAdd(a,b){var r=[];for(var i=0;i<b;i++)r.push(a);return r.join(' + ');}
+  function explainTabla(a,b){var p=a*b,s=['<b>'+a+' × '+b+'</b> es sumar <b>'+a+'</b> un total de <b>'+b+'</b> veces.'];s.push(b<=6?repsAdd(a,b)+' = <b>'+p+'</b>':'Sumando '+a+' repetido '+b+' veces se obtiene <b>'+p+'</b>.');return steps(s)+(p<=100?dots(a,b):'');}
+
+  // ===== GENERADORES (cada uno incluye explicación gráfica) =====
+  function genTabla(maxF,fixed){var a=fixed||rnd(2,maxF),b=rnd(1,maxF>=12?12:10);return{prompt:a+' × '+b,answer:a*b,hint:'',explain:explainTabla(a,b)};}
+  function genBasica(){
+    var op=pick(['add','sub','mul','div']);
+    if(op==='add'){var a=rnd(120,899),b=rnd(50,499);return{prompt:a+' + '+b,answer:a+b,hint:'Suma',explain:steps(['Junta las dos cantidades.','<b>'+a+'</b> + <b>'+b+'</b> = <b>'+(a+b)+'</b>','Puedes comprobar: '+(a+b)+' − '+b+' = '+a+'.'])};}
+    if(op==='sub'){var x=rnd(300,999),y=rnd(50,x-20);return{prompt:x+' − '+y,answer:x-y,hint:'Resta',explain:steps(['Quita <b>'+y+'</b> a <b>'+x+'</b>.','<b>'+x+'</b> − <b>'+y+'</b> = <b>'+(x-y)+'</b>','Comprueba sumando: '+(x-y)+' + '+y+' = '+x+'.'])};}
+    if(op==='mul'){var m=rnd(11,49),n=rnd(2,9);return{prompt:m+' × '+n,answer:m*n,hint:'Multiplicación',explain:steps(['Multiplicar es sumar '+m+' unas '+n+' veces.',(n<=6?repsAdd(m,n):'Suma '+m+' repetido '+n+' veces')+' = <b>'+(m*n)+'</b>'])};}
+    var d=rnd(2,12),q=rnd(2,12);return{prompt:(d*q)+' ÷ '+d,answer:q,hint:'División exacta',explain:steps(['¿Cuántas veces cabe <b>'+d+'</b> en <b>'+(d*q)+'</b>?','Como '+d+' × <b>'+q+'</b> = '+(d*q)+', entonces '+(d*q)+' ÷ '+d+' = <b>'+q+'</b>.'])};
+  }
+  function genSecuencia(){
+    var step=pick([2,3,4,5,10,-2,-3,-5]),start=step<0?rnd(35,60):rnd(1,20),t=[];
+    for(var i=0;i<5;i++)t.push(start+step*i);
+    var h=rnd(1,4);
+    return{prompt:t.map(function(v,i){return i===h?'?':v;}).join(', '),answer:t[h],hint:'¿Qué número falta?',
+      explain:steps(['Observa cuánto cambia de un número al siguiente.','Aquí '+(step>0?'sumas':'restas')+' <b>'+Math.abs(step)+'</b> cada vez.','El número que falta es <b>'+t[h]+'</b>.'])};
+  }
+  function genRedondeo(){
+    var base=pick([10,100]),n=base===10?rnd(12,199):rnd(120,1899);if(n%base===0)n+=pick([1,3,7]);
+    var lo=Math.floor(n/base)*base,hi=lo+base,ans=Math.round(n/base)*base;
+    return{prompt:'Redondea '+n+' a la '+(base===10?'decena':'centena'),answer:ans,hint:'Al múltiplo de '+base+' más cercano',
+      explain:steps(['Los múltiplos de '+base+' vecinos son <b>'+lo+'</b> y <b>'+hi+'</b>.','Fíjate qué tan lejos está '+n+' de cada uno.'])+numLine(lo,n,hi,ans)+steps(['Redondeando, '+n+' → <b>'+ans+'</b>.'])};
+  }
+  function genFraccion(){
+    var den=pick([2,3,4,5,10]),num=rnd(1,den-1),q=den*rnd(2,10),per=q/den;
+    return{prompt:num+'/'+den+' de '+q,answer:per*num,hint:'Divide y luego multiplica',
+      explain:steps(['Divide '+q+' en <b>'+den+'</b> partes iguales: '+q+' ÷ '+den+' = <b>'+per+'</b> cada una.','Toma <b>'+num+'</b> de esas partes: '+per+' × '+num+' = <b>'+(per*num)+'</b>.'])+partsBar(den,num)};
+  }
+  function genMentalBasica(){
+    var t=rnd(0,3);
+    if(t===0){var n=rnd(11,49);return{prompt:'El doble de '+n,answer:n*2,hint:'× 2',explain:steps(['El doble es sumar el número consigo mismo.','<b>'+n+'</b> + <b>'+n+'</b> = <b>'+(n*2)+'</b>'])};}
+    if(t===1){var e=rnd(10,40)*2;return{prompt:'La mitad de '+e,answer:e/2,hint:'÷ 2',explain:steps(['La mitad es repartir en 2 partes iguales.','<b>'+e+'</b> ÷ 2 = <b>'+(e/2)+'</b>'])};}
+    if(t===2){var a=rnd(20,89);return{prompt:a+' + 10',answer:a+10,hint:'+ una decena',explain:steps(['Sumar 10 aumenta en 1 el dígito de las decenas.','<b>'+a+'</b> + 10 = <b>'+(a+10)+'</b>'])};}
+    var b=rnd(120,880);return{prompt:b+' + 100',answer:b+100,hint:'+ una centena',explain:steps(['Sumar 100 aumenta en 1 el dígito de las centenas.','<b>'+b+'</b> + 100 = <b>'+(b+100)+'</b>'])};
+  }
+  var ORD='<b>Recuerda el orden:</b> primero los ( ), luego × y ÷, y al final + y −.';
+  function genCombinada(){
+    var t=rnd(0,5),a,b,c,d,q;
+    if(t===0){a=rnd(2,9);b=rnd(2,9);c=rnd(2,6);return{prompt:a+' + '+b+' × '+c,answer:a+b*c,hint:'Primero multiplica',explain:steps([ORD,'Primero la multiplicación: '+b+' × '+c+' = <b>'+(b*c)+'</b>.','Luego la suma: '+a+' + '+(b*c)+' = <b>'+(a+b*c)+'</b>.'])};}
+    if(t===1){a=rnd(3,9);b=rnd(2,6);c=rnd(1,9);return{prompt:a+' × '+b+' − '+c,answer:a*b-c,hint:'Primero multiplica',explain:steps([ORD,'Primero: '+a+' × '+b+' = <b>'+(a*b)+'</b>.','Luego: '+(a*b)+' − '+c+' = <b>'+(a*b-c)+'</b>.'])};}
+    if(t===2){a=rnd(2,9);b=rnd(1,9);c=rnd(2,6);return{prompt:'( '+a+' + '+b+' ) × '+c,answer:(a+b)*c,hint:'Primero el paréntesis',explain:steps([ORD,'Primero el paréntesis: '+a+' + '+b+' = <b>'+(a+b)+'</b>.','Luego: '+(a+b)+' × '+c+' = <b>'+((a+b)*c)+'</b>.'])};}
+    if(t===3){a=rnd(2,6);b=rnd(2,6);c=rnd(2,6);d=rnd(2,6);return{prompt:a+' × '+b+' + '+c+' × '+d,answer:a*b+c*d,hint:'Primero las multiplicaciones',explain:steps([ORD,'Primero: '+a+'×'+b+' = <b>'+(a*b)+'</b> y '+c+'×'+d+' = <b>'+(c*d)+'</b>.','Luego súmalas: '+(a*b)+' + '+(c*d)+' = <b>'+(a*b+c*d)+'</b>.'])};}
+    if(t===4){c=rnd(2,6);q=rnd(2,8);d=c*q;a=rnd(2,9);return{prompt:d+' ÷ '+c+' + '+a,answer:q+a,hint:'Primero divide',explain:steps([ORD,'Primero divide: '+d+' ÷ '+c+' = <b>'+q+'</b>.','Luego suma: '+q+' + '+a+' = <b>'+(q+a)+'</b>.'])};}
+    a=rnd(6,12);b=rnd(2,5);c=rnd(2,4);return{prompt:'( '+a+' − '+b+' ) × '+c,answer:(a-b)*c,hint:'Primero el paréntesis',explain:steps([ORD,'Primero el paréntesis: '+a+' − '+b+' = <b>'+(a-b)+'</b>.','Luego: '+(a-b)+' × '+c+' = <b>'+((a-b)*c)+'</b>.'])};
+  }
+  function genMental(){
+    var t=rnd(0,4);
+    if(t===0){var p=pick([10,20,25,50]),base=pick([20,40,60,80,120,200,400]),ans=base*p/100;
+      var tip=p===50?'El 50% es la mitad.':p===25?'El 25% es la cuarta parte.':p===10?'El 10% es dividir por 10.':'El 20% es dividir por 5.';
+      return{prompt:'El '+p+'% de '+base,answer:ans,hint:'Porcentaje',explain:steps([tip,'El '+p+'% de '+base+' = '+base+' × '+p+' ÷ 100 = <b>'+ans+'</b>.'])};}
+    if(t===1){var n=rnd(12,49);return{prompt:'El doble de '+n,answer:n*2,hint:'× 2',explain:steps(['El doble es multiplicar por 2.','<b>'+n+'</b> × 2 = <b>'+(n*2)+'</b>'])};}
+    if(t===2){var e=rnd(10,49)*2;return{prompt:'La mitad de '+e,answer:e/2,hint:'÷ 2',explain:steps(['La mitad es dividir por 2.','<b>'+e+'</b> ÷ 2 = <b>'+(e/2)+'</b>'])};}
+    if(t===3){var x=pick([25,30,45,60,75,120,150]),y=pick([15,25,40,50,75,125]);return{prompt:x+' + '+y,answer:x+y,hint:'Suma rápida',explain:steps(['Suma primero las decenas y luego las unidades.','<b>'+x+'</b> + <b>'+y+'</b> = <b>'+(x+y)+'</b>'])};}
+    var big=pick([100,200,150,300]),s=rnd(15,95);return{prompt:big+' − '+s,answer:big-s,hint:'Resta desde un número redondo',explain:steps(['Resta desde un número redondo.','<b>'+big+'</b> − <b>'+s+'</b> = <b>'+(big-s)+'</b>'])};
+  }
+  function genPotencias(){
+    var t=rnd(0,2);
+    if(t===0){var n=rnd(2,15);return{prompt:n+'²',answer:n*n,hint:'Un número al cuadrado',explain:steps(['Elevar al cuadrado es multiplicar el número por sí mismo.','<b>'+n+'</b>² = '+n+' × '+n+' = <b>'+(n*n)+'</b>.'])};}
+    if(t===1){var c=rnd(2,7);return{prompt:c+'³',answer:c*c*c,hint:'Un número al cubo',explain:steps(['Elevar al cubo es multiplicar el número tres veces.','<b>'+c+'</b>³ = '+c+' × '+c+' × '+c+' = <b>'+(c*c*c)+'</b>.'])};}
+    var r=rnd(2,15);return{prompt:'√'+(r*r),answer:r,hint:'Raíz cuadrada exacta',explain:steps(['La raíz cuadrada pregunta: ¿qué número al cuadrado da '+(r*r)+'?','Como '+r+' × '+r+' = '+(r*r)+', entonces √'+(r*r)+' = <b>'+r+'</b>.'])};
+  }
+  function genPorcentajes(){
+    var base=pick([20,40,60,80,100,120,140,160,200,240,300,400]),p=pick([5,10,15,20,25,30,40,50,75]),ans=base*p/100;
+    return{prompt:'El '+p+'% de '+base,answer:ans,hint:'Calcula el porcentaje',explain:steps(['El '+p+'% significa '+p+' de cada 100.','Multiplica y divide entre 100: '+base+' × '+p+' ÷ 100 = <b>'+ans+'</b>.'])};
+  }
+  function genEnteros(){
+    var t=rnd(0,3),a,b,d,q;
+    if(t===0){a=rnd(-9,9);b=rnd(-9,9);return{prompt:fmt(a)+' + '+fmt(b),answer:a+b,hint:'Suma de enteros',explain:steps(['Piensa en una recta numérica: parte en '+a+'.',(b>=0?'Avanza '+b+' hacia la derecha':'Retrocede '+Math.abs(b)+' hacia la izquierda')+' → <b>'+(a+b)+'</b>.'])};}
+    if(t===1){a=rnd(-9,9);b=rnd(-9,9);return{prompt:fmt(a)+' − '+fmt(b),answer:a-b,hint:'Resta de enteros',explain:steps(['Restar es sumar el opuesto.',fmt(a)+' − ('+b+') = '+a+' + '+(-b)+' = <b>'+(a-b)+'</b>.'])};}
+    if(t===2){a=rnd(-9,9);b=rnd(-6,6);return{prompt:fmt(a)+' × '+fmt(b),answer:a*b,hint:'Multiplicación con signo',explain:steps(['Regla de signos: iguales dan +, distintos dan −.','Multiplica los números: '+Math.abs(a)+' × '+Math.abs(b)+' = '+Math.abs(a*b)+'.','El resultado es <b>'+(a*b)+'</b>.'])};}
+    d=pick([-1,1])*rnd(2,9);q=pick([-1,1])*rnd(2,9);return{prompt:fmt(d*q)+' ÷ '+fmt(d),answer:q,hint:'División con signo',explain:steps(['Regla de signos: iguales dan +, distintos dan −.','Divide los números y aplica el signo → <b>'+q+'</b>.'])};
+  }
+  function genEcuacion(){
+    var t=rnd(0,3),x=rnd(1,12),a=rnd(1,12),m;
+    if(t===0)return{prompt:'x + '+a+' = '+(x+a),answer:x,hint:'Despeja la x',explain:steps(['Deja la x sola pasando el '+a+' al otro lado.','Resta '+a+' a ambos lados: x = '+(x+a)+' − '+a+'.','x = <b>'+x+'</b>.'])};
+    if(t===1)return{prompt:'x − '+a+' = '+(x-a),answer:x,hint:'Despeja la x',explain:steps(['Deja la x sola pasando el '+a+' al otro lado.','Suma '+a+' a ambos lados: x = '+(x-a)+' + '+a+'.','x = <b>'+x+'</b>.'])};
+    if(t===2)return{prompt:a+' + x = '+(x+a),answer:x,hint:'Despeja la x',explain:steps(['Resta '+a+' a ambos lados.','x = '+(x+a)+' − '+a+' = <b>'+x+'</b>.'])};
+    m=rnd(2,9);return{prompt:m+'x = '+(m*x),answer:x,hint:'Despeja la x',explain:steps([m+'x significa '+m+' × x.','Divide ambos lados entre '+m+': x = '+(m*x)+' ÷ '+m+'.','x = <b>'+x+'</b>.'])};
+  }
+
+  function genProblemaBasica(){
+    var t=rnd(0,6);
+    if(t===0){var pr=pick([300,400,500,600,800]),n=rnd(2,6);return{word:true,prompt:'En el kiosco del colegio una empanada cuesta $'+pr+'. Si compras '+n+' empanadas iguales, ¿cuánto pagas en total?',answer:pr*n,hint:'Multiplicación',explain:steps(['Cada empanada cuesta $'+pr+' y compras '+n+'.','$'+pr+' × '+n+' = <b>$'+(pr*n)+'</b>.'])};}
+    if(t===1){var tot=rnd(5,9)*1000,g=rnd(2,4)*1000;return{word:true,prompt:'Ana tenía $'+tot+' y gastó $'+g+' en útiles. ¿Cuánto dinero le quedó?',answer:tot-g,hint:'Resta',explain:steps(['A lo que tenía le quitas lo que gastó.','$'+tot+' − $'+g+' = <b>$'+(tot-g)+'</b>.'])};}
+    if(t===2){var gr=rnd(3,6),each=rnd(4,8),N=gr*each;return{word:true,prompt:'Un curso de '+N+' estudiantes se divide en '+gr+' grupos iguales. ¿Cuántos estudiantes hay en cada grupo?',answer:each,hint:'División',explain:steps(['Reparte '+N+' estudiantes en '+gr+' grupos iguales.',N+' ÷ '+gr+' = <b>'+each+'</b> estudiantes por grupo.'])};}
+    if(t===3){var price=pick([200,250,300,400,500]),n3=rnd(2,5),total=price*n3,pay=total<=2000?2000:5000;return{word:true,prompt:'Compras '+n3+' jugos de $'+price+' cada uno y pagas con $'+pay+'. ¿Cuánto vuelto recibes?',answer:pay-total,hint:'Multiplica y luego resta',explain:steps(['Primero el total: '+n3+' × $'+price+' = $'+total+'.','Luego el vuelto: $'+pay+' − $'+total+' = <b>$'+(pay-total)+'</b>.'])};}
+    if(t===4){var days=rnd(3,7),perDay=rnd(10,25),pages=days*perDay;return{word:true,prompt:'Un libro tiene '+pages+' páginas. Si Juan lee '+perDay+' páginas cada día, ¿en cuántos días termina de leerlo?',answer:days,hint:'División',explain:steps(['Divide el total de páginas entre lo que lee por día.',pages+' ÷ '+perDay+' = <b>'+days+'</b> días.'])};}
+    if(t===5){var den=pick([2,3,4]),X=den*rnd(4,9),num=rnd(1,den-1);return{word:true,prompt:'En una bolsa hay '+X+' manzanas y '+num+'/'+den+' de ellas están rojas. ¿Cuántas manzanas rojas hay?',answer:X/den*num,hint:'Fracción de una cantidad',explain:steps(['Divide '+X+' en '+den+' partes iguales: '+X+' ÷ '+den+' = '+(X/den)+'.','Toma '+num+' de esas partes: '+(X/den)+' × '+num+' = <b>'+(X/den*num)+'</b>.'])+partsBar(den,num)};}
+    var per=pick([1500,2000,2500,3000]),P=rnd(2,5),X2=per*P;return{word:true,prompt:'La cuenta de una pizza fue $'+X2+' y la pagan '+P+' amigos en partes iguales. ¿Cuánto pone cada uno?',answer:per,hint:'División',explain:steps(['Reparte la cuenta entre los '+P+' amigos.','$'+X2+' ÷ '+P+' = <b>$'+per+'</b> cada uno.'])};
+  }
+  function genProblemaMedia(){
+    var t=rnd(0,6);
+    if(t===0){var price=pick([8000,10000,12000,15000,20000]),D=pick([10,20,25,50]),desc=price*D/100;return{word:true,prompt:'Una polera cuesta $'+price+' y está con '+D+'% de descuento. ¿Cuánto pagas finalmente?',answer:price-desc,hint:'Porcentaje y resta',explain:steps(['El descuento es el '+D+'% de $'+price+': $'+price+' × '+D+' ÷ 100 = $'+desc+'.','Precio final: $'+price+' − $'+desc+' = <b>$'+(price-desc)+'</b>.'])};}
+    if(t===1){var X=pick([20,30,40,50]),P=pick([10,20,30,40,60]),r=X*P/100;return{word:true,prompt:'En un curso de '+X+' estudiantes, el '+P+'% practica algún deporte. ¿Cuántos estudiantes practican deporte?',answer:r,hint:'Porcentaje de una cantidad',explain:steps(['Calcula el '+P+'% de '+X+'.',X+' × '+P+' ÷ 100 = <b>'+r+'</b> estudiantes.'])};}
+    if(t===2){var Y=rnd(3,8),perl=pick([10,12,14,15]),km=Y*perl;return{word:true,prompt:'Un auto recorre '+km+' km usando '+Y+' litros de bencina. ¿Cuántos km rinde por litro?',answer:perl,hint:'División (razón)',explain:steps(['Divide los kilómetros entre los litros usados.',km+' ÷ '+Y+' = <b>'+perl+'</b> km por litro.'])};}
+    if(t===3){var unit=pick([800,1000,1200,1500]),N=rnd(2,4),cost=unit*N,M=rnd(5,8);return{word:true,prompt:'Si '+N+' kg de pan cuestan $'+cost+', ¿cuánto cuestan '+M+' kg al mismo precio?',answer:unit*M,hint:'Proporción',explain:steps(['Primero el precio de 1 kg: $'+cost+' ÷ '+N+' = $'+unit+'.','Luego '+M+' kg: $'+unit+' × '+M+' = <b>$'+(unit*M)+'</b>.'])};}
+    if(t===4){var w=pick([2500,3000,3500,4000]),H=rnd(3,8);return{word:true,prompt:'Un trabajador gana $'+w+' por hora. ¿Cuánto gana si trabaja '+H+' horas?',answer:w*H,hint:'Multiplicación',explain:steps(['Multiplica lo que gana por hora por las horas trabajadas.','$'+w+' × '+H+' = <b>$'+(w*H)+'</b>.'])};}
+    if(t===5){var C=pick([12000,15000,20000,25000]),Pp=pick([10,20]),tip=C*Pp/100;return{word:true,prompt:'En un restaurante la cuenta es $'+C+' y se deja el '+Pp+'% de propina. ¿Cuánto dinero es la propina?',answer:tip,hint:'Porcentaje',explain:steps(['Calcula el '+Pp+'% de $'+C+'.','$'+C+' × '+Pp+' ÷ 100 = <b>$'+tip+'</b>.'])};}
+    var A=pick([100000,120000,150000,200000]),Pr=pick([5,10,15,20]),inc=A*Pr/100;return{word:true,prompt:'Un notebook costaba $'+A+' y subió un '+Pr+'%. ¿Cuánto cuesta ahora?',answer:A+inc,hint:'Porcentaje y suma',explain:steps(['El aumento es el '+Pr+'% de $'+A+': $'+A+' × '+Pr+' ÷ 100 = $'+inc+'.','Nuevo precio: $'+A+' + $'+inc+' = <b>$'+(A+inc)+'</b>.'])};
+  }
+
+  // ===== NIVELES =====
+  var LEVELS={
+    basica:{name:'5° Básico',who:'Educación Básica',badge:'🧮',track:'basica',tags:['Tablas 2 al 10','Operatoria','Fracciones','Problemas'],
+      contents:[
+        {id:'tablas',ico:'✖️',title:'Tablas de multiplicar',desc:'Del 2 al 10 · elige una o todas',tables:10},
+        {id:'operatoria',ico:'➕',title:'Operatoria básica',desc:'Suma, resta, multiplicación y división',gen:genBasica},
+        {id:'secuencias',ico:'🔢',title:'Secuencias y patrones',desc:'Descubre el número que falta',gen:genSecuencia},
+        {id:'redondeo',ico:'🎯',title:'Redondeo',desc:'A la decena y a la centena',gen:genRedondeo},
+        {id:'fracciones',ico:'🍕',title:'Fracción de una cantidad',desc:'Por ejemplo, 3/4 de 40',gen:genFraccion},
+        {id:'mental',ico:'⚡',title:'Cálculo mental',desc:'Dobles, mitades y sumas rápidas',gen:genMentalBasica},
+        {id:'problemas',ico:'🛒',title:'Problemas aplicados',desc:'Situaciones reales: dinero, repartir y medir',gen:genProblemaBasica}
+      ]},
+    media:{name:'Enseñanza Media',who:'1° a 4° Medio',badge:'📐',track:'media',tags:['Tablas 2 al 12','Combinada','Potencias','Problemas'],
+      contents:[
+        {id:'tablas',ico:'✖️',title:'Tablas de multiplicar',desc:'Del 2 al 12 · elige una o todas',tables:12},
+        {id:'combinada',ico:'🧩',title:'Operatoria combinada',desc:'Orden de operaciones y paréntesis',gen:genCombinada},
+        {id:'mental',ico:'⚡',title:'Cálculo mental',desc:'Porcentajes, dobles y mitades',gen:genMental},
+        {id:'potencias',ico:'√',title:'Potencias y raíces',desc:'Cuadrados, cubos y raíces exactas',gen:genPotencias},
+        {id:'porcentajes',ico:'٪',title:'Porcentajes',desc:'Calcula el % de una cantidad',gen:genPorcentajes},
+        {id:'enteros',ico:'±',title:'Números enteros',desc:'Operaciones con negativos',gen:genEnteros},
+        {id:'ecuaciones',ico:'🟰',title:'Ecuaciones simples',desc:'Despeja el valor de x',gen:genEcuacion},
+        {id:'problemas',ico:'💰',title:'Problemas aplicados',desc:'Descuentos, porcentajes y proporciones',gen:genProblemaMedia}
+      ]}
+  };
+  var ROUND=10, QTIME=20;
+  var MODE=store.get('mode')||'practice';
+  var CHALLENGES=[
+    {icon:'🎯',name:'Primer intento',desc:'Completa una ronda',test:function(s){return s.played>=1;}},
+    {icon:'⭐',name:'Buen puntaje',desc:'6 o más aciertos',test:function(s){return s.best>=6;}},
+    {icon:'🔥',name:'En racha',desc:'5 aciertos seguidos',test:function(s){return s.bestStreak>=5;}},
+    {icon:'🏆',name:'Ronda perfecta',desc:'10 de 10',test:function(s){return s.best>=10;}}
+  ];
+  function skey(stu,lv,cid){return 'stats_'+keyify(stu)+'_'+lv+'_'+cid;}
+  function getStats(lv,cid,stu){return store.get(skey(stu||CURRENT,lv,cid))||{played:0,best:0,bestStreak:0};}
+  function doneCount(lv,cid,stu){var s=getStats(lv,cid,stu),n=0;CHALLENGES.forEach(function(c){if(c.test(s))n++;});return n;}
+  function levelProgress(lv,stu){var L=LEVELS[lv],tot=L.contents.length*CHALLENGES.length,done=0;L.contents.forEach(function(c){done+=doneCount(lv,c.id,stu);});return{done:done,total:tot,pct:Math.round(done/tot*100)};}
+  function studentTotals(stu){var done=0,total=0;Object.keys(LEVELS).forEach(function(k){var p=levelProgress(k,stu);done+=p.done;total+=p.total;});return{done:done,total:total,pct:total?Math.round(done/total*100):0};}
+  function wipeStudent(stu){Object.keys(LEVELS).forEach(function(k){LEVELS[k].contents.forEach(function(c){try{localStorage.removeItem('tc_'+skey(stu,k,c.id));}catch(e){}});});}
+  function deleteStudent(stu){wipeStudent(stu);store.set('students',students().filter(function(x){return keyify(x)!==keyify(stu);}));if(CURRENT&&keyify(CURRENT)===keyify(stu)){CURRENT=null;store.set('current',null);updateStudentUI();}}
+
+  // ===== GUÍAS DE ESTUDIO (contenido para estudiar) =====
+  function G(idea,points,examples,tip){return {idea:idea,points:points,examples:examples,tip:tip};}
+  var GUIDES={
+    'tablas':G('Multiplicar es sumar un mismo número varias veces.',['<b>a × b</b> significa sumar <b>a</b> un total de <b>b</b> veces.','El orden no cambia el resultado: 3 × 4 = 4 × 3.','Multiplicar por 10 agrega un cero al final.'],['4 × 3 = 4 + 4 + 4 = 12','7 × 5 = 35','9 × 10 = 90'],'Si te cuesta una tabla, apóyate en otra que ya sepas y suma el número que falta.'),
+    'operatoria':G('Las cuatro operaciones básicas resuelven la mayoría de los cálculos.',['<b>Suma</b>: juntar cantidades.','<b>Resta</b>: quitar (compruébala sumando).','<b>Multiplicación</b>: suma repetida.','<b>División</b>: repartir en partes iguales.'],['345 + 120 = 465','500 − 180 = 320','24 × 3 = 72','72 ÷ 8 = 9'],'En la división pregúntate: ¿por cuánto multiplico el divisor para llegar al número?'),
+    'secuencias':G('Una secuencia sigue un patrón que se repite.',['Observa cuánto cambia entre un número y el siguiente.','Puede crecer (suma siempre lo mismo) o decrecer (resta siempre lo mismo).'],['2, 4, 6, 8, … → suma 2','30, 25, 20, … → resta 5'],'Calcula la diferencia entre dos números seguidos: ese es el salto del patrón.'),
+    'redondeo':G('Redondear es buscar el múltiplo más cercano (de 10 o de 100).',['Mira el dígito que sigue al que vas a redondear.','Si es 5 o más, subes; si es menos, bajas.'],['347 a la centena → 300','68 a la decena → 70'],'Fíjate solo en el dígito siguiente para decidir si subes o bajas.'),
+    'fracciones':G('Una fracción de una cantidad se calcula en dos pasos.',['El número de <b>abajo</b> (denominador) dice en cuántas partes divides.','El de <b>arriba</b> (numerador) dice cuántas partes tomas.'],['1/4 de 20 = 20 ÷ 4 = 5','3/4 de 40 = (40 ÷ 4) × 3 = 30'],'Primero divides por el número de abajo, luego multiplicas por el de arriba.'),
+    'basica:mental':G('Con algunos trucos puedes calcular mucho más rápido de memoria.',['Doble = multiplicar por 2.','Mitad = dividir por 2.','+10 sube las decenas y +100 sube las centenas.'],['Doble de 24 = 48','Mitad de 60 = 30','45 + 100 = 145'],'Descompón los números en partes fáciles antes de operar.'),
+    'basica:problemas':G('En los problemas de la vida real primero entiendes y luego calculas.',['Lee con calma e identifica los datos.','Piensa qué operación necesitas.','"En total" suele ser sumar o multiplicar; "le queda / vuelto" es restar; "repartir en partes iguales" es dividir.'],['3 empanadas de $500 → 3 × 500 = $1.500','$5.000 − $1.500 = $3.500 de vuelto'],'Busca las palabras clave del enunciado para saber qué operación usar.'),
+    'combinada':G('Cuando hay varias operaciones juntas, se resuelven en un orden fijo.',['1°) Los paréntesis ( ).','2°) Multiplicaciones y divisiones (× ÷).','3°) Sumas y restas (+ −).'],['6 + 4 × 3 = 6 + 12 = 18','(8 − 3) × 2 = 5 × 2 = 10'],'Nunca resuelvas de izquierda a derecha sin respetar el orden de las operaciones.'),
+    'media:mental':G('El cálculo mental rápido se apoya en fracciones y porcentajes fáciles.',['10% = dividir por 10.','25% = la cuarta parte.','50% = la mitad.'],['10% de 80 = 8','25% de 200 = 50','50% de 46 = 23'],'Convierte el porcentaje en una fracción sencilla para resolverlo de memoria.'),
+    'potencias':G('Las potencias y raíces son multiplicaciones repetidas.',['<b>n²</b> = n × n (al cuadrado).','<b>n³</b> = n × n × n (al cubo).','<b>√</b> pregunta qué número al cuadrado da ese valor.'],['7² = 49','2³ = 8','√81 = 9'],'Memoriza los cuadrados del 1 al 15: te ayudan a resolver las raíces al instante.'),
+    'porcentajes':G('El porcentaje significa "de cada 100".',['X% de N = N × X ÷ 100.','El 10% se saca dividiendo por 10.'],['20% de 150 = 150 × 20 ÷ 100 = 30','15% de 200 = 30'],'Saca primero el 10% y multiplícalo para llegar a otros porcentajes.'),
+    'enteros':G('Los números enteros incluyen positivos y negativos.',['Suma y resta: imagina una recta numérica.','Al multiplicar/dividir: signos iguales dan +, signos distintos dan −.'],['(−7) + 3 = −4','(−4) × (−2) = 8','(−12) ÷ 4 = −3'],'Restar un número es lo mismo que sumar su opuesto.'),
+    'ecuaciones':G('Resolver una ecuación es despejar la incógnita x.',['Haz siempre lo mismo a ambos lados del igual.','Lo que suma pasa restando; lo que multiplica pasa dividiendo.'],['x + 7 = 12 → x = 12 − 7 = 5','3x = 15 → x = 15 ÷ 3 = 5'],'Tu meta es dejar la x completamente sola a un lado del igual.'),
+    'media:problemas':G('Los problemas aplicados usan dinero, porcentajes y proporciones.',['Descuento: réstale el porcentaje al precio.','Proporción: calcula primero cuánto vale una sola unidad.','Lee bien qué te preguntan (¿el total, el descuento o lo que sobra?).'],['Polera $10.000 con 20% dcto → paga $8.000','3 kg = $3.000 → 1 kg = $1.000 → 8 kg = $8.000'],'En proporciones, encuentra primero el valor de una unidad y luego multiplica.')
+  };
+  GUIDES['tablas'].visual='<div class="g-visual">'+dots(4,3)+'<div class="g-cap">4 × 3 = 12 · (4 puntos en cada una de las 3 filas)</div></div>';
+  GUIDES['fracciones'].visual='<div class="g-visual">'+partsBar(4,3)+'<div class="g-cap">3/4 → se pintan 3 de las 4 partes</div></div>';
+  GUIDES['redondeo'].visual='<div class="g-visual">'+numLine(300,347,400,300)+'</div>';
+  GUIDES['potencias'].visual='<div class="g-visual">'+dots(5,5)+'<div class="g-cap">5² = 5 × 5 = 25</div></div>';
+  GUIDES['porcentajes'].visual='<div class="g-visual">'+partsBar(10,2)+'<div class="g-cap">20% = 2 de cada 10</div></div>';
+  function guideFor(lv,c){return GUIDES[lv+':'+c.id]||GUIDES[c.id]||null;}
+  function guideHTML(g){return '<div class="g-idea">'+g.idea+'</div>'+(g.points?'<ul class="g-list">'+g.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>':'')+(g.visual||'')+(g.examples?'<div class="g-ex">'+g.examples.map(function(e){return '<div class="g-exrow">'+e+'</div>';}).join('')+'</div>':'')+(g.tip?'<div class="g-tip">💡 <b>Recuerda:</b> '+g.tip+'</div>':'');}
+
+  var state={};
+  function setTrack(t){app.setAttribute('data-track',t||'basica');logo.textContent=t==='media'?'=':'×';}
+
+  // ===== PANTALLAS =====
+  function screenWelcome(){
+    app.removeAttribute('data-track');logo.textContent='×';
+    var recent=students();
+    var pre=CURRENT?getAvatar(CURRENT):null;
+    var selEmoji=(pre&&pre.emoji)||AV_EMOJIS[0], selColor=(pre&&pre.color)||AV_COLORS[0];
+    main.innerHTML='<section class="screen"><div class="card welcome">'+
+      '<div class="hero-ico">🧮✏️</div>'+
+      '<h2>¡Bienvenido a Tablas Continental!</h2>'+
+      '<div class="creator"><span class="creator-label">Creado por</span><span class="creator-name">Profesora Aylen Pereira</span><span class="creator-sub">Colegio Continental · Curanilahue</span></div>'+
+      '<p class="sub" style="margin:16px auto 0;max-width:44ch">Escribe tu nombre y crea tu avatar para guardar tu progreso.</p>'+
+      '<div class="name-form">'+
+        '<div class="av-preview" id="avPrev" style="background:'+selColor+'">'+selEmoji+'</div>'+
+        '<input class="name-input" id="nameIn" maxlength="20" placeholder="Escribe tu nombre" autocomplete="off">'+
+        '<div class="av-picker"><div class="pl">Elige tu personaje</div><div class="av-grid" id="avGrid">'+AV_EMOJIS.map(function(e){return '<button type="button" class="av-opt'+(e===selEmoji?' sel':'')+'" data-emoji="'+e+'">'+e+'</button>';}).join('')+'</div>'+
+        '<div class="pl" style="margin-top:14px">Elige un color</div><div class="av-colors" id="avColors">'+AV_COLORS.map(function(c){return '<button type="button" class="av-color'+(c===selColor?' sel':'')+'" data-color="'+c+'" style="background:'+c+'" aria-label="color"></button>';}).join('')+'</div></div>'+
+        '<button class="btn" id="startBtn" style="margin-top:18px">Comenzar a practicar ›</button>'+
+      '</div>'+
+      (recent.length?'<div class="recent"><span class="sub" style="width:100%;margin:16px 0 0;font-size:.8rem">O continúa como:</span>'+recent.map(function(n){var col=avatarColor(n);return '<button class="r" data-name="'+esc(n)+'"><span style="display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;color:#fff;font-size:.7rem;vertical-align:middle;margin-right:5px;background:'+(col||'var(--accent)')+'">'+avatarEmoji(n)+'</span>'+esc(n)+'</button>';}).join('')+'</div>':'')+
+      '<div><button class="tlink" id="teacherBtn">👩‍🏫 Panel de la profesora</button></div>'+
+    '</div></section>';
+    var input=document.getElementById('nameIn');
+    if(CURRENT) input.value=CURRENT;
+    var prev=document.getElementById('avPrev');
+    function refresh(){prev.textContent=selEmoji;prev.style.background=selColor;}
+    bindAll('#avGrid .av-opt',function(b){selEmoji=b.getAttribute('data-emoji');Array.prototype.forEach.call(main.querySelectorAll('#avGrid .av-opt'),function(x){x.classList.toggle('sel',x===b);});refresh();});
+    bindAll('#avColors .av-color',function(b){selColor=b.getAttribute('data-color');Array.prototype.forEach.call(main.querySelectorAll('#avColors .av-color'),function(x){x.classList.toggle('sel',x===b);});refresh();});
+    function go(){ if(input.value.trim()){ setStudent(input.value,{emoji:selEmoji,color:selColor}); screenHome(); } else input.focus(); }
+    document.getElementById('startBtn').addEventListener('click',go);
+    input.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+    Array.prototype.forEach.call(main.querySelectorAll('.recent .r'),function(b){b.addEventListener('click',function(){setStudent(b.getAttribute('data-name'));screenHome();});});
+    document.getElementById('teacherBtn').addEventListener('click',function(){screenTeacherGate();});
+    if(window.matchMedia('(pointer:fine)').matches) input.focus();
+  }
+
+  function screenHome(){
+    app.removeAttribute('data-track');logo.textContent='×';
+    main.innerHTML='<section class="screen">'+
+      '<p class="eyebrow">Hola, '+esc(CURRENT)+' 👋</p>'+
+      '<h2 class="lead">¿Con qué nivel quieres practicar hoy?</h2>'+
+      '<p class="sub">Tú eliges qué contenido ejercitar. Cada acierto suma para tus desafíos.</p>'+
+      '<div class="levels">'+Object.keys(LEVELS).map(function(k){var L=LEVELS[k],p=levelProgress(k);
+        return '<button class="level" data-track="'+L.track+'" data-level="'+k+'"><div class="badge">'+L.badge+'</div><h3>'+L.name+'</h3><div class="who">'+L.who+'</div><div class="tags">'+L.tags.map(function(t){return '<span class="tag">'+t+'</span>';}).join('')+'</div><div class="lvl-bar"><i style="width:'+p.pct+'%"></i></div><div class="lvl-meta">'+p.done+' de '+p.total+' desafíos · '+p.pct+'%</div></button>';
+      }).join('')+'</div></section>';
+    Array.prototype.forEach.call(main.querySelectorAll('.level'),function(b){b.addEventListener('click',function(){screenMenu(b.getAttribute('data-level'));});});
+  }
+
+  function screenMenu(lv){
+    var L=LEVELS[lv];setTrack(L.track);var p=levelProgress(lv);
+    main.innerHTML='<section class="screen">'+
+      '<button class="back" data-home>‹ Volver a niveles</button>'+
+      '<p class="eyebrow">'+L.who+'</p><h2 class="lead">'+L.name+'</h2>'+
+      '<div class="card prog-card"><div class="ring" style="--p:'+p.pct+'"><span>'+p.pct+'%</span></div><div class="pt"><b>Tu progreso, '+esc(CURRENT)+'</b><span>'+p.done+' de '+p.total+' desafíos completados</span></div><button class="mini-link" data-chal>Ver desafíos ›</button></div>'+
+      '<div class="mode-toggle" role="group" aria-label="Modo de juego"><button data-mode="practice"'+(MODE==='practice'?' class="on"':'')+'>🎯 Práctica</button><button data-mode="timed"'+(MODE==='timed'?' class="on"':'')+'>⏱️ Contrarreloj</button></div>'+
+      '<p class="sub">Elige un contenido para estudiar y practicar:</p>'+
+      '<div class="contents">'+L.contents.map(function(c){var dc=doneCount(lv,c.id);
+        return '<button class="content-btn" data-content="'+c.id+'"><div class="ico">'+c.ico+'</div><div class="txt"><b>'+c.title+'</b><span>'+c.desc+'</span></div><div class="dots">'+[0,1,2,3].map(function(i){return '<i class="'+(i<dc?'on':'')+'"></i>';}).join('')+'</div></button>';
+      }).join('')+'</div></section>';
+    main.querySelector('[data-home]').addEventListener('click',screenHome);
+    main.querySelector('[data-chal]').addEventListener('click',function(){screenChallenges(lv);});
+    bindAll('[data-mode]',function(b){MODE=b.getAttribute('data-mode');store.set('mode',MODE);screenMenu(lv);});
+    Array.prototype.forEach.call(main.querySelectorAll('.content-btn'),function(b){b.addEventListener('click',function(){var c=L.contents.filter(function(x){return x.id===b.getAttribute('data-content');})[0];screenContent(lv,c);});});
+  }
+
+  function screenChallenges(lv){
+    var L=LEVELS[lv];setTrack(L.track);var p=levelProgress(lv);
+    main.innerHTML='<section class="screen">'+
+      '<button class="back" data-back>‹ Volver a '+L.name+'</button>'+
+      '<p class="eyebrow">Desafíos y progreso · '+esc(CURRENT)+'</p><h2 class="lead">'+L.name+'</h2>'+
+      '<div class="card prog-card"><div class="ring" style="--p:'+p.pct+'"><span>'+p.pct+'%</span></div><div class="pt"><b>Nivel completado al '+p.pct+'%</b><span>'+p.done+' de '+p.total+' desafíos logrados. ¡Sigue así!</span></div></div>'+
+      L.contents.map(function(c){var s=getStats(lv,c.id),dc=doneCount(lv,c.id);
+        return '<div class="card chal"><div class="chd"><b>'+c.ico+' '+c.title+'</b><small>'+dc+'/4</small></div><div class="badges">'+CHALLENGES.map(function(ch){var on=ch.test(s);return '<div class="bchip'+(on?' on':'')+'" title="'+esc(ch.name+' — '+ch.desc)+'"><span class="em">'+ch.icon+'</span><small>'+ch.name+'</small></div>';}).join('')+'</div></div>';
+      }).join('')+'</section>';
+    main.querySelector('[data-back]').addEventListener('click',function(){screenMenu(lv);});
+  }
+
+  function screenConfig(lv,c){
+    var L=LEVELS[lv];setTrack(L.track);
+    var chips='<button class="chip all" data-fixed="0">🎲 Todas mezcladas (2 al '+c.tables+')</button>';
+    for(var i=2;i<=c.tables;i++)chips+='<button class="chip" data-fixed="'+i+'">'+i+'</button>';
+    main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver a '+L.name+'</button><p class="eyebrow">'+c.title+'</p><h2 class="lead">¿Qué tabla quieres practicar?</h2><p class="sub">Practica una tabla en particular o todas mezcladas.</p><div class="chips">'+chips+'</div></section>';
+    main.querySelector('[data-back]').addEventListener('click',function(){screenMenu(lv);});
+    Array.prototype.forEach.call(main.querySelectorAll('.chip'),function(b){b.addEventListener('click',function(){startQuiz(lv,c,parseInt(b.getAttribute('data-fixed'),10)||null);});});
+  }
+
+  function screenContent(lv,c){
+    var L=LEVELS[lv];setTrack(L.track);var g=guideFor(lv,c);
+    main.innerHTML='<section class="screen">'+
+      '<button class="back" data-back>‹ Volver a '+L.name+'</button>'+
+      '<p class="eyebrow">'+L.name+' · Guía de estudio</p><h2 class="lead">'+c.ico+' '+c.title+'</h2>'+
+      '<div class="study-hint">📖 Estudia primero y luego practica</div>'+
+      '<div class="card guide"><div class="g-head">📚 ¿Cómo se hace?</div>'+(g?guideHTML(g):'<p class="sub">Aprende practicando. Durante los ejercicios usa la 💡 para ver una pista.</p>')+'</div>'+
+      '<div class="btn-row" style="margin-top:18px"><button class="btn" data-practice>▶️ Practicar ahora</button><button class="btn ghost" data-back2>‹ Volver</button></div>'+
+    '</section>';
+    main.querySelector('[data-back]').addEventListener('click',function(){screenMenu(lv);});
+    main.querySelector('[data-back2]').addEventListener('click',function(){screenMenu(lv);});
+    main.querySelector('[data-practice]').addEventListener('click',function(){if(c.tables)screenConfig(lv,c);else startQuiz(lv,c,null);});
+  }
+
+  // ===== JUEGO =====
+  function nextQuestion(){var c=state.content;return c.tables?genTabla(c.tables,state.fixed):c.gen();}
+  function startQuiz(lv,c,fixed){setTrack(LEVELS[lv].track);state={levelId:lv,content:c,fixed:fixed||null,index:0,score:0,streak:0,bestStreak:0,locked:false,current:null,timed:MODE==='timed',roundStart:Date.now(),timer:null,tip:(guideFor(lv,c)||{}).tip};renderQuiz();loadQuestion();}
+
+  function renderQuiz(){
+    var label=state.content.title+(state.fixed?(' · tabla del '+state.fixed):(state.content.tables?' · mezcladas':''));
+    main.innerHTML='<section class="screen">'+
+      '<div class="quiz-head"><button class="back" data-quit>‹ Salir</button>'+(state.timed?'<span class="pill" id="qclock">⏱️ '+QTIME+'s</span>':'')+'<span class="pill">Pregunta <b id="qnum">1</b>/'+ROUND+'</span><span class="pill">✔ <b id="qscore">0</b></span></div>'+
+      '<div class="progress"><i id="qbar"></i></div>'+
+      (state.timed?'<div class="timerbar"><i id="qtimer"></i></div>':'')+
+      '<div class="card qcard">'+
+        '<button class="hintbtn" id="hintBtn" title="Ayuda con pistas" aria-label="Pista de ayuda">💡</button>'+
+        '<div class="streak" id="qstreak">🔥 racha 0</div>'+
+        '<p class="eyebrow" style="margin-bottom:2px">'+label+'</p>'+
+        '<div class="question" id="qtext">—</div>'+
+        '<div class="qhint" id="qhint"></div>'+
+        '<div class="hintpop hidden" id="hintPop"></div>'+
+        '<div id="qplay">'+
+          '<input class="ans-input" id="qans" inputmode="numeric" enterkeyhint="go" autocomplete="off" placeholder="Tu respuesta" aria-label="Escribe tu respuesta">'+
+          '<div class="feedback" id="qfb"></div>'+
+          '<div class="typehint">Puedes escribir con el teclado o pinchar los números 👇</div>'+
+          '<div class="keypad">'+[1,2,3,4,5,6,7,8,9].map(function(n){return '<button class="key" data-k="'+n+'">'+n+'</button>';}).join('')+'<button class="key sign" data-k="sign" title="Positivo o negativo">±</button><button class="key" data-k="0">0</button><button class="key del" data-k="del" title="Borrar">⌫</button><button class="key enter" data-k="enter">✓ Responder</button></div>'+
+        '</div>'+
+        '<div id="qexplain" class="ex-panel hidden"></div>'+
+      '</div></section>';
+    main.querySelector('[data-quit]').addEventListener('click',function(){clearTimer();screenMenu(state.levelId);});
+    Array.prototype.forEach.call(main.querySelectorAll('.key'),function(b){b.addEventListener('click',function(){handleKey(b.getAttribute('data-k'));});});
+    document.getElementById('hintBtn').addEventListener('click',toggleHint);
+    var inp=document.getElementById('qans');
+    inp.addEventListener('input',function(){
+      var v=inp.value.replace(/[^0-9-]/g,''),neg=v.charAt(0)==='-';v=v.replace(/-/g,'');if(neg)v='-'+v;v=v.slice(0,neg?8:7);inp.value=v;syncFilled();
+    });
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submit();}});
+  }
+
+  function syncFilled(){var inp=document.getElementById('qans');inp.classList.toggle('filled', inp.value!==''&&inp.value!=='-');}
+  function loadQuestion(){
+    state.current=nextQuestion();state.locked=false;
+    document.getElementById('qplay').classList.remove('hidden');
+    document.getElementById('qexplain').classList.add('hidden');
+    var qt=document.getElementById('qtext'),p=state.current.prompt;
+    if(state.current.word){qt.textContent=p;qt.className='question word';}
+    else{qt.textContent=p;qt.className='question'+((/[a-zA-Zx√]/.test(p)||p.length>9)?' sm':'');}
+    document.getElementById('qhint').textContent=state.current.hint||'';
+    document.getElementById('qnum').textContent=state.index+1;
+    var inp=document.getElementById('qans');inp.value='';inp.className='ans-input';inp.disabled=false;
+    var fb=document.getElementById('qfb');fb.textContent='';fb.className='feedback';
+    document.getElementById('qbar').style.width=(state.index/ROUND*100)+'%';
+    var pop=document.getElementById('hintPop');pop.classList.add('hidden');
+    var hb=document.getElementById('hintBtn');if(hb)hb.classList.remove('on');
+    if(window.matchMedia('(pointer:fine)').matches) inp.focus();
+    if(state.timed) startTimer();
+  }
+
+  function toggleHint(){
+    var pop=document.getElementById('hintPop'),hb=document.getElementById('hintBtn');
+    if(pop.classList.contains('hidden')){
+      pop.innerHTML='<b>💡 Pista para este ejercicio</b><br>'+(state.current.hint?state.current.hint+'.':'Piensa con calma qué operación necesitas.')+(state.tip?'<br><br><span style="color:var(--muted)"><b>Recuerda:</b> '+state.tip+'</span>':'');
+      pop.classList.remove('hidden');if(hb)hb.classList.add('on');
+    }else{pop.classList.add('hidden');if(hb)hb.classList.remove('on');}
+  }
+
+  function handleKey(k){
+    if(state.locked)return;
+    var inp=document.getElementById('qans');
+    if(k==='del'){inp.value=inp.value.slice(0,-1);}
+    else if(k==='sign'){inp.value=inp.value.charAt(0)==='-'?inp.value.slice(1):'-'+inp.value;}
+    else if(k==='enter'){submit();return;}
+    else if(inp.value.replace('-','').length<7){inp.value+=k;}
+    syncFilled();
+  }
+
+  function submit(){
+    if(state.locked)return;
+    var inp=document.getElementById('qans'),raw=inp.value;
+    if(raw===''||raw==='-')return;
+    state.locked=true;inp.disabled=true;clearTimer();
+    var val=parseInt(raw,10);
+    var fb=document.getElementById('qfb'),st=document.getElementById('qstreak');
+    if(val===state.current.answer){
+      state.score++;state.streak++;state.bestStreak=Math.max(state.bestStreak,state.streak);
+      inp.className='ans-input good';fb.className='feedback good';fb.textContent=pick(['¡Correcto! 🎉','¡Muy bien! ✅','¡Excelente! 🌟','¡Así se hace! 💪']);
+      document.getElementById('qscore').textContent=state.score;
+      if(state.streak>=2){st.textContent='🔥 racha '+state.streak;st.classList.add('on');}
+      setTimeout(advance,800);
+    }else{
+      state.streak=0;inp.className='ans-input bad';fb.className='feedback bad';fb.textContent='Casi… veamos cómo se hace 👇';st.classList.remove('on');
+      setTimeout(showExplain,850);
+    }
+  }
+
+  function showExplain(){
+    document.getElementById('qplay').classList.add('hidden');
+    var ex=document.getElementById('qexplain');
+    ex.innerHTML='<div class="ex-title">✏️ La respuesta correcta es '+state.current.answer+'. Así se resuelve:</div>'+state.current.explain+'<button class="btn" data-cont>Entendí, continuar ›</button>';
+    ex.classList.remove('hidden');
+    ex.querySelector('[data-cont]').addEventListener('click',advance);
+    ex.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  function advance(){clearTimer();state.index++;document.getElementById('qbar').style.width=(state.index/ROUND*100)+'%';if(state.index>=ROUND)screenResult();else loadQuestion();}
+
+  function screenResult(){
+    var lv=state.levelId,cid=state.content.id,s=state.score;
+    var prev=getStats(lv,cid),before=CHALLENGES.filter(function(c){return c.test(prev);});
+    var next={played:prev.played+1,best:Math.max(prev.best,s),bestStreak:Math.max(prev.bestStreak,state.bestStreak)};
+    store.set(skey(CURRENT,lv,cid),next);
+    var secs=Math.round((Date.now()-(state.roundStart||Date.now()))/1000);
+    var after=CHALLENGES.filter(function(c){return c.test(next);}),unlocked=after.filter(function(c){return before.indexOf(c)<0;});
+    var isRecord=s>prev.best;
+    var tier,medal,msg;
+    if(s>=9){tier='¡Increíble!';medal='🏆';msg='Dominas este contenido. ¿Te atreves con otra tabla o nivel?';}
+    else if(s>=7){tier='¡Muy bien!';medal='🥇';msg='Vas por excelente camino. Un par de repasos y será perfecto.';}
+    else if(s>=5){tier='¡Buen trabajo!';medal='🥈';msg='Ya tienes la base. Practica otra vez para afianzarla.';}
+    else{tier='¡A seguir practicando!';medal='🌱';msg='Cada intento te hace mejor. Inténtalo de nuevo, tú puedes.';}
+    var uHtml=unlocked.length?'<div class="unlocked">'+unlocked.map(function(c){return '<div class="u"><span class="em">'+c.icon+'</span><div><b>¡Desafío desbloqueado!</b><span>'+c.name+' — '+c.desc+'</span></div></div>';}).join('')+'</div>':'';
+    main.innerHTML='<section class="screen"><div class="card result"><div class="medal">'+medal+'</div><div class="score">'+s+'<span>/'+ROUND+'</span></div><h2>'+tier+'</h2>'+(isRecord&&prev.played>0?'<p class="msg" style="color:var(--accent-deep);font-weight:700">✨ ¡Nueva mejor marca!</p>':'')+'<p class="msg">'+msg+'</p>'+uHtml+'<div class="stat-row"><div class="stat"><b>'+Math.round(s/ROUND*100)+'%</b><span>Aciertos</span></div><div class="stat"><b>'+state.bestStreak+'</b><span>Mejor racha</span></div>'+(state.timed?'<div class="stat"><b>'+secs+'s</b><span>Tiempo</span></div>':'')+'</div><div class="btn-row"><button class="btn" data-again>Jugar otra vez</button><button class="btn ghost" data-menu>Otro contenido</button><button class="btn ghost" data-chal>Ver desafíos</button></div></div></section>';
+    main.querySelector('[data-again]').addEventListener('click',function(){startQuiz(lv,state.content,state.fixed);});
+    main.querySelector('[data-menu]').addEventListener('click',function(){screenMenu(lv);});
+    main.querySelector('[data-chal]').addEventListener('click',function(){screenChallenges(lv);});
+    if(s>=9)confetti(main.querySelector('.result'));
+  }
+
+  function confetti(host){
+    if(!host||window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var cols=['#e07708','#0f9b8e','#4b57c9','#1f9d63','#d83a41','#f5a524'];
+    for(var i=0;i<26;i++){var sp=document.createElement('span');sp.className='confetti';sp.style.left=(Math.random()*100)+'%';sp.style.background=cols[i%cols.length];sp.style.animationDelay=(Math.random()*0.5)+'s';host.appendChild(sp);}
+  }
+
+  // ===== TEMPORIZADOR (modo contrarreloj) =====
+  function clearTimer(){if(state.timer){clearInterval(state.timer);state.timer=null;}}
+  function startTimer(){
+    clearTimer();state.timeLeft=QTIME;
+    var bar=document.getElementById('qtimer'),clock=document.getElementById('qclock');
+    state.timer=setInterval(function(){
+      state.timeLeft-=0.1;if(state.timeLeft<0)state.timeLeft=0;
+      if(bar){bar.style.width=(state.timeLeft/QTIME*100)+'%';bar.className=state.timeLeft<=5?'warn':'';}
+      if(clock)clock.textContent='⏱️ '+Math.ceil(state.timeLeft)+'s';
+      if(state.timeLeft<=0){clearTimer();timeUp();}
+    },100);
+  }
+  function timeUp(){
+    if(state.locked)return;state.locked=true;state.streak=0;
+    var inp=document.getElementById('qans');inp.disabled=true;inp.className='ans-input bad';
+    var fb=document.getElementById('qfb');fb.className='feedback bad';fb.textContent='⏱️ ¡Se acabó el tiempo! Veamos cómo se hace 👇';
+    document.getElementById('qstreak').classList.remove('on');
+    setTimeout(showExplain,750);
+  }
+
+  // ===== PANEL DE LA PROFESORA (con clave) =====
+  function norm(s){return String(s||'').trim().toLowerCase();}
+  var QUESTIONS=['¿Nombre de tu primera mascota?','¿En qué ciudad naciste?','¿Cuál es tu comida favorita?','¿Nombre de tu mejor amigo(a) de infancia?','¿Nombre de tu colegio de infancia?'];
+  function screenTeacherGate(err){
+    app.removeAttribute('data-track');logo.textContent='×';clearTimer();
+    var pin=store.get('teacherPin');
+    if(pin){ // ingresar
+      main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
+        '<div class="lock">🔒</div><h2 class="lead">Panel de la profesora</h2>'+
+        '<p class="sub">Ingresa la clave para ver el progreso del curso.</p>'+
+        '<div class="name-form" style="margin-top:4px">'+
+          '<input class="name-input" id="pinIn" type="password" inputmode="numeric" maxlength="12" placeholder="Clave" autocomplete="off">'+
+          '<button class="btn" id="pinBtn">Entrar</button>'+
+          '<div class="err">'+(err||'')+'</div>'+
+          '<button class="tlink" id="forgot" style="margin:6px auto 0">¿Olvidaste tu clave?</button>'+
+        '</div></div></section>';
+      main.querySelector('[data-back]').addEventListener('click',screenWelcome);
+      var inp=document.getElementById('pinIn');
+      function ok(){ if(inp.value.trim()===store.get('teacherPin')) screenTeacher(); else screenTeacherGate('Clave incorrecta. Intenta de nuevo.'); }
+      document.getElementById('pinBtn').addEventListener('click',ok);
+      inp.addEventListener('keydown',function(e){if(e.key==='Enter')ok();});
+      document.getElementById('forgot').addEventListener('click',function(){ if(store.get('teacherA')) screenTeacherRecover(); else screenTeacherReset('No hay pregunta de recuperación guardada. Crea una nueva clave.'); });
+      if(window.matchMedia('(pointer:fine)').matches) inp.focus();
+    } else { // crear
+      main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
+        '<div class="lock">🔒</div><h2 class="lead">Crea la clave del panel</h2>'+
+        '<p class="sub">Define una clave (mínimo 4 caracteres) y una pregunta de recuperación por si la olvidas.</p>'+
+        '<div class="name-form" style="margin-top:4px">'+
+          '<input class="name-input" id="pinIn" type="password" inputmode="numeric" maxlength="12" placeholder="Nueva clave" autocomplete="off">'+
+          '<select class="name-input" id="qSel">'+QUESTIONS.map(function(q){return '<option>'+q+'</option>';}).join('')+'</select>'+
+          '<input class="name-input" id="aIn" maxlength="30" placeholder="Respuesta secreta" autocomplete="off">'+
+          '<button class="btn" id="pinBtn">Crear y entrar</button>'+
+          '<div class="err">'+(err||'')+'</div>'+
+        '</div></div></section>';
+      main.querySelector('[data-back]').addEventListener('click',screenWelcome);
+      function crear(){
+        var v=document.getElementById('pinIn').value.trim(), q=document.getElementById('qSel').value, a=document.getElementById('aIn').value.trim();
+        if(v.length<4){screenTeacherGate('La clave debe tener al menos 4 caracteres.');return;}
+        if(!a){screenTeacherGate('Escribe una respuesta secreta para poder recuperar la clave.');return;}
+        store.set('teacherPin',v);store.set('teacherQ',q);store.set('teacherA',norm(a));screenTeacher();
+      }
+      document.getElementById('pinBtn').addEventListener('click',crear);
+      if(window.matchMedia('(pointer:fine)').matches) document.getElementById('pinIn').focus();
+    }
+  }
+  function screenTeacherRecover(err){
+    app.removeAttribute('data-track');logo.textContent='×';
+    main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
+      '<div class="lock">🔑</div><h2 class="lead">Recuperar clave</h2>'+
+      '<p class="sub">Responde tu pregunta de recuperación:</p>'+
+      '<p style="font-weight:700;margin:0 0 4px">'+esc(store.get('teacherQ')||'')+'</p>'+
+      '<div class="name-form" style="margin-top:4px">'+
+        '<input class="name-input" id="aIn" maxlength="30" placeholder="Tu respuesta" autocomplete="off">'+
+        '<button class="btn" id="okBtn">Verificar</button>'+
+        '<div class="err">'+(err||'')+'</div>'+
+      '</div></div></section>';
+    main.querySelector('[data-back]').addEventListener('click',function(){screenTeacherGate();});
+    var inp=document.getElementById('aIn');
+    function ok(){ if(norm(inp.value)===store.get('teacherA')) screenTeacherReset('¡Respuesta correcta! Ahora crea tu nueva clave.'); else screenTeacherRecover('Respuesta incorrecta. Intenta otra vez.'); }
+    document.getElementById('okBtn').addEventListener('click',ok);
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')ok();});
+    if(window.matchMedia('(pointer:fine)').matches) inp.focus();
+  }
+  function screenTeacherReset(msg){
+    app.removeAttribute('data-track');logo.textContent='×';
+    main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
+      '<div class="lock">🔒</div><h2 class="lead">Nueva clave</h2>'+
+      '<p class="sub">'+(msg||'Crea una nueva clave (mínimo 4 caracteres).')+'</p>'+
+      '<div class="name-form" style="margin-top:4px">'+
+        '<input class="name-input" id="pinIn" type="password" inputmode="numeric" maxlength="12" placeholder="Nueva clave" autocomplete="off">'+
+        '<button class="btn" id="okBtn">Guardar y entrar</button>'+
+        '<div class="err" id="rerr"></div>'+
+      '</div></div></section>';
+    main.querySelector('[data-back]').addEventListener('click',function(){ store.get('teacherPin')?screenTeacherGate():screenWelcome(); });
+    var inp=document.getElementById('pinIn');
+    function ok(){ var v=inp.value.trim(); if(v.length<4){document.getElementById('rerr').textContent='La clave debe tener al menos 4 caracteres.';return;} store.set('teacherPin',v); screenTeacher(); }
+    document.getElementById('okBtn').addEventListener('click',ok);
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')ok();});
+    if(window.matchMedia('(pointer:fine)').matches) inp.focus();
+  }
+  function screenTeacher(pending){
+    app.removeAttribute('data-track');logo.textContent='×';clearTimer();
+    var list=students();
+    main.innerHTML='<section class="screen">'+
+      '<button class="back" data-back>‹ Volver</button>'+
+      '<p class="eyebrow">Panel de la profesora Aylen Pereira</p>'+
+      '<h2 class="lead">Progreso del curso</h2>'+
+      '<p class="sub">'+(list.length?list.length+' alumno(s) registrados en este dispositivo. Toca un alumno para ver el detalle.':'Aún no hay alumnos registrados en este dispositivo.')+'</p>'+
+      '<button class="tlink" data-changepin style="margin:0 0 16px">🔑 Cambiar la clave del panel</button>'+
+      list.map(function(n){
+        var tot=studentTotals(n), conf=(pending&&keyify(pending.stu)===keyify(n))?pending.action:null;
+        return '<div class="card tstudent"><div class="th"><span class="av" style="background:'+(avatarColor(n)||'')+'">'+avatarEmoji(n)+'</span><div style="flex:1;min-width:0"><b>'+esc(n)+'</b><small>'+tot.done+' de '+tot.total+' desafíos · '+tot.pct+'%</small></div></div>'+
+          '<div class="lvl-bar"><i style="width:'+tot.pct+'%"></i></div>'+
+          (conf?'<div class="tconfirm">'+(conf==='delete'?'¿Eliminar a <b>'+esc(n)+'</b> y todo su progreso?':'¿Reiniciar el progreso de <b>'+esc(n)+'</b>?')+'<div class="row"><button class="tbtn danger" data-do="'+conf+'" data-stu="'+esc(n)+'">Sí, '+(conf==='delete'?'eliminar':'reiniciar')+'</button><button class="tbtn" data-cancel>Cancelar</button></div></div>'
+            :'<div class="tactions"><button class="tbtn" data-detail="'+esc(n)+'">Ver detalle</button><button class="tbtn" data-reset="'+esc(n)+'">Reiniciar</button><button class="tbtn danger" data-del="'+esc(n)+'">Eliminar</button></div>')+
+        '</div>';
+      }).join('')+
+    '</section>';
+    main.querySelector('[data-back]').addEventListener('click',screenWelcome);
+    bindAll('[data-changepin]',function(){screenTeacherReset('Crea tu nueva clave del panel.');});
+    bindAll('[data-detail]',function(b){screenTeacherDetail(b.getAttribute('data-detail'));});
+    bindAll('[data-reset]',function(b){screenTeacher({stu:b.getAttribute('data-reset'),action:'reset'});});
+    bindAll('[data-del]',function(b){screenTeacher({stu:b.getAttribute('data-del'),action:'delete'});});
+    bindAll('[data-cancel]',function(){screenTeacher();});
+    bindAll('[data-do]',function(b){var stu=b.getAttribute('data-stu');if(b.getAttribute('data-do')==='delete')deleteStudent(stu);else wipeStudent(stu);screenTeacher();});
+  }
+  function screenTeacherDetail(stu){
+    main.innerHTML='<section class="screen">'+
+      '<button class="back" data-back>‹ Volver al panel</button>'+
+      '<p class="eyebrow">Detalle de '+esc(stu)+'</p><h2 class="lead">Progreso por contenido</h2>'+
+      Object.keys(LEVELS).map(function(k){var L=LEVELS[k],p=levelProgress(k,stu);
+        return '<div class="card tstudent"><div class="th"><span class="av">'+L.badge+'</span><div style="flex:1"><b>'+L.name+'</b><small>'+p.done+' de '+p.total+' desafíos · '+p.pct+'%</small></div></div>'+
+          L.contents.map(function(c){var s=getStats(k,c.id,stu),dc=doneCount(k,c.id,stu);
+            return '<div class="tdrow"><span class="cn">'+c.ico+' '+c.title+'</span><span class="v">'+s.played+' rondas</span><span class="v">mejor <b>'+s.best+'/10</b></span><span class="v">'+dc+'/4 🏅</span></div>';
+          }).join('')+'</div>';
+      }).join('')+
+    '</section>';
+    main.querySelector('[data-back]').addEventListener('click',function(){screenTeacher();});
+  }
+
+  // Teclado físico global (respaldo cuando el foco no está en el input)
+  document.addEventListener('keydown',function(e){
+    if(!state.content||state.locked||!document.getElementById('qans'))return;
+    if(document.activeElement===document.getElementById('qans'))return;
+    if(e.key>='0'&&e.key<='9')handleKey(e.key);
+    else if(e.key==='Backspace'){e.preventDefault();handleKey('del');}
+    else if(e.key==='-')handleKey('sign');
+    else if(e.key==='Enter')handleKey('enter');
+  });
+
+  // Tema
+  var themeBtn=document.getElementById('themeBtn');
+  function applyTheme(t){if(t)document.documentElement.setAttribute('data-theme',t);var dark=t?t==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;themeBtn.textContent=dark?'☀️':'🌙';}
+  applyTheme(store.get('theme')||null);
+  themeBtn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme');var isDark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;var nx=isDark?'light':'dark';applyTheme(nx);store.set('theme',nx);});
+
+  // Inicio
+  updateStudentUI();
+  if(CURRENT) screenHome(); else screenWelcome();
+})();
+</script>
