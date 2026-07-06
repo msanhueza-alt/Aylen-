@@ -12,16 +12,16 @@
     --ink:#241f3a; --muted:#6d6790; --border:#e6e3f4; --border-strong:#d3cded;
     --shadow:0 10px 30px -12px rgba(40,30,80,.28);
     --accent:#6b4de6; --accent-ink:#ffffff; --accent-soft:#ece7fd; --accent-deep:#553bc4;
-    --good:#1f9d63; --good-soft:#e3f6ec; --warn:#e0a400;
+    --good:#1f9d63; --good-soft:#e3f6ec; --error:#d83a41; --error-soft:#fce8e8;
     --radius:22px; --radius-sm:14px;
     --font:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
     --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
   }
   @media (prefers-color-scheme:dark){
-    :root{--bg:#141026; --surface:#1e1938; --surface-2:#191430; --ink:#efecfb; --muted:#a49dca; --border:#2f2954; --border-strong:#413a6e; --shadow:0 16px 40px -16px rgba(0,0,0,.6); --accent:#9a86f2; --accent-ink:#1a1330; --accent-soft:#241d45; --accent-deep:#b3a3f7; --good:#3fc783; --good-soft:#153a2a;}
+    :root{--bg:#141026; --surface:#1e1938; --surface-2:#191430; --ink:#efecfb; --muted:#a49dca; --border:#2f2954; --border-strong:#413a6e; --shadow:0 16px 40px -16px rgba(0,0,0,.6); --accent:#9a86f2; --accent-ink:#1a1330; --accent-soft:#241d45; --accent-deep:#b3a3f7; --good:#3fc783; --good-soft:#153a2a; --error:#ff6b70; --error-soft:#3a1a1d;}
   }
-  :root[data-theme="light"]{--bg:#f0eefb; --surface:#ffffff; --surface-2:#f7f6ff; --ink:#241f3a; --muted:#6d6790; --border:#e6e3f4; --border-strong:#d3cded; --shadow:0 10px 30px -12px rgba(40,30,80,.28); --accent:#6b4de6; --accent-ink:#fff; --accent-soft:#ece7fd; --accent-deep:#553bc4; --good:#1f9d63;}
-  :root[data-theme="dark"]{--bg:#141026; --surface:#1e1938; --surface-2:#191430; --ink:#efecfb; --muted:#a49dca; --border:#2f2954; --border-strong:#413a6e; --shadow:0 16px 40px -16px rgba(0,0,0,.6); --accent:#9a86f2; --accent-ink:#1a1330; --accent-soft:#241d45; --accent-deep:#b3a3f7; --good:#3fc783;}
+  :root[data-theme="light"]{--bg:#f0eefb; --surface:#fff; --surface-2:#f7f6ff; --ink:#241f3a; --muted:#6d6790; --border:#e6e3f4; --border-strong:#d3cded; --shadow:0 10px 30px -12px rgba(40,30,80,.28); --accent:#6b4de6; --accent-ink:#fff; --accent-soft:#ece7fd; --accent-deep:#553bc4; --good:#1f9d63; --good-soft:#e3f6ec; --error:#d83a41; --error-soft:#fce8e8;}
+  :root[data-theme="dark"]{--bg:#141026; --surface:#1e1938; --surface-2:#191430; --ink:#efecfb; --muted:#a49dca; --border:#2f2954; --border-strong:#413a6e; --shadow:0 16px 40px -16px rgba(0,0,0,.6); --accent:#9a86f2; --accent-ink:#1a1330; --accent-soft:#241d45; --accent-deep:#b3a3f7; --good:#3fc783; --good-soft:#153a2a; --error:#ff6b70; --error-soft:#3a1a1d;}
 
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -30,8 +30,13 @@
   .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px}
   .brand{display:flex; align-items:center; gap:12px; min-width:0}
   .logo{width:48px; height:48px; border-radius:14px; flex:none; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); display:grid; place-items:center; font-size:24px; box-shadow:var(--shadow)}
-  .brand h1{font-size:1.08rem; margin:0; line-height:1.15; letter-spacing:-.01em}
+  .brand h1{font-size:1.06rem; margin:0; line-height:1.15; letter-spacing:-.01em}
   .brand p{margin:0; font-size:.76rem; color:var(--muted)}
+  .top-actions{display:flex; align-items:center; gap:8px; flex:none}
+  .student-pill{display:inline-flex; align-items:center; gap:7px; max-width:44vw; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:999px; padding:7px 13px; cursor:pointer; font-weight:700; font-size:.86rem}
+  .student-pill:hover{border-color:var(--accent)}
+  .student-pill b{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .student-pill .av{width:24px; height:24px; border-radius:50%; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:#fff; display:grid; place-items:center; font-size:.95rem; flex:none}
   .theme-btn{flex:none; width:42px; height:42px; border-radius:12px; cursor:pointer; background:var(--surface); border:1px solid var(--border); color:var(--ink); font-size:1.12rem; display:grid; place-items:center}
   .theme-btn:hover{border-color:var(--border-strong)}
 
@@ -41,10 +46,38 @@
   .eyebrow{font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-deep)}
   .lead{font-size:1.5rem; font-weight:800; letter-spacing:-.02em; margin:.15em 0 .1em; text-wrap:balance}
   .sub{color:var(--muted); margin:0 0 18px; font-size:.95rem}
-  .creator{display:flex; flex-direction:column; align-items:center; gap:2px; margin:6px 0 2px; text-align:center}
-  .creator-label{font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
-  .creator-name{font-size:clamp(1.3rem,5vw,1.7rem); font-weight:800; letter-spacing:-.02em; background:linear-gradient(135deg,var(--accent),var(--accent-deep)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .hidden{display:none !important}
 
+  /* Bienvenida + avatar */
+  .welcome{padding:30px 24px; text-align:center}
+  .welcome .hero{font-size:2.8rem; margin-bottom:2px}
+  .welcome h2{font-size:1.7rem; margin:.1em 0; letter-spacing:-.02em}
+  .creator{display:flex; flex-direction:column; align-items:center; gap:2px; margin:10px 0 2px}
+  .creator-label{font-size:.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+  .creator-name{font-size:clamp(1.4rem,6vw,1.9rem); font-weight:800; letter-spacing:-.02em; background:linear-gradient(135deg,var(--accent),var(--accent-deep)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .name-form{display:flex; flex-direction:column; gap:12px; max-width:380px; margin:20px auto 0}
+  .name-input{font-size:1.1rem; font-weight:700; text-align:center; padding:14px 16px; border-radius:14px; border:2px solid var(--border-strong); background:var(--surface-2); color:var(--ink); font-family:inherit}
+  .name-input:focus{outline:none; border-color:var(--accent)}
+  .av-preview{width:78px; height:78px; border-radius:50%; display:grid; place-items:center; font-size:2.6rem; margin:0 auto 6px; box-shadow:var(--shadow)}
+  .av-picker{text-align:left}
+  .av-picker .pl{font-size:.76rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px}
+  .av-grid{display:grid; grid-template-columns:repeat(8,1fr); gap:7px}
+  @media(max-width:430px){.av-grid{grid-template-columns:repeat(6,1fr)}}
+  .av-opt{aspect-ratio:1; border:2px solid var(--border); background:var(--surface-2); border-radius:12px; cursor:pointer; font-size:1.3rem; display:grid; place-items:center}
+  .av-opt.sel{border-color:var(--accent); background:var(--accent-soft); transform:scale(1.06)}
+  .av-colors{display:flex; gap:9px; margin-top:12px; flex-wrap:wrap}
+  .av-color{width:34px; height:34px; border-radius:50%; cursor:pointer; border:3px solid transparent}
+  .av-color.sel{border-color:var(--ink); transform:scale(1.1)}
+  .recent{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:16px}
+  .recent .r{background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:7px 13px; cursor:pointer; font-weight:700; font-size:.84rem; color:var(--ink)}
+  .recent .r:hover{border-color:var(--accent)}
+
+  /* Setup */
+  .prog-line{display:flex; align-items:center; gap:14px; padding:14px 16px; margin-bottom:18px}
+  .prog-line .av{width:44px; height:44px; border-radius:50%; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:#fff; display:grid; place-items:center; font-size:1.3rem; flex:none}
+  .prog-line .pt{min-width:0}
+  .prog-line .pt b{display:block; font-size:1rem}
+  .prog-line .pt span{font-size:.82rem; color:var(--muted)}
   .setup-block{margin-bottom:20px}
   .setup-block > .h{display:flex; align-items:center; gap:8px; font-weight:800; font-size:1rem; margin-bottom:10px}
   .setup-block > .h .n{width:24px; height:24px; border-radius:50%; background:var(--accent); color:var(--accent-ink); display:grid; place-items:center; font-size:.82rem; font-weight:800; flex:none}
@@ -63,7 +96,7 @@
   .topic .nm{font-size:.82rem; font-weight:700; line-height:1.2}
   .start{margin-top:6px; width:100%; border:none; cursor:pointer; font-weight:800; font-size:1.1rem; padding:16px; border-radius:16px; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); box-shadow:var(--shadow); transition:transform .12s, filter .15s}
   .start:hover{transform:translateY(-2px); filter:brightness(1.05)}
-  .start:focus-visible,.chip:focus-visible,.topic:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .start:focus-visible,.chip:focus-visible,.topic:focus-visible,.av-opt:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
 
   /* Lectura */
   .read-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; flex-wrap:wrap}
@@ -73,14 +106,13 @@
   .back:hover{color:var(--accent-deep)}
   .progress{height:10px; border-radius:99px; background:var(--surface); border:1px solid var(--border); overflow:hidden; margin-bottom:16px}
   .progress > i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-deep)); transition:width .12s linear}
-
   .reader{padding:22px 22px 24px; min-height:46vh; position:relative}
-  .read-text{font-family:var(--serif); font-size:clamp(1.15rem,3.4vw,1.5rem); line-height:2; max-height:52vh; overflow-y:auto; letter-spacing:.01em}
-  .read-text .w{transition:background .06s; padding:0 1px; border-radius:5px}
+  .read-text{font-family:var(--serif); font-size:clamp(1.15rem,3.4vw,1.5rem); line-height:2; max-height:52vh; overflow-y:auto}
+  .read-text .w{padding:0 1px; border-radius:5px}
   .read-text .w.now{background:var(--accent); color:var(--accent-ink); padding:2px 4px}
   .read-text .w.done{color:var(--muted)}
   .rsvp{display:grid; place-items:center; min-height:44vh; text-align:center}
-  .rsvp .word{font-family:var(--serif); font-size:clamp(2.4rem,10vw,4.5rem); font-weight:700; letter-spacing:-.01em; color:var(--accent-deep); word-break:break-word}
+  .rsvp .word{font-family:var(--serif); font-size:clamp(2.4rem,10vw,4.5rem); font-weight:700; color:var(--accent-deep); word-break:break-word}
   .rsvp .guide{width:2px; height:26px; background:var(--border-strong); margin:0 auto 14px}
   .countdown{position:absolute; inset:0; display:grid; place-items:center; background:var(--surface); border-radius:var(--radius); z-index:5}
   .countdown .c{font-size:5rem; font-weight:800; color:var(--accent-deep); animation:pop .6s}
@@ -92,22 +124,31 @@
   .btn:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
   .tip{text-align:center; color:var(--muted); font-size:.82rem; margin-top:10px}
 
+  /* Comprensión */
+  .comp{padding:26px 22px}
+  .comp .qn{font-size:.76rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-deep); text-align:center}
+  .comp .qt{font-size:1.25rem; font-weight:800; text-align:center; margin:6px 0 18px; text-wrap:balance; line-height:1.35}
+  .copts{display:flex; flex-direction:column; gap:10px; max-width:460px; margin:0 auto}
+  .copt{text-align:left; cursor:pointer; background:var(--surface); border:2px solid var(--border-strong); color:var(--ink); border-radius:14px; padding:14px 16px; font-size:1rem; font-weight:600; box-shadow:var(--shadow); transition:transform .1s, border-color .12s, background .12s}
+  .copt:hover{border-color:var(--accent); background:var(--accent-soft)}
+  .copt.good{border-color:var(--good); background:var(--good-soft); color:var(--good)}
+  .copt.bad{border-color:var(--error); background:var(--error-soft); color:var(--error)}
+  .copt[disabled]{cursor:default}
+  .copt:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+
   /* Resultado */
   .result{padding:34px 26px 30px; text-align:center}
   .result .em{font-size:3.6rem; margin-bottom:4px}
   .result h2{margin:.1em 0; font-size:1.6rem}
-  .big-num{font-size:3rem; font-weight:800; color:var(--accent-deep); font-variant-numeric:tabular-nums; letter-spacing:-.02em}
-  .big-num span{font-size:1.1rem; color:var(--muted); font-weight:700}
   .result .msg{color:var(--muted); margin:6px auto 20px; max-width:44ch}
   .stat-row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:22px}
   .stat{background:var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:12px 18px; min-width:100px}
-  .stat b{display:block; font-size:1.4rem; font-variant-numeric:tabular-nums}
+  .stat b{display:block; font-size:1.5rem; font-variant-numeric:tabular-nums; color:var(--accent-deep)}
   .stat span{font-size:.74rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:600}
   .btn-row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
 
   .foot{margin-top:auto; padding-top:26px; text-align:center; color:var(--muted); font-size:.78rem; line-height:1.7}
   .foot b{color:var(--accent-deep)}
-  .hidden{display:none !important}
   @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -120,7 +161,10 @@
       <div class="logo">📖</div>
       <div><h1>Lectura Veloz Continental</h1><p>Colegio Continental · Curanilahue</p></div>
     </div>
-    <button class="theme-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+    <div class="top-actions">
+      <button class="student-pill hidden" id="studentBtn" title="Cambiar de alumno"><span class="av" id="studentAv">A</span><b id="studentName"></b></button>
+      <button class="theme-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+    </div>
   </header>
   <main id="main"></main>
   <footer class="foot">Diseñada por la <b>profesora Aylen Pereira</b> · Colegio Continental, Curanilahue<br>Lee un poco cada día y tu velocidad irá mejorando 📚</footer>
@@ -130,88 +174,121 @@
 (function(){
   "use strict";
   var main=document.getElementById('main');
+  var studentBtn=document.getElementById('studentBtn'), studentName=document.getElementById('studentName'), studentAv=document.getElementById('studentAv');
   function pick(a){return a[Math.floor(Math.random()*a.length)];}
   function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=rnd(0,i),t=a[i];a[i]=a[j];a[j]=t;}return a;}
   var store={get:function(k){try{return JSON.parse(localStorage.getItem('lv_'+k));}catch(e){return null;}},set:function(k,v){try{localStorage.setItem('lv_'+k,JSON.stringify(v));}catch(e){}}};
 
-  // ===== NIVELES DE VELOCIDAD =====
-  var LEVELS=[
-    {wpm:100,name:'Muy tranquilo'},
-    {wpm:150,name:'Tranquilo'},
-    {wpm:200,name:'Normal'},
-    {wpm:250,name:'Ágil'},
-    {wpm:300,name:'Rápido'}
-  ];
-  var DURATIONS=[1,2,3];
+  // ===== ALUMNO Y AVATAR =====
+  var CURRENT=store.get('current');
+  function keyify(n){return (String(n).toLowerCase().replace(/[^a-z0-9áéíóúñ]/gi,'')||'alumno');}
+  function students(){return store.get('students')||[];}
+  var AV_EMOJIS=['🦊','🐼','🐵','🐯','🦁','🐨','🐸','🐧','🦄','🐙','🐢','🦉','🐱','🐶','🐰','🐷'];
+  var AV_COLORS=['#6b4de6','#0f9b8e','#e07708','#1f9d63','#d83a41','#2b7fff'];
+  function getAvatar(n){return store.get('avatar_'+keyify(n))||null;}
+  function setAvatar(n,av){store.set('avatar_'+keyify(n),av);}
+  function avatarEmoji(n){var a=getAvatar(n);return a&&a.emoji?a.emoji:(n?n.charAt(0).toUpperCase():'A');}
+  function avatarColor(n){var a=getAvatar(n);return a&&a.color?a.color:null;}
+  function setStudent(n,av){n=n.trim();if(!n)return;CURRENT=n;store.set('current',n);if(av)setAvatar(n,av);var list=students().filter(function(x){return keyify(x)!==keyify(n);});list.unshift(n);store.set('students',list.slice(0,12));updateStudentUI();}
+  function updateStudentUI(){if(CURRENT){studentBtn.classList.remove('hidden');studentName.textContent=CURRENT;studentAv.textContent=avatarEmoji(CURRENT);studentAv.style.background=avatarColor(CURRENT)||'';}else studentBtn.classList.add('hidden');}
+  studentBtn.addEventListener('click',screenWelcome);
+  function getProg(){return store.get('prog_'+keyify(CURRENT))||{sessions:0,bestWpm:0,bestComp:0};}
 
-  // ===== TEMAS Y TEXTOS (aleatorios, sin repetir) =====
+  // ===== NIVELES Y TEMAS =====
+  var LEVELS=[{wpm:100,name:'Muy tranquilo'},{wpm:150,name:'Tranquilo'},{wpm:200,name:'Normal'},{wpm:250,name:'Ágil'},{wpm:300,name:'Rápido'}];
+  function Q(q,ok,b,c){return {q:q,opts:[ok,b,c]};} // opts[0] = correcta
   var TOPICS=[
     {id:'animales',em:'🐾',nm:'Animales',texts:[
-      'Los pulpos son animales fascinantes que viven en el mar. Tienen ocho brazos llenos de ventosas y un cuerpo blando sin huesos, por eso pueden esconderse en espacios muy pequeños. Además, cambian de color para camuflarse entre las rocas y las algas. Los pulpos son muy inteligentes: pueden abrir frascos, resolver laberintos y recordar a las personas. Su sangre es de color azul y tienen tres corazones que bombean por todo su cuerpo. Cuando se sienten en peligro, lanzan una nube de tinta oscura para confundir a sus enemigos y escapar nadando muy rápido hacia un lugar seguro.',
-      'El colibrí es una de las aves más pequeñas del mundo. Puede batir sus alas más de cincuenta veces por segundo, lo que produce un zumbido característico. Gracias a esa habilidad, es capaz de quedarse suspendido en el aire e incluso volar hacia atrás, algo que ninguna otra ave logra. Los colibríes se alimentan del néctar de las flores y, al hacerlo, ayudan a transportar el polen de una planta a otra. Su corazón late a gran velocidad y necesitan comer muchas veces al día para tener energía. A pesar de su tamaño diminuto, algunos colibríes viajan miles de kilómetros durante sus migraciones.',
-      'Las abejas son insectos muy trabajadores que viven en colmenas organizadas. Cada colmena tiene una reina, miles de obreras y algunos zánganos. Las obreras salen a buscar néctar y, al visitar las flores, transportan el polen que permite que nazcan nuevos frutos y semillas. Por eso las abejas son tan importantes para la naturaleza y para nuestra alimentación. Dentro de la colmena se comunican mediante una danza especial que indica dónde encontrar las mejores flores. Con el néctar fabrican la miel, que guardan como alimento. Cuidar a las abejas es cuidar la vida de muchas plantas del planeta.'
+      {t:'Los pulpos son animales fascinantes que viven en el mar. Tienen ocho brazos llenos de ventosas y un cuerpo blando sin huesos, por eso pueden esconderse en espacios muy pequeños. Además, cambian de color para camuflarse entre las rocas y las algas. Los pulpos son muy inteligentes: pueden abrir frascos, resolver laberintos y recordar a las personas. Su sangre es de color azul y tienen tres corazones que bombean por todo su cuerpo. Cuando se sienten en peligro, lanzan una nube de tinta oscura para confundir a sus enemigos y escapar nadando muy rápido hacia un lugar seguro.',q:[Q('¿Cuántos corazones tiene el pulpo?','Tres','Uno','Cinco'),Q('¿Qué lanza el pulpo para escapar de sus enemigos?','Una nube de tinta','Agua caliente','Espinas')]},
+      {t:'El colibrí es una de las aves más pequeñas del mundo. Puede batir sus alas más de cincuenta veces por segundo, lo que produce un zumbido característico. Gracias a esa habilidad, es capaz de quedarse suspendido en el aire e incluso volar hacia atrás, algo que ninguna otra ave logra. Los colibríes se alimentan del néctar de las flores y, al hacerlo, ayudan a transportar el polen de una planta a otra. Su corazón late a gran velocidad y necesitan comer muchas veces al día para tener energía. A pesar de su tamaño diminuto, algunos colibríes viajan miles de kilómetros durante sus migraciones.',q:[Q('¿Qué puede hacer el colibrí que ninguna otra ave logra?','Volar hacia atrás','Nadar bajo el agua','Cavar túneles'),Q('¿De qué se alimenta principalmente el colibrí?','Del néctar de las flores','De pequeños peces','De hojas secas')]},
+      {t:'Las abejas son insectos muy trabajadores que viven en colmenas organizadas. Cada colmena tiene una reina, miles de obreras y algunos zánganos. Las obreras salen a buscar néctar y, al visitar las flores, transportan el polen que permite que nazcan nuevos frutos y semillas. Por eso las abejas son tan importantes para la naturaleza y para nuestra alimentación. Dentro de la colmena se comunican mediante una danza especial que indica dónde encontrar las mejores flores. Con el néctar fabrican la miel, que guardan como alimento. Cuidar a las abejas es cuidar la vida de muchas plantas del planeta.',q:[Q('¿Cómo se comunican las abejas para indicar dónde hay flores?','Con una danza especial','Con silbidos','Con luces'),Q('¿Qué fabrican las abejas con el néctar?','Miel','Seda','Cera de velas únicamente')]}
     ]},
     {id:'espacio',em:'🚀',nm:'Espacio',texts:[
-      'El Sol es una estrella enorme que se encuentra en el centro de nuestro sistema solar. Aunque desde la Tierra parece pequeño, en realidad es tan grande que cabrían más de un millón de planetas como el nuestro en su interior. El Sol produce luz y calor gracias a las reacciones que ocurren en su núcleo. Esa energía permite que exista la vida en la Tierra, pues gracias a ella las plantas crecen y el agua se mantiene líquida. La luz del Sol tarda unos ocho minutos en llegar hasta nosotros después de recorrer un largo camino por el espacio.',
-      'La Luna es el único satélite natural de la Tierra y nuestro vecino más cercano en el espacio. No tiene luz propia: lo que vemos brillar es la luz del Sol reflejada en su superficie. A lo largo del mes, la Luna parece cambiar de forma, pasando por fases como la luna llena y la luna nueva. En su superficie hay montañas y grandes cráteres formados por el choque de rocas espaciales. La Luna también influye en el mar, porque su fuerza de gravedad provoca las mareas. En mil novecientos sesenta y nueve, los seres humanos caminaron sobre ella por primera vez.',
-      'Los planetas del sistema solar giran alrededor del Sol siguiendo caminos llamados órbitas. Hay planetas rocosos, como la Tierra y Marte, y planetas gigantes formados por gases, como Júpiter y Saturno. Saturno es famoso por sus hermosos anillos, compuestos por hielo y polvo. Marte es conocido como el planeta rojo por el color de su suelo, y los científicos lo estudian para saber si alguna vez tuvo agua. Explorar el espacio nos ayuda a entender mejor nuestro propio planeta. Por eso se envían naves y robots que viajan durante meses para tomar fotografías y recoger información valiosa.'
+      {t:'El Sol es una estrella enorme que se encuentra en el centro de nuestro sistema solar. Aunque desde la Tierra parece pequeño, en realidad es tan grande que cabrían más de un millón de planetas como el nuestro en su interior. El Sol produce luz y calor gracias a las reacciones que ocurren en su núcleo. Esa energía permite que exista la vida en la Tierra, pues gracias a ella las plantas crecen y el agua se mantiene líquida. La luz del Sol tarda unos ocho minutos en llegar hasta nosotros después de recorrer un largo camino por el espacio.',q:[Q('¿Cuánto tarda la luz del Sol en llegar a la Tierra?','Unos ocho minutos','Un segundo','Un día entero'),Q('¿Qué produce el Sol gracias a las reacciones de su núcleo?','Luz y calor','Lluvia','Viento')]},
+      {t:'La Luna es el único satélite natural de la Tierra y nuestro vecino más cercano en el espacio. No tiene luz propia: lo que vemos brillar es la luz del Sol reflejada en su superficie. A lo largo del mes, la Luna parece cambiar de forma, pasando por fases como la luna llena y la luna nueva. En su superficie hay montañas y grandes cráteres formados por el choque de rocas espaciales. La Luna también influye en el mar, porque su fuerza de gravedad provoca las mareas. En mil novecientos sesenta y nueve, los seres humanos caminaron sobre ella por primera vez.',q:[Q('¿Por qué brilla la Luna?','Refleja la luz del Sol','Tiene luz propia','Está hecha de fuego'),Q('¿Qué provoca en el mar la gravedad de la Luna?','Las mareas','La lluvia','El viento')]},
+      {t:'Los planetas del sistema solar giran alrededor del Sol siguiendo caminos llamados órbitas. Hay planetas rocosos, como la Tierra y Marte, y planetas gigantes formados por gases, como Júpiter y Saturno. Saturno es famoso por sus hermosos anillos, compuestos por hielo y polvo. Marte es conocido como el planeta rojo por el color de su suelo, y los científicos lo estudian para saber si alguna vez tuvo agua. Explorar el espacio nos ayuda a entender mejor nuestro propio planeta. Por eso se envían naves y robots que viajan durante meses para tomar fotografías y recoger información valiosa.',q:[Q('¿Por qué a Marte se le llama el planeta rojo?','Por el color de su suelo','Porque es el más caliente','Por tener anillos'),Q('¿Qué planeta es famoso por sus anillos?','Saturno','La Tierra','Mercurio')]}
     ]},
     {id:'deportes',em:'⚽',nm:'Deportes',texts:[
-      'El fútbol es uno de los deportes más populares del mundo y se juega en casi todos los países. Dos equipos de once jugadores intentan meter el balón en la portería contraria usando principalmente los pies. Para jugar bien no basta con correr rápido: también se necesita trabajo en equipo, concentración y respeto por las reglas. Practicar deporte ayuda a mantener el cuerpo sano, fortalece los músculos y mejora el ánimo. Además, enseña a ganar con humildad y a perder sin enojarse. Cada cuatro años se celebra la Copa del Mundo, un torneo que emociona a millones de personas en todo el planeta.',
-      'La natación es un deporte muy completo porque mueve casi todos los músculos del cuerpo. Nadar fortalece el corazón, mejora la respiración y ayuda a mantener una buena postura. Existen distintos estilos, como el crol, la espalda, la braza y la mariposa, cada uno con movimientos diferentes. Aprender a nadar es importante no solo para competir, sino también para estar seguros en el agua. Los buenos nadadores entrenan durante horas para mejorar su técnica y su velocidad. Antes de entrar a la piscina conviene hacer ejercicios de calentamiento, para evitar lesiones y disfrutar mejor de cada brazada.',
-      'El atletismo reúne muchas pruebas diferentes, como las carreras, los saltos y los lanzamientos. En las carreras cortas gana quien corre más rápido, mientras que en las largas es más importante resistir sin cansarse. Los saltos, como el salto largo y el salto alto, exigen fuerza y buena coordinación. Para lanzar la jabalina o el disco se necesita técnica y potencia en los brazos. El atletismo enseña que el esfuerzo constante da buenos resultados. Muchos deportistas se levantan temprano y entrenan cada día para superar sus propias marcas y llegar preparados a las competencias más importantes.'
+      {t:'El fútbol es uno de los deportes más populares del mundo y se juega en casi todos los países. Dos equipos de once jugadores intentan meter el balón en la portería contraria usando principalmente los pies. Para jugar bien no basta con correr rápido: también se necesita trabajo en equipo, concentración y respeto por las reglas. Practicar deporte ayuda a mantener el cuerpo sano, fortalece los músculos y mejora el ánimo. Además, enseña a ganar con humildad y a perder sin enojarse. Cada cuatro años se celebra la Copa del Mundo, un torneo que emociona a millones de personas en todo el planeta.',q:[Q('¿Con qué parte del cuerpo se juega principalmente al fútbol?','Los pies','Las manos','Solo la cabeza'),Q('¿Cada cuántos años se celebra la Copa del Mundo?','Cada cuatro años','Cada año','Cada diez años')]},
+      {t:'La natación es un deporte muy completo porque mueve casi todos los músculos del cuerpo. Nadar fortalece el corazón, mejora la respiración y ayuda a mantener una buena postura. Existen distintos estilos, como el crol, la espalda, la braza y la mariposa, cada uno con movimientos diferentes. Aprender a nadar es importante no solo para competir, sino también para estar seguros en el agua. Los buenos nadadores entrenan durante horas para mejorar su técnica y su velocidad. Antes de entrar a la piscina conviene hacer ejercicios de calentamiento, para evitar lesiones y disfrutar mejor de cada brazada.',q:[Q('¿Cuál de estos es un estilo de natación mencionado?','La mariposa','El galope','El trote'),Q('¿Qué conviene hacer antes de entrar a la piscina?','Ejercicios de calentamiento','Comer mucho','Correr una hora')]},
+      {t:'El atletismo reúne muchas pruebas diferentes, como las carreras, los saltos y los lanzamientos. En las carreras cortas gana quien corre más rápido, mientras que en las largas es más importante resistir sin cansarse. Los saltos, como el salto largo y el salto alto, exigen fuerza y buena coordinación. Para lanzar la jabalina o el disco se necesita técnica y potencia en los brazos. El atletismo enseña que el esfuerzo constante da buenos resultados. Muchos deportistas se levantan temprano y entrenan cada día para superar sus propias marcas y llegar preparados a las competencias más importantes.',q:[Q('¿Qué es más importante en las carreras largas?','Resistir sin cansarse','Saltar muy alto','Lanzar la jabalina'),Q('¿Qué se necesita para lanzar la jabalina?','Técnica y potencia','Solo suerte','Mucho peso corporal')]}
     ]},
     {id:'naturaleza',em:'🌳',nm:'Naturaleza',texts:[
-      'Los bosques son mucho más que un conjunto de árboles: son el hogar de miles de plantas y animales. Gracias a la fotosíntesis, los árboles producen el oxígeno que respiramos y ayudan a limpiar el aire. Sus raíces sostienen el suelo y evitan que la lluvia se lo lleve. Cuando cuidamos los bosques, protegemos también a las aves, los insectos y los mamíferos que viven en ellos. Por desgracia, los incendios y la tala descontrolada ponen en peligro estos lugares. Plantar árboles y no botar basura son pequeñas acciones que ayudan a conservar la naturaleza para las futuras generaciones.',
-      'El agua es uno de los recursos más valiosos del planeta y sin ella no existiría la vida. Aunque gran parte de la Tierra está cubierta de agua, solo una pequeña cantidad es dulce y puede beberse. Por eso es tan importante no desperdiciarla. El agua realiza un viaje constante llamado ciclo del agua: se evapora, forma nubes, cae como lluvia y regresa a los ríos y mares. Cerrar la llave mientras nos cepillamos los dientes o reparar las goteras son gestos sencillos que ayudan a cuidarla. Cada gota cuenta cuando se trata de proteger este recurso para todos.',
-      'El reciclaje es una manera sencilla de cuidar el medio ambiente. Consiste en aprovechar de nuevo materiales como el papel, el vidrio, el plástico y el metal, en lugar de botarlos a la basura. Al reciclar, ahorramos energía y reducimos la cantidad de desechos que contaminan la naturaleza. Para hacerlo bien, conviene separar los residuos en distintos contenedores según su tipo. Muchas cosas que parecen inservibles pueden transformarse en objetos nuevos y útiles. Si cada persona recicla un poco, entre todos logramos un gran cambio. Cuidar el planeta es una tarea que empieza en casa y en la escuela.'
+      {t:'Los bosques son mucho más que un conjunto de árboles: son el hogar de miles de plantas y animales. Gracias a la fotosíntesis, los árboles producen el oxígeno que respiramos y ayudan a limpiar el aire. Sus raíces sostienen el suelo y evitan que la lluvia se lo lleve. Cuando cuidamos los bosques, protegemos también a las aves, los insectos y los mamíferos que viven en ellos. Por desgracia, los incendios y la tala descontrolada ponen en peligro estos lugares. Plantar árboles y no botar basura son pequeñas acciones que ayudan a conservar la naturaleza para las futuras generaciones.',q:[Q('¿Qué producen los árboles mediante la fotosíntesis?','Oxígeno','Plástico','Metal'),Q('¿Qué pone en peligro a los bosques?','Los incendios y la tala','La lluvia suave','El viento')]},
+      {t:'El agua es uno de los recursos más valiosos del planeta y sin ella no existiría la vida. Aunque gran parte de la Tierra está cubierta de agua, solo una pequeña cantidad es dulce y puede beberse. Por eso es tan importante no desperdiciarla. El agua realiza un viaje constante llamado ciclo del agua: se evapora, forma nubes, cae como lluvia y regresa a los ríos y mares. Cerrar la llave mientras nos cepillamos los dientes o reparar las goteras son gestos sencillos que ayudan a cuidarla. Cada gota cuenta cuando se trata de proteger este recurso para todos.',q:[Q('¿Qué cantidad del agua de la Tierra es dulce y se puede beber?','Una pequeña cantidad','Toda el agua','La mitad'),Q('¿Cómo se llama el viaje constante del agua?','El ciclo del agua','La corriente','La marea')]},
+      {t:'El reciclaje es una manera sencilla de cuidar el medio ambiente. Consiste en aprovechar de nuevo materiales como el papel, el vidrio, el plástico y el metal, en lugar de botarlos a la basura. Al reciclar, ahorramos energía y reducimos la cantidad de desechos que contaminan la naturaleza. Para hacerlo bien, conviene separar los residuos en distintos contenedores según su tipo. Muchas cosas que parecen inservibles pueden transformarse en objetos nuevos y útiles. Si cada persona recicla un poco, entre todos logramos un gran cambio. Cuidar el planeta es una tarea que empieza en casa y en la escuela.',q:[Q('¿En qué consiste el reciclaje?','Aprovechar de nuevo los materiales','Botar todo a la basura','Quemar los desechos'),Q('¿Qué conviene hacer para reciclar bien?','Separar los residuos por tipo','Mezclarlo todo','Enterrar la basura')]}
     ]},
     {id:'inventos',em:'💡',nm:'Inventos',texts:[
-      'La rueda es uno de los inventos más importantes de la historia. Antes de su creación, trasladar objetos pesados era muy difícil y lento. Con la rueda, las personas pudieron construir carros para transportar alimentos, materiales y hasta a ellas mismas. Este invento cambió la forma de vivir y de comerciar entre los pueblos. Con el tiempo, la rueda se usó en molinos, relojes y máquinas de todo tipo. Hoy la encontramos en bicicletas, autos y trenes. Aunque parece algo simple, la rueda demuestra que las mejores ideas muchas veces son las que resuelven problemas cotidianos de manera ingeniosa.',
-      'La imprenta fue inventada hace muchos siglos y transformó el mundo para siempre. Antes de ella, los libros se copiaban a mano, uno por uno, en un trabajo lento que tardaba meses. Con la imprenta se podían hacer muchas copias en poco tiempo, así que los libros se volvieron más baratos y llegaron a más personas. Gracias a este invento, el conocimiento se difundió con rapidez y más gente aprendió a leer. La imprenta ayudó a que las ideas viajaran de un lugar a otro. Es un buen ejemplo de cómo la tecnología puede mejorar la educación de toda la sociedad.',
-      'El computador es una máquina capaz de guardar información y realizar cálculos a gran velocidad. Los primeros computadores eran enormes y ocupaban salas completas, pero con el tiempo se volvieron cada vez más pequeños y potentes. Hoy llevamos en el bolsillo teléfonos que son verdaderos computadores. Estas máquinas nos permiten estudiar, comunicarnos, crear dibujos y buscar información en internet. Sin embargo, es importante usarlas con responsabilidad y no pasar demasiadas horas frente a la pantalla. La tecnología es una gran herramienta cuando la usamos para aprender, crear y resolver problemas de manera segura.'
+      {t:'La rueda es uno de los inventos más importantes de la historia. Antes de su creación, trasladar objetos pesados era muy difícil y lento. Con la rueda, las personas pudieron construir carros para transportar alimentos, materiales y hasta a ellas mismas. Este invento cambió la forma de vivir y de comerciar entre los pueblos. Con el tiempo, la rueda se usó en molinos, relojes y máquinas de todo tipo. Hoy la encontramos en bicicletas, autos y trenes. Aunque parece algo simple, la rueda demuestra que las mejores ideas muchas veces son las que resuelven problemas cotidianos de manera ingeniosa.',q:[Q('¿Qué permitió construir la rueda?','Carros para transportar cosas','Aviones a reacción','Computadores'),Q('¿Dónde encontramos la rueda hoy?','En bicicletas, autos y trenes','Solo en relojes antiguos','En el fondo del mar')]},
+      {t:'La imprenta fue inventada hace muchos siglos y transformó el mundo para siempre. Antes de ella, los libros se copiaban a mano, uno por uno, en un trabajo lento que tardaba meses. Con la imprenta se podían hacer muchas copias en poco tiempo, así que los libros se volvieron más baratos y llegaron a más personas. Gracias a este invento, el conocimiento se difundió con rapidez y más gente aprendió a leer. La imprenta ayudó a que las ideas viajaran de un lugar a otro. Es un buen ejemplo de cómo la tecnología puede mejorar la educación de toda la sociedad.',q:[Q('¿Cómo se copiaban los libros antes de la imprenta?','A mano, uno por uno','Con máquinas eléctricas','No existían los libros'),Q('¿Qué logró la imprenta?','Difundir el conocimiento con rapidez','Encarecer los libros','Que nadie leyera')]},
+      {t:'El computador es una máquina capaz de guardar información y realizar cálculos a gran velocidad. Los primeros computadores eran enormes y ocupaban salas completas, pero con el tiempo se volvieron cada vez más pequeños y potentes. Hoy llevamos en el bolsillo teléfonos que son verdaderos computadores. Estas máquinas nos permiten estudiar, comunicarnos, crear dibujos y buscar información en internet. Sin embargo, es importante usarlas con responsabilidad y no pasar demasiadas horas frente a la pantalla. La tecnología es una gran herramienta cuando la usamos para aprender, crear y resolver problemas de manera segura.',q:[Q('¿Cómo eran los primeros computadores?','Enormes, ocupaban salas completas','Muy pequeños','De juguete'),Q('¿Qué recomienda el texto sobre la tecnología?','Usarla con responsabilidad','Usarla todo el día','No usarla jamás')]}
     ]},
     {id:'cuerpo',em:'🫀',nm:'Cuerpo humano',texts:[
-      'El corazón es un músculo del tamaño de un puño que trabaja sin descanso durante toda la vida. Su función es bombear la sangre para que llegue a cada parte del cuerpo llevando oxígeno y alimento. Late alrededor de setenta veces por minuto cuando estamos en reposo, y más rápido cuando corremos o hacemos ejercicio. La sangre viaja por unos tubos llamados venas y arterias, formando un largo camino dentro de nosotros. Cuidar el corazón es muy importante: para ello conviene comer sano, moverse cada día y descansar bien. Un corazón fuerte nos da energía para jugar y estudiar.',
-      'El cerebro es el centro de control de todo el cuerpo. Desde allí se dirigen los movimientos, los pensamientos, los recuerdos y las emociones. Aunque pesa poco más de un kilo, realiza miles de tareas al mismo tiempo sin que nos demos cuenta. El cerebro se comunica con el resto del cuerpo a través de los nervios, enviando y recibiendo mensajes a gran velocidad. Cada vez que aprendemos algo nuevo, se forman conexiones dentro de él. Por eso leer, jugar y resolver problemas lo mantienen en forma. Dormir bien también es fundamental, pues durante el sueño el cerebro ordena lo aprendido.',
-      'Los huesos forman el esqueleto, la estructura que sostiene nuestro cuerpo y nos permite ponernos de pie. Un ser humano adulto tiene doscientos seis huesos de distintos tamaños y formas. Además de darnos soporte, los huesos protegen órganos importantes: el cráneo cuida el cerebro y las costillas protegen el corazón y los pulmones. Los huesos son fuertes, pero pueden romperse con un golpe muy grande. Para mantenerlos sanos conviene alimentarse bien, tomar sol con moderación y hacer ejercicio. Dentro de algunos huesos se fabrica la sangre. Así, el esqueleto también cumple funciones vitales para todo el organismo.'
+      {t:'El corazón es un músculo del tamaño de un puño que trabaja sin descanso durante toda la vida. Su función es bombear la sangre para que llegue a cada parte del cuerpo llevando oxígeno y alimento. Late alrededor de setenta veces por minuto cuando estamos en reposo, y más rápido cuando corremos o hacemos ejercicio. La sangre viaja por unos tubos llamados venas y arterias, formando un largo camino dentro de nosotros. Cuidar el corazón es muy importante: para ello conviene comer sano, moverse cada día y descansar bien. Un corazón fuerte nos da energía para jugar y estudiar.',q:[Q('¿Cuál es la función del corazón?','Bombear la sangre','Pensar','Digerir la comida'),Q('¿Cuántas veces late en reposo, aproximadamente?','Setenta veces por minuto','Diez veces por minuto','Mil veces por minuto')]},
+      {t:'El cerebro es el centro de control de todo el cuerpo. Desde allí se dirigen los movimientos, los pensamientos, los recuerdos y las emociones. Aunque pesa poco más de un kilo, realiza miles de tareas al mismo tiempo sin que nos demos cuenta. El cerebro se comunica con el resto del cuerpo a través de los nervios, enviando y recibiendo mensajes a gran velocidad. Cada vez que aprendemos algo nuevo, se forman conexiones dentro de él. Por eso leer, jugar y resolver problemas lo mantienen en forma. Dormir bien también es fundamental, pues durante el sueño el cerebro ordena lo aprendido.',q:[Q('¿Qué es el cerebro para el cuerpo?','El centro de control','Un músculo del brazo','Un hueso más'),Q('¿Qué ayuda al cerebro a ordenar lo aprendido?','Dormir bien','No dormir nunca','Comer dulces')]},
+      {t:'Los huesos forman el esqueleto, la estructura que sostiene nuestro cuerpo y nos permite ponernos de pie. Un ser humano adulto tiene doscientos seis huesos de distintos tamaños y formas. Además de darnos soporte, los huesos protegen órganos importantes: el cráneo cuida el cerebro y las costillas protegen el corazón y los pulmones. Los huesos son fuertes, pero pueden romperse con un golpe muy grande. Para mantenerlos sanos conviene alimentarse bien, tomar sol con moderación y hacer ejercicio. Dentro de algunos huesos se fabrica la sangre. Así, el esqueleto también cumple funciones vitales para todo el organismo.',q:[Q('¿Cuántos huesos tiene un ser humano adulto?','Doscientos seis','Cien','Mil'),Q('¿Qué órgano protege el cráneo?','El cerebro','El estómago','Los riñones')]}
     ]},
     {id:'historia',em:'🏛️',nm:'Historia',texts:[
-      'Los antiguos egipcios construyeron enormes pirámides que aún hoy nos sorprenden. Estas obras servían como tumbas para los faraones, sus reyes más importantes. Para levantarlas, miles de personas trabajaron durante muchos años moviendo bloques de piedra gigantes sin las máquinas que existen ahora. Los egipcios también inventaron una escritura hecha con dibujos llamados jeroglíficos y desarrollaron conocimientos de matemáticas y astronomía. Vivían junto al río Nilo, cuyas aguas les permitían cultivar la tierra. Gracias a los objetos y monumentos que dejaron, hoy podemos estudiar cómo era su vida hace miles de años.',
-      'Los mapuche son uno de los pueblos originarios más importantes de Chile. Durante siglos han habitado el sur del país, manteniendo vivas sus tradiciones, su idioma y su relación con la naturaleza. El mapudungun es su lengua, y muchas palabras que usamos hoy provienen de ella. Los mapuche valoran profundamente la tierra, a la que llaman ñuke mapu, es decir, madre tierra. Se destacan por su artesanía, sus tejidos y su platería. Conocer la cultura mapuche nos ayuda a valorar la riqueza de nuestros pueblos originarios y a respetar las distintas formas de ver el mundo.',
-      'Hace mucho tiempo, los seres humanos descubrieron cómo hacer fuego, y ese hallazgo cambió su vida por completo. El fuego les permitió cocinar los alimentos, abrigarse durante las noches frías y protegerse de los animales salvajes. También los ayudó a reunirse alrededor de la hoguera para compartir historias. Poco a poco, aquellas personas aprendieron a cultivar la tierra y a criar animales, dejando de moverse constantemente de un lugar a otro. Así nacieron las primeras aldeas. Estudiar el pasado nos permite entender cómo llegamos a vivir como lo hacemos hoy y valorar los avances que otros lograron.'
+      {t:'Los antiguos egipcios construyeron enormes pirámides que aún hoy nos sorprenden. Estas obras servían como tumbas para los faraones, sus reyes más importantes. Para levantarlas, miles de personas trabajaron durante muchos años moviendo bloques de piedra gigantes sin las máquinas que existen ahora. Los egipcios también inventaron una escritura hecha con dibujos llamados jeroglíficos y desarrollaron conocimientos de matemáticas y astronomía. Vivían junto al río Nilo, cuyas aguas les permitían cultivar la tierra. Gracias a los objetos y monumentos que dejaron, hoy podemos estudiar cómo era su vida hace miles de años.',q:[Q('¿Para qué servían las pirámides?','Como tumbas de los faraones','Como escuelas','Como mercados'),Q('¿Cómo se llamaba la escritura con dibujos de los egipcios?','Jeroglíficos','Alfabeto latino','Números romanos')]},
+      {t:'Los mapuche son uno de los pueblos originarios más importantes de Chile. Durante siglos han habitado el sur del país, manteniendo vivas sus tradiciones, su idioma y su relación con la naturaleza. El mapudungun es su lengua, y muchas palabras que usamos hoy provienen de ella. Los mapuche valoran profundamente la tierra, a la que llaman ñuke mapu, es decir, madre tierra. Se destacan por su artesanía, sus tejidos y su platería. Conocer la cultura mapuche nos ayuda a valorar la riqueza de nuestros pueblos originarios y a respetar las distintas formas de ver el mundo.',q:[Q('¿Cómo se llama la lengua de los mapuche?','Mapudungun','Quechua','Guaraní'),Q('¿Qué significa ñuke mapu?','Madre tierra','Gran río','Sol brillante')]},
+      {t:'Hace mucho tiempo, los seres humanos descubrieron cómo hacer fuego, y ese hallazgo cambió su vida por completo. El fuego les permitió cocinar los alimentos, abrigarse durante las noches frías y protegerse de los animales salvajes. También los ayudó a reunirse alrededor de la hoguera para compartir historias. Poco a poco, aquellas personas aprendieron a cultivar la tierra y a criar animales, dejando de moverse constantemente de un lugar a otro. Así nacieron las primeras aldeas. Estudiar el pasado nos permite entender cómo llegamos a vivir como lo hacemos hoy y valorar los avances que otros lograron.',q:[Q('¿Qué permitió el descubrimiento del fuego?','Cocinar y abrigarse','Volar por el cielo','Respirar bajo el agua'),Q('¿Qué nació cuando aprendieron a cultivar la tierra?','Las primeras aldeas','Los primeros autos','Las grandes ciudades modernas')]}
     ]},
     {id:'cuentos',em:'📖',nm:'Cuentos',texts:[
-      'En un pueblo rodeado de montañas vivía una niña llamada Sara, famosa por su curiosidad. Un día encontró en el bosque una puerta pequeña escondida entre las raíces de un árbol muy antiguo. Con cuidado, la abrió y descubrió un túnel iluminado por luces de colores. Sara avanzó despacio, sintiendo el corazón latir con fuerza. Al final del camino la esperaba un jardín donde las flores cantaban suaves melodías. Allí comprendió que la aventura más grande empieza cuando uno se atreve a explorar lo desconocido. Desde entonces, cada tarde regresaba al bosque para descubrir un nuevo secreto.',
-      'Tomás era un niño al que le costaba mucho quedarse quieto. Una noche, mientras miraba las estrellas desde su ventana, imaginó que viajaba en un barco hecho de nubes. El viento lo llevó sobre océanos brillantes y ciudades dormidas. En su viaje conoció a un viejo capitán que le enseñó a leer el cielo para no perder el rumbo. Cuando despertó, Tomás sintió que algo había cambiado dentro de él. Aquel sueño le recordó que la imaginación es un tesoro que nos permite viajar sin movernos del lugar. Desde ese día, disfrutaba inventando historias para sus amigos.',
-      'En lo alto de una colina vivía un dragón que, a diferencia de los demás, no quería asustar a nadie. Le gustaba pintar paisajes y cuidar un pequeño huerto de flores. Los habitantes del pueblo, sin embargo, le temían por su tamaño y sus enormes alas. Un día, un incendio amenazó los campos, y fue el dragón quien, con su aliento, apagó las llamas soplando con fuerza. Desde entonces, todos comprendieron que no hay que juzgar a alguien por su apariencia. El dragón se convirtió en un amigo querido, y cada primavera regalaba flores a los niños del lugar.'
+      {t:'En un pueblo rodeado de montañas vivía una niña llamada Sara, famosa por su curiosidad. Un día encontró en el bosque una puerta pequeña escondida entre las raíces de un árbol muy antiguo. Con cuidado, la abrió y descubrió un túnel iluminado por luces de colores. Sara avanzó despacio, sintiendo el corazón latir con fuerza. Al final del camino la esperaba un jardín donde las flores cantaban suaves melodías. Allí comprendió que la aventura más grande empieza cuando uno se atreve a explorar lo desconocido. Desde entonces, cada tarde regresaba al bosque para descubrir un nuevo secreto.',q:[Q('¿Qué encontró Sara en el bosque?','Una puerta pequeña entre las raíces','Un cofre de oro','Un río escondido'),Q('¿Qué había al final del túnel?','Un jardín con flores que cantaban','Una cueva oscura','Un castillo vacío')]},
+      {t:'Tomás era un niño al que le costaba mucho quedarse quieto. Una noche, mientras miraba las estrellas desde su ventana, imaginó que viajaba en un barco hecho de nubes. El viento lo llevó sobre océanos brillantes y ciudades dormidas. En su viaje conoció a un viejo capitán que le enseñó a leer el cielo para no perder el rumbo. Cuando despertó, Tomás sintió que algo había cambiado dentro de él. Aquel sueño le recordó que la imaginación es un tesoro que nos permite viajar sin movernos del lugar. Desde ese día, disfrutaba inventando historias para sus amigos.',q:[Q('¿En qué viajó Tomás en su imaginación?','Un barco hecho de nubes','Un cohete espacial','Un tren de vapor'),Q('¿Qué le enseñó el viejo capitán?','A leer el cielo para no perder el rumbo','A nadar en el mar','A cocinar pescado')]},
+      {t:'En lo alto de una colina vivía un dragón que, a diferencia de los demás, no quería asustar a nadie. Le gustaba pintar paisajes y cuidar un pequeño huerto de flores. Los habitantes del pueblo, sin embargo, le temían por su tamaño y sus enormes alas. Un día, un incendio amenazó los campos, y fue el dragón quien, con su aliento, apagó las llamas soplando con fuerza. Desde entonces, todos comprendieron que no hay que juzgar a alguien por su apariencia. El dragón se convirtió en un amigo querido, y cada primavera regalaba flores a los niños del lugar.',q:[Q('¿Qué le gustaba hacer al dragón?','Pintar paisajes y cuidar flores','Asustar a la gente','Dormir todo el día'),Q('¿Cómo apagó el dragón el incendio?','Soplando con su aliento','Con baldes de agua','Con mucha arena')]}
     ]}
   ];
 
-  // Baraja de textos por tema: no repite hasta agotar el tema
-  function shuffleIdx(n){var a=[];for(var i=0;i<n;i++)a.push(i);for(var j=a.length-1;j>0;j--){var k=rnd(0,j),t=a[j];a[j]=a[k];a[k]=t;}return a;}
-  function drawWords(topic,target){
-    var key='bag_'+topic.id, bag=store.get(key)||[], text='', guard=0;
-    var words=[];
-    while(words.length<target && guard++<40){
-      if(!bag.length) bag=shuffleIdx(topic.texts.length);
-      var idx=bag.shift();
-      words=words.concat(topic.texts[idx].split(/\s+/));
-    }
-    store.set(key,bag);
-    return words.slice(0,target);
+  function shuffleIdx(n){var a=[];for(var i=0;i<n;i++)a.push(i);return shuffle(a);}
+  function drawText(topic){
+    var key='bag_'+topic.id, bag=store.get(key)||[];
+    if(!bag.length) bag=shuffleIdx(topic.texts.length);
+    var idx=bag.shift(); store.set(key,bag);
+    return topic.texts[idx];
   }
 
-  // ===== ESTADO =====
-  var SET={wpm:store.get('wpm')||200, topic:store.get('topic')||'animales', mode:store.get('mode')||'guiado', minutes:store.get('minutes')||1};
+  var SET={wpm:store.get('wpm')||200, topic:store.get('topic')||'animales', mode:store.get('mode')||'guiado'};
   var S=null;
+
+  // ===== BIENVENIDA =====
+  function screenWelcome(){
+    var recent=students(), pre=CURRENT?getAvatar(CURRENT):null;
+    var selEmoji=(pre&&pre.emoji)||AV_EMOJIS[0], selColor=(pre&&pre.color)||AV_COLORS[0];
+    main.innerHTML='<section class="screen"><div class="card welcome">'+
+      '<div class="hero">📖✨</div><h2>¡Bienvenido a la lectura!</h2>'+
+      '<div class="creator"><span class="creator-label">Creado por</span><span class="creator-name">Profesora Aylen Pereira</span></div>'+
+      '<p class="sub" style="margin:14px auto 0;max-width:42ch">Escribe tu nombre y crea tu avatar para guardar tu progreso.</p>'+
+      '<div class="name-form">'+
+        '<div class="av-preview" id="avPrev" style="background:'+selColor+'">'+selEmoji+'</div>'+
+        '<input class="name-input" id="nameIn" maxlength="20" placeholder="Escribe tu nombre" autocomplete="off">'+
+        '<div class="av-picker"><div class="pl">Elige tu personaje</div><div class="av-grid" id="avGrid">'+AV_EMOJIS.map(function(e){return '<button type="button" class="av-opt'+(e===selEmoji?' sel':'')+'" data-emoji="'+e+'">'+e+'</button>';}).join('')+'</div>'+
+        '<div class="pl" style="margin-top:14px">Elige un color</div><div class="av-colors" id="avColors">'+AV_COLORS.map(function(c){return '<button type="button" class="av-color'+(c===selColor?' sel':'')+'" data-color="'+c+'" style="background:'+c+'" aria-label="color"></button>';}).join('')+'</div></div>'+
+        '<button class="start" id="startBtn" style="margin-top:16px">Comenzar ›</button>'+
+      '</div>'+
+      (recent.length?'<div class="recent"><span class="sub" style="width:100%;margin:16px 0 0;font-size:.8rem">O continúa como:</span>'+recent.map(function(n){var col=avatarColor(n);return '<button class="r" data-name="'+esc(n)+'"><span style="display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;color:#fff;font-size:.7rem;vertical-align:middle;margin-right:5px;background:'+(col||'var(--accent)')+'">'+avatarEmoji(n)+'</span>'+esc(n)+'</button>';}).join('')+'</div>':'')+
+    '</div></section>';
+    var input=document.getElementById('nameIn'); if(CURRENT)input.value=CURRENT;
+    var prev=document.getElementById('avPrev');
+    function refresh(){prev.textContent=selEmoji;prev.style.background=selColor;}
+    Array.prototype.forEach.call(main.querySelectorAll('#avGrid .av-opt'),function(b){b.addEventListener('click',function(){selEmoji=b.getAttribute('data-emoji');Array.prototype.forEach.call(main.querySelectorAll('#avGrid .av-opt'),function(x){x.classList.toggle('sel',x===b);});refresh();});});
+    Array.prototype.forEach.call(main.querySelectorAll('#avColors .av-color'),function(b){b.addEventListener('click',function(){selColor=b.getAttribute('data-color');Array.prototype.forEach.call(main.querySelectorAll('#avColors .av-color'),function(x){x.classList.toggle('sel',x===b);});refresh();});});
+    function go(){if(input.value.trim()){setStudent(input.value,{emoji:selEmoji,color:selColor});screenSetup();}else input.focus();}
+    document.getElementById('startBtn').addEventListener('click',go);
+    input.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+    Array.prototype.forEach.call(main.querySelectorAll('.recent .r'),function(b){b.addEventListener('click',function(){setStudent(b.getAttribute('data-name'));screenSetup();});});
+    if(window.matchMedia('(pointer:fine)').matches) input.focus();
+  }
 
   // ===== SETUP =====
   function screenSetup(){
+    var p=getProg();
     main.innerHTML='<section class="screen">'+
-      '<p class="eyebrow">Velocidad lectora</p>'+
-      '<h2 class="lead">Practica tu lectura</h2>'+
-      '<p class="sub">Elige tu velocidad, un tema de tu interés y comienza. Los textos son siempre distintos.</p>'+
+      '<div class="card prog-line"><span class="av" style="background:'+(avatarColor(CURRENT)||'')+'">'+avatarEmoji(CURRENT)+'</span><div class="pt"><b>Hola, '+esc(CURRENT)+' 👋</b><span>'+(p.sessions>0?('Mejor velocidad: '+p.bestWpm+' ppm · Mejor comprensión: '+p.bestComp+'% · '+p.sessions+' lecturas'):'¡Comienza tu primera lectura!')+'</span></div></div>'+
+      '<p class="eyebrow">Velocidad lectora</p><h2 class="lead">Practica tu lectura</h2>'+
+      '<p class="sub">Elige tu velocidad y un tema. Cada texto es distinto y al final hay preguntas para ver si entendiste.</p>'+
       '<div class="setup-block"><div class="h"><span class="n">1</span>Velocidad (palabras por minuto)</div><div class="chips" id="lvls">'+
         LEVELS.map(function(l){return '<button class="chip'+(l.wpm===SET.wpm?' sel':'')+'" data-wpm="'+l.wpm+'">'+l.wpm+' ppm<small>'+l.name+'</small></button>';}).join('')+'</div></div>'+
       '<div class="setup-block"><div class="h"><span class="n">2</span>Tema para leer</div><div class="topics" id="tps">'+
@@ -220,47 +297,28 @@
         '<button class="chip'+(SET.mode==='guiado'?' sel':'')+'" data-mode="guiado">📃 Texto guiado<small>sigue la palabra resaltada</small></button>'+
         '<button class="chip'+(SET.mode==='rsvp'?' sel':'')+'" data-mode="rsvp">🎯 Palabra a palabra<small>una al centro</small></button>'+
       '</div></div>'+
-      '<div class="setup-block"><div class="h"><span class="n">4</span>Duración</div><div class="chips" id="durs">'+
-        DURATIONS.map(function(d){return '<button class="chip'+(d===SET.minutes?' sel':'')+'" data-min="'+d+'">'+d+' min</button>';}).join('')+'</div></div>'+
       '<button class="start" id="startBtn">▶️ Comenzar lectura</button>'+
-      '<div class="creator" style="margin-top:22px"><span class="creator-label">Creado por</span><span class="creator-name">Profesora Aylen Pereira</span></div>'+
     '</section>';
     bindSel('#lvls .chip','data-wpm',function(v){SET.wpm=parseInt(v,10);store.set('wpm',SET.wpm);});
     bindSel('#tps .topic','data-topic',function(v){SET.topic=v;store.set('topic',v);});
     bindSel('#modes .chip','data-mode',function(v){SET.mode=v;store.set('mode',v);});
-    bindSel('#durs .chip','data-min',function(v){SET.minutes=parseInt(v,10);store.set('minutes',SET.minutes);});
     document.getElementById('startBtn').addEventListener('click',startReading);
   }
-  function bindSel(sel,attr,fn){
-    Array.prototype.forEach.call(main.querySelectorAll(sel),function(b){
-      b.addEventListener('click',function(){
-        Array.prototype.forEach.call(main.querySelectorAll(sel),function(x){x.classList.remove('sel');});
-        b.classList.add('sel'); fn(b.getAttribute(attr));
-      });
-    });
-  }
+  function bindSel(sel,attr,fn){Array.prototype.forEach.call(main.querySelectorAll(sel),function(b){b.addEventListener('click',function(){Array.prototype.forEach.call(main.querySelectorAll(sel),function(x){x.classList.remove('sel');});b.classList.add('sel');fn(b.getAttribute(attr));});});}
 
   // ===== LECTURA =====
   function startReading(){
     var topic=TOPICS.filter(function(t){return t.id===SET.topic;})[0];
-    var target=SET.wpm*SET.minutes;
-    var words=drawWords(topic,target);
-    S={wpm:SET.wpm,mode:SET.mode,minutes:SET.minutes,topic:topic,words:words,index:0,wordTimer:null,clockTimer:null,startMs:0,pausedMs:0,pauseStart:0,paused:false};
-    renderReader();
-    countdownThenStart();
+    var passage=drawText(topic);
+    S={wpm:SET.wpm,mode:SET.mode,topic:topic,passage:passage,words:passage.t.split(/\s+/),index:0,wordTimer:null,clockTimer:null,startMs:0,pausedMs:0,pauseStart:0,paused:false,readElapsed:0,qi:0,correct:0};
+    renderReader(); countdownThenStart();
   }
-
   function renderReader(){
-    var body = S.mode==='rsvp'
+    var body=S.mode==='rsvp'
       ? '<div class="rsvp"><div><div class="guide"></div><div class="word" id="rsvpWord">…</div></div></div>'
-      : '<div class="read-text" id="readText">'+S.words.map(function(w,i){return '<span class="w" data-i="'+i+'">'+escapeHtml(w)+'</span>';}).join(' ')+'</div>';
+      : '<div class="read-text" id="readText">'+S.words.map(function(w,i){return '<span class="w" data-i="'+i+'">'+esc(w)+'</span>';}).join(' ')+'</div>';
     main.innerHTML='<section class="screen">'+
-      '<div class="read-head">'+
-        '<button class="back" id="quitBtn">‹ Salir</button>'+
-        '<span class="pill">'+S.topic.em+' '+S.topic.nm+'</span>'+
-        '<span class="pill">⏱️ <b id="clock">0:00</b></span>'+
-        '<span class="pill"><b id="wcount">0</b> / '+S.words.length+' palabras</span>'+
-      '</div>'+
+      '<div class="read-head"><button class="back" id="quitBtn">‹ Salir</button><span class="pill">'+S.topic.em+' '+S.topic.nm+'</span><span class="pill">⏱️ <b id="clock">0:00</b></span><span class="pill"><b id="wcount">0</b> / '+S.words.length+'</span></div>'+
       '<div class="progress"><i id="pbar"></i></div>'+
       '<div class="card reader">'+body+'<div class="countdown" id="cd"><div class="c" id="cdNum">3</div></div></div>'+
       '<div class="controls"><button class="btn" id="pauseBtn">⏸️ Pausar</button></div>'+
@@ -269,72 +327,80 @@
     document.getElementById('quitBtn').addEventListener('click',function(){stopTimers();screenSetup();});
     document.getElementById('pauseBtn').addEventListener('click',togglePause);
   }
-
   function countdownThenStart(){
-    var cd=document.getElementById('cd'), num=document.getElementById('cdNum'), n=3;
-    num.textContent=n;
-    var iv=setInterval(function(){
-      n--;
-      if(n>0){num.textContent=n;num.style.animation='none';void num.offsetWidth;num.style.animation='';}
-      else if(n===0){num.textContent='¡Ya!';}
-      else{clearInterval(iv);cd.classList.add('hidden');beginPacer();}
-    },700);
+    var cd=document.getElementById('cd'), num=document.getElementById('cdNum'), n=3; num.textContent=n;
+    var iv=setInterval(function(){n--;if(n>0){num.textContent=n;num.style.animation='none';void num.offsetWidth;num.style.animation='';}else if(n===0){num.textContent='¡Ya!';}else{clearInterval(iv);cd.classList.add('hidden');beginPacer();}},700);
   }
-
   function beginPacer(){
-    S.startMs=Date.now(); S.pausedMs=0; S.index=0; S.paused=false;
+    S.startMs=Date.now();S.pausedMs=0;S.index=0;S.paused=false;
     var interval=Math.max(50,Math.round(60000/S.wpm));
-    step();
-    S.wordTimer=setInterval(step,interval);
-    S.clockTimer=setInterval(updateClock,150);
+    step(); S.wordTimer=setInterval(step,interval); S.clockTimer=setInterval(updateClock,150);
   }
   function step(){
     if(S.paused)return;
     if(S.index>=S.words.length){finishReading();return;}
-    showWord(S.index);
-    S.index++;
+    showWord(S.index); S.index++;
     document.getElementById('wcount').textContent=S.index;
     document.getElementById('pbar').style.width=(S.index/S.words.length*100)+'%';
   }
   function showWord(i){
-    if(S.mode==='rsvp'){ document.getElementById('rsvpWord').textContent=S.words[i]; return; }
+    if(S.mode==='rsvp'){document.getElementById('rsvpWord').textContent=S.words[i];return;}
     var cont=document.getElementById('readText');
     var prev=cont.querySelector('.w.now'); if(prev){prev.classList.remove('now');prev.classList.add('done');}
-    var cur=cont.querySelector('.w[data-i="'+i+'"]');
-    if(cur){cur.classList.add('now'); cur.scrollIntoView({block:'center'});}
+    var cur=cont.querySelector('.w[data-i="'+i+'"]'); if(cur){cur.classList.add('now');cur.scrollIntoView({block:'center'});}
   }
-  function updateClock(){
-    var ms=Date.now()-S.startMs-S.pausedMs; if(ms<0)ms=0;
-    var s=Math.floor(ms/1000);
-    document.getElementById('clock').textContent=Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);
-  }
+  function updateClock(){var ms=Date.now()-S.startMs-S.pausedMs;if(ms<0)ms=0;var s=Math.floor(ms/1000);document.getElementById('clock').textContent=Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
   function togglePause(){
     var btn=document.getElementById('pauseBtn');
-    if(!S.paused){ S.paused=true; S.pauseStart=Date.now(); clearInterval(S.wordTimer); clearInterval(S.clockTimer); btn.textContent='▶️ Reanudar'; }
-    else{ S.paused=false; S.pausedMs+=Date.now()-S.pauseStart; var interval=Math.max(50,Math.round(60000/S.wpm)); S.wordTimer=setInterval(step,interval); S.clockTimer=setInterval(updateClock,150); btn.textContent='⏸️ Pausar'; }
+    if(!S.paused){S.paused=true;S.pauseStart=Date.now();clearInterval(S.wordTimer);clearInterval(S.clockTimer);btn.textContent='▶️ Reanudar';}
+    else{S.paused=false;S.pausedMs+=Date.now()-S.pauseStart;var interval=Math.max(50,Math.round(60000/S.wpm));S.wordTimer=setInterval(step,interval);S.clockTimer=setInterval(updateClock,150);btn.textContent='⏸️ Pausar';}
   }
-  function stopTimers(){ if(S){clearInterval(S.wordTimer);clearInterval(S.clockTimer);} }
-
+  function stopTimers(){if(S){clearInterval(S.wordTimer);clearInterval(S.clockTimer);}}
   function finishReading(){
     stopTimers();
-    var elapsed=(Date.now()-S.startMs-S.pausedMs)/1000; if(elapsed<1)elapsed=1;
-    var read=S.words.length;
-    var ppm=Math.round(read/(elapsed/60));
-    var best=store.get('bestWpm')||0; var record=S.wpm>best; if(record)store.set('bestWpm',S.wpm);
-    var em,msg;
-    if(S.wpm>=250){em='🏆';msg='¡Impresionante! Estás leyendo a gran velocidad. Prueba mantener el ritmo entendiendo lo que lees.';}
-    else if(S.wpm>=200){em='🥇';msg='¡Muy bien! Vas a buena velocidad. Cuando te sientas cómodo, sube al siguiente nivel.';}
-    else{em='🌟';msg='¡Buen trabajo! Practica seguido y tu velocidad irá aumentando poco a poco.';}
+    S.readElapsed=(Date.now()-S.startMs-S.pausedMs)/1000; if(S.readElapsed<1)S.readElapsed=1;
+    S.qi=0; S.correct=0;
+    screenComprehension();
+  }
+
+  // ===== COMPRENSIÓN =====
+  function screenComprehension(){
+    var qs=S.passage.q, q=qs[S.qi];
+    var opts=shuffle(q.opts.slice()), correct=q.opts[0];
+    main.innerHTML='<section class="screen">'+
+      '<div class="progress"><i style="width:'+(S.qi/qs.length*100)+'%"></i></div>'+
+      '<div class="card comp"><div class="qn">Comprensión · pregunta '+(S.qi+1)+' de '+qs.length+'</div>'+
+      '<div class="qt">'+esc(q.q)+'</div>'+
+      '<div class="copts" id="copts">'+opts.map(function(o){return '<button class="copt" data-opt="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div></div>'+
+    '</section>';
+    Array.prototype.forEach.call(main.querySelectorAll('#copts .copt'),function(b){
+      b.addEventListener('click',function(){
+        var chosen=b.getAttribute('data-opt'), ok=(chosen===correct);
+        if(ok)S.correct++;
+        b.classList.add(ok?'good':'bad');
+        Array.prototype.forEach.call(main.querySelectorAll('#copts .copt'),function(x){x.disabled=true;if(!ok&&x.getAttribute('data-opt')===correct)x.classList.add('good');});
+        setTimeout(function(){S.qi++; if(S.qi>=qs.length)screenResult(); else screenComprehension();}, ok?750:1400);
+      });
+    });
+  }
+
+  // ===== RESULTADO =====
+  function screenResult(){
+    var ppm=Math.round(S.words.length/(S.readElapsed/60));
+    var total=S.passage.q.length, comp=Math.round(S.correct/total*100);
+    var prog=getProg();
+    prog.sessions++; prog.bestWpm=Math.max(prog.bestWpm,S.wpm); prog.bestComp=Math.max(prog.bestComp,comp);
+    store.set('prog_'+keyify(CURRENT),prog);
+    var em,h,msg;
+    if(comp>=100){em='🏆';h='¡Excelente!';msg='Leíste rápido y entendiste todo. ¡Ese es el objetivo! Prueba subir de velocidad.';}
+    else if(comp>=50){em='🥇';h='¡Muy bien!';msg='Buena lectura. Recuerda que entender es tan importante como la velocidad.';}
+    else{em='🌱';h='¡A seguir practicando!';msg='La próxima vez intenta leer con un poco más de calma para comprender mejor.';}
     main.innerHTML='<section class="screen"><div class="card result">'+
-      '<div class="em">'+em+'</div>'+
-      '<div class="big-num">'+read+' <span>palabras</span></div>'+
-      '<h2>¡Lectura completada!</h2>'+
-      (record?'<p class="msg" style="color:var(--accent-deep);font-weight:700">✨ ¡Nuevo récord de velocidad: '+S.wpm+' ppm!</p>':'')+
-      '<p class="msg">'+msg+'</p>'+
+      '<div class="em">'+em+'</div><h2>'+h+'</h2><p class="msg">'+msg+'</p>'+
       '<div class="stat-row">'+
-        '<div class="stat"><b>'+S.wpm+'</b><span>Nivel (ppm)</span></div>'+
-        '<div class="stat"><b>'+Math.round(elapsed)+'s</b><span>Tiempo</span></div>'+
-        '<div class="stat"><b>'+ppm+'</b><span>Tu ritmo real</span></div>'+
+        '<div class="stat"><b>'+ppm+'</b><span>Tu ritmo (ppm)</span></div>'+
+        '<div class="stat"><b>'+S.correct+'/'+total+'</b><span>Comprensión</span></div>'+
+        '<div class="stat"><b>'+Math.round(S.readElapsed)+'s</b><span>Tiempo</span></div>'+
       '</div>'+
       '<div class="btn-row"><button class="btn" id="again">Leer otro texto</button><button class="btn ghost" id="menu">Cambiar tema o nivel</button></div>'+
     '</div></section>';
@@ -342,15 +408,14 @@
     document.getElementById('menu').addEventListener('click',screenSetup);
   }
 
-  function escapeHtml(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
   // ===== TEMA =====
   var themeBtn=document.getElementById('themeBtn');
   function applyTheme(t){if(t)document.documentElement.setAttribute('data-theme',t);var dark=t?t==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;themeBtn.textContent=dark?'☀️':'🌙';}
   applyTheme(store.get('theme')||null);
   themeBtn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme');var isDark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;var nx=isDark?'light':'dark';applyTheme(nx);store.set('theme',nx);});
 
-  screenSetup();
+  updateStudentUI();
+  if(CURRENT) screenSetup(); else screenWelcome();
 })();
 </script>
 
