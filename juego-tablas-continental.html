@@ -38,7 +38,7 @@
   .student-pill{display:inline-flex; align-items:center; gap:7px; max-width:46vw; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:999px; padding:8px 13px; cursor:pointer; font-weight:700; font-size:.86rem; transition:.2s}
   .student-pill:hover{border-color:var(--accent)}
   .student-pill b{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-  .student-pill .av{width:24px; height:24px; border-radius:50%; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); display:grid; place-items:center; font-size:.95rem; flex:none}
+  .student-pill .av{width:22px; height:22px; border-radius:50%; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); display:grid; place-items:center; font-size:.72rem; flex:none}
   .theme-btn{flex:none; width:42px; height:42px; border-radius:12px; cursor:pointer; background:var(--surface); border:1px solid var(--border); color:var(--ink); font-size:1.12rem; display:grid; place-items:center; transition:.2s}
   .theme-btn:hover{border-color:var(--border-strong)}
 
@@ -153,16 +153,6 @@
   .key:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
   .key.del{color:var(--error)} .key.sign{font-size:1.5rem}
   .key.enter{grid-column:1 / -1; background:linear-gradient(145deg,var(--accent),var(--accent-deep)); color:var(--accent-ink); border:none; font-size:1.1rem; box-shadow:0 4px 0 var(--accent-deep)}
-  /* Alternativas (opción múltiple) */
-  .choices{display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:360px; margin:8px auto 4px}
-  .choice{padding:20px 10px; font-size:1.6rem; font-weight:800; border-radius:16px; cursor:pointer; background:var(--surface); border:2px solid var(--border-strong); color:var(--ink); font-variant-numeric:tabular-nums; box-shadow:0 4px 0 var(--border); transition:transform .1s, background .15s, border-color .15s}
-  .choice:hover{border-color:var(--accent); background:var(--accent-soft)}
-  .choice:active{transform:translateY(3px); box-shadow:none}
-  .choice.good{border-color:var(--success); background:var(--success-soft); color:var(--success)}
-  .choice.bad{border-color:var(--error); background:var(--error-soft); color:var(--error)}
-  .choice[disabled]{cursor:default}
-  .choice:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
-  .tog-label{font-size:.74rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:2px 0 6px}
 
   /* Explicación gráfica */
   .ex-panel{text-align:left; animation:rise .35s both; margin-top:6px}
@@ -237,48 +227,6 @@
   .tdrow .v{font-variant-numeric:tabular-nums; color:var(--muted); font-weight:700}
   .tdrow .v b{color:var(--accent-deep)}
 
-  /* Guía de estudio */
-  .guide{padding:18px 20px}
-  .g-head{font-weight:800; color:var(--accent-deep); margin-bottom:12px; font-size:1.05rem}
-  .g-idea{font-size:1.02rem; font-weight:600; line-height:1.5; margin-bottom:12px}
-  .g-list{margin:0 0 14px; padding-left:20px; display:flex; flex-direction:column; gap:7px}
-  .g-list li{line-height:1.45}
-  .g-ex{display:flex; flex-direction:column; gap:8px; margin-bottom:14px}
-  .g-exrow{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:10px 13px; font-weight:700; font-variant-numeric:tabular-nums}
-  .g-tip{background:var(--accent-soft); border:1px solid var(--accent); border-radius:12px; padding:11px 14px; font-size:.92rem; line-height:1.45}
-  .study-hint{display:inline-flex; align-items:center; gap:7px; background:var(--accent-soft); color:var(--accent-deep); border-radius:999px; padding:7px 14px; font-weight:700; font-size:.82rem; margin-bottom:14px}
-  /* Ampolleta de ayuda */
-  .hintbtn{position:absolute; top:12px; left:14px; width:38px; height:38px; border-radius:11px; border:1px solid var(--border); background:var(--surface-2); cursor:pointer; font-size:1.15rem; display:grid; place-items:center; transition:.15s; z-index:2}
-  .hintbtn:hover{border-color:var(--accent); background:var(--accent-soft)}
-  .hintbtn.on{background:var(--accent); border-color:var(--accent)}
-  .hintpop{background:var(--accent-soft); border:1px solid var(--accent); border-radius:12px; padding:12px 14px; margin:0 auto 14px; max-width:360px; font-size:.9rem; line-height:1.5; text-align:left; animation:rise .25s both}
-  .hintpop b{color:var(--accent-deep)}
-
-  /* Nombre de la creadora (grande) */
-  .creator{display:flex; flex-direction:column; align-items:center; gap:3px; margin:14px 0 4px}
-  .creator-label{font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
-  .creator-name{font-size:clamp(1.6rem,7vw,2.15rem); font-weight:800; letter-spacing:-.02em; line-height:1.1; background:linear-gradient(135deg,var(--accent),var(--accent-deep)); -webkit-background-clip:text; background-clip:text; color:transparent; text-wrap:balance}
-  .creator-sub{font-size:.82rem; color:var(--muted); margin-top:2px}
-  /* Diagrama dentro de la guía */
-  .g-visual{background:var(--surface-2); border:1px solid var(--border); border-radius:12px; padding:15px; margin:0 0 14px; text-align:center}
-  .g-cap{font-size:.82rem; color:var(--muted); font-weight:700; margin-top:6px}
-  /* Selector de avatar */
-  .av-picker{margin:18px 0 4px; text-align:left}
-  .av-picker .pl{font-size:.76rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px}
-  .av-grid{display:grid; grid-template-columns:repeat(8,1fr); gap:7px}
-  @media(max-width:430px){.av-grid{grid-template-columns:repeat(6,1fr)}}
-  .av-opt{aspect-ratio:1; border:2px solid var(--border); background:var(--surface-2); border-radius:12px; cursor:pointer; font-size:1.3rem; display:grid; place-items:center; transition:.12s}
-  .av-opt:hover{border-color:var(--accent)}
-  .av-opt.sel{border-color:var(--accent); background:var(--accent-soft); transform:scale(1.06)}
-  .av-colors{display:flex; gap:9px; margin-top:12px; flex-wrap:wrap}
-  .av-color{width:34px; height:34px; border-radius:50%; cursor:pointer; border:3px solid transparent; transition:.12s}
-  .av-color.sel{border-color:var(--ink); transform:scale(1.1)}
-  .av-preview{width:78px; height:78px; border-radius:50%; display:grid; place-items:center; font-size:2.6rem; margin:0 auto 8px; box-shadow:var(--shadow)}
-  /* Clave del panel */
-  .gate{padding:28px 24px; text-align:center; max-width:400px; margin:0 auto}
-  .gate .lock{font-size:2.6rem; margin-bottom:4px}
-  .gate .err{color:var(--error); font-weight:700; font-size:.86rem; min-height:1.2em; margin-top:2px}
-
   .foot{margin-top:auto; padding-top:26px; text-align:center; color:var(--muted); font-size:.78rem; line-height:1.7}
   .foot b{color:var(--accent-deep)}
   @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
@@ -323,21 +271,14 @@
   var CURRENT=store.get('current');
   function keyify(n){return (String(n).toLowerCase().replace(/[^a-z0-9áéíóúñ]/gi,'')||'alumno');}
   function students(){return store.get('students')||[];}
-  function setStudent(n,av){
+  function setStudent(n){
     n=n.trim(); if(!n) return;
     CURRENT=n; store.set('current',n);
-    if(av) setAvatar(n,av);
     var list=students().filter(function(x){return keyify(x)!==keyify(n);}); list.unshift(n); store.set('students',list.slice(0,12));
     updateStudentUI();
   }
-  var AV_EMOJIS=['🦊','🐼','🐵','🐯','🦁','🐨','🐸','🐧','🦄','🐙','🐢','🦉','🐱','🐶','🐰','🐷'];
-  var AV_COLORS=['#e07708','#0f9b8e','#4b57c9','#1f9d63','#d83a41','#8b5cf6'];
-  function getAvatar(n){return store.get('avatar_'+keyify(n))||null;}
-  function setAvatar(n,av){store.set('avatar_'+keyify(n),av);}
-  function avatarEmoji(n){var a=getAvatar(n);return a&&a.emoji?a.emoji:(n?n.charAt(0).toUpperCase():'A');}
-  function avatarColor(n){var a=getAvatar(n);return a&&a.color?a.color:null;}
   function updateStudentUI(){
-    if(CURRENT){ studentBtn.classList.remove('hidden'); studentName.textContent=CURRENT; studentAv.textContent=avatarEmoji(CURRENT); studentAv.style.background=avatarColor(CURRENT)||''; }
+    if(CURRENT){ studentBtn.classList.remove('hidden'); studentName.textContent=CURRENT; studentAv.textContent=CURRENT.charAt(0).toUpperCase(); }
     else studentBtn.classList.add('hidden');
   }
   studentBtn.addEventListener('click', screenWelcome);
@@ -476,7 +417,6 @@
   };
   var ROUND=10, QTIME=20;
   var MODE=store.get('mode')||'practice';
-  var ANSWERMODE=store.get('answerMode')||'write';
   var CHALLENGES=[
     {icon:'🎯',name:'Primer intento',desc:'Completa una ronda',test:function(s){return s.played>=1;}},
     {icon:'⭐',name:'Buen puntaje',desc:'6 o más aciertos',test:function(s){return s.best>=6;}},
@@ -491,32 +431,6 @@
   function wipeStudent(stu){Object.keys(LEVELS).forEach(function(k){LEVELS[k].contents.forEach(function(c){try{localStorage.removeItem('tc_'+skey(stu,k,c.id));}catch(e){}});});}
   function deleteStudent(stu){wipeStudent(stu);store.set('students',students().filter(function(x){return keyify(x)!==keyify(stu);}));if(CURRENT&&keyify(CURRENT)===keyify(stu)){CURRENT=null;store.set('current',null);updateStudentUI();}}
 
-  // ===== GUÍAS DE ESTUDIO (contenido para estudiar) =====
-  function G(idea,points,examples,tip){return {idea:idea,points:points,examples:examples,tip:tip};}
-  var GUIDES={
-    'tablas':G('Multiplicar es sumar un mismo número varias veces.',['<b>a × b</b> significa sumar <b>a</b> un total de <b>b</b> veces.','El orden no cambia el resultado: 3 × 4 = 4 × 3.','Multiplicar por 10 agrega un cero al final.'],['4 × 3 = 4 + 4 + 4 = 12','7 × 5 = 35','9 × 10 = 90'],'Si te cuesta una tabla, apóyate en otra que ya sepas y suma el número que falta.'),
-    'operatoria':G('Las cuatro operaciones básicas resuelven la mayoría de los cálculos.',['<b>Suma</b>: juntar cantidades.','<b>Resta</b>: quitar (compruébala sumando).','<b>Multiplicación</b>: suma repetida.','<b>División</b>: repartir en partes iguales.'],['345 + 120 = 465','500 − 180 = 320','24 × 3 = 72','72 ÷ 8 = 9'],'En la división pregúntate: ¿por cuánto multiplico el divisor para llegar al número?'),
-    'secuencias':G('Una secuencia sigue un patrón que se repite.',['Observa cuánto cambia entre un número y el siguiente.','Puede crecer (suma siempre lo mismo) o decrecer (resta siempre lo mismo).'],['2, 4, 6, 8, … → suma 2','30, 25, 20, … → resta 5'],'Calcula la diferencia entre dos números seguidos: ese es el salto del patrón.'),
-    'redondeo':G('Redondear es buscar el múltiplo más cercano (de 10 o de 100).',['Mira el dígito que sigue al que vas a redondear.','Si es 5 o más, subes; si es menos, bajas.'],['347 a la centena → 300','68 a la decena → 70'],'Fíjate solo en el dígito siguiente para decidir si subes o bajas.'),
-    'fracciones':G('Una fracción de una cantidad se calcula en dos pasos.',['El número de <b>abajo</b> (denominador) dice en cuántas partes divides.','El de <b>arriba</b> (numerador) dice cuántas partes tomas.'],['1/4 de 20 = 20 ÷ 4 = 5','3/4 de 40 = (40 ÷ 4) × 3 = 30'],'Primero divides por el número de abajo, luego multiplicas por el de arriba.'),
-    'basica:mental':G('Con algunos trucos puedes calcular mucho más rápido de memoria.',['Doble = multiplicar por 2.','Mitad = dividir por 2.','+10 sube las decenas y +100 sube las centenas.'],['Doble de 24 = 48','Mitad de 60 = 30','45 + 100 = 145'],'Descompón los números en partes fáciles antes de operar.'),
-    'basica:problemas':G('En los problemas de la vida real primero entiendes y luego calculas.',['Lee con calma e identifica los datos.','Piensa qué operación necesitas.','"En total" suele ser sumar o multiplicar; "le queda / vuelto" es restar; "repartir en partes iguales" es dividir.'],['3 empanadas de $500 → 3 × 500 = $1.500','$5.000 − $1.500 = $3.500 de vuelto'],'Busca las palabras clave del enunciado para saber qué operación usar.'),
-    'combinada':G('Cuando hay varias operaciones juntas, se resuelven en un orden fijo.',['1°) Los paréntesis ( ).','2°) Multiplicaciones y divisiones (× ÷).','3°) Sumas y restas (+ −).'],['6 + 4 × 3 = 6 + 12 = 18','(8 − 3) × 2 = 5 × 2 = 10'],'Nunca resuelvas de izquierda a derecha sin respetar el orden de las operaciones.'),
-    'media:mental':G('El cálculo mental rápido se apoya en fracciones y porcentajes fáciles.',['10% = dividir por 10.','25% = la cuarta parte.','50% = la mitad.'],['10% de 80 = 8','25% de 200 = 50','50% de 46 = 23'],'Convierte el porcentaje en una fracción sencilla para resolverlo de memoria.'),
-    'potencias':G('Las potencias y raíces son multiplicaciones repetidas.',['<b>n²</b> = n × n (al cuadrado).','<b>n³</b> = n × n × n (al cubo).','<b>√</b> pregunta qué número al cuadrado da ese valor.'],['7² = 49','2³ = 8','√81 = 9'],'Memoriza los cuadrados del 1 al 15: te ayudan a resolver las raíces al instante.'),
-    'porcentajes':G('El porcentaje significa "de cada 100".',['X% de N = N × X ÷ 100.','El 10% se saca dividiendo por 10.'],['20% de 150 = 150 × 20 ÷ 100 = 30','15% de 200 = 30'],'Saca primero el 10% y multiplícalo para llegar a otros porcentajes.'),
-    'enteros':G('Los números enteros incluyen positivos y negativos.',['Suma y resta: imagina una recta numérica.','Al multiplicar/dividir: signos iguales dan +, signos distintos dan −.'],['(−7) + 3 = −4','(−4) × (−2) = 8','(−12) ÷ 4 = −3'],'Restar un número es lo mismo que sumar su opuesto.'),
-    'ecuaciones':G('Resolver una ecuación es despejar la incógnita x.',['Haz siempre lo mismo a ambos lados del igual.','Lo que suma pasa restando; lo que multiplica pasa dividiendo.'],['x + 7 = 12 → x = 12 − 7 = 5','3x = 15 → x = 15 ÷ 3 = 5'],'Tu meta es dejar la x completamente sola a un lado del igual.'),
-    'media:problemas':G('Los problemas aplicados usan dinero, porcentajes y proporciones.',['Descuento: réstale el porcentaje al precio.','Proporción: calcula primero cuánto vale una sola unidad.','Lee bien qué te preguntan (¿el total, el descuento o lo que sobra?).'],['Polera $10.000 con 20% dcto → paga $8.000','3 kg = $3.000 → 1 kg = $1.000 → 8 kg = $8.000'],'En proporciones, encuentra primero el valor de una unidad y luego multiplica.')
-  };
-  GUIDES['tablas'].visual='<div class="g-visual">'+dots(4,3)+'<div class="g-cap">4 × 3 = 12 · (4 puntos en cada una de las 3 filas)</div></div>';
-  GUIDES['fracciones'].visual='<div class="g-visual">'+partsBar(4,3)+'<div class="g-cap">3/4 → se pintan 3 de las 4 partes</div></div>';
-  GUIDES['redondeo'].visual='<div class="g-visual">'+numLine(300,347,400,300)+'</div>';
-  GUIDES['potencias'].visual='<div class="g-visual">'+dots(5,5)+'<div class="g-cap">5² = 5 × 5 = 25</div></div>';
-  GUIDES['porcentajes'].visual='<div class="g-visual">'+partsBar(10,2)+'<div class="g-cap">20% = 2 de cada 10</div></div>';
-  function guideFor(lv,c){return GUIDES[lv+':'+c.id]||GUIDES[c.id]||null;}
-  function guideHTML(g){return '<div class="g-idea">'+g.idea+'</div>'+(g.points?'<ul class="g-list">'+g.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>':'')+(g.visual||'')+(g.examples?'<div class="g-ex">'+g.examples.map(function(e){return '<div class="g-exrow">'+e+'</div>';}).join('')+'</div>':'')+(g.tip?'<div class="g-tip">💡 <b>Recuerda:</b> '+g.tip+'</div>':'');}
-
   var state={};
   function setTrack(t){app.setAttribute('data-track',t||'basica');logo.textContent=t==='media'?'=':'×';}
 
@@ -524,34 +438,25 @@
   function screenWelcome(){
     app.removeAttribute('data-track');logo.textContent='×';
     var recent=students();
-    var pre=CURRENT?getAvatar(CURRENT):null;
-    var selEmoji=(pre&&pre.emoji)||AV_EMOJIS[0], selColor=(pre&&pre.color)||AV_COLORS[0];
     main.innerHTML='<section class="screen"><div class="card welcome">'+
       '<div class="hero-ico">🧮✏️</div>'+
       '<h2>¡Bienvenido a Tablas Continental!</h2>'+
-      '<div class="creator"><span class="creator-label">Creado por</span><span class="creator-name">Profesora Aylen Pereira</span><span class="creator-sub">Colegio Continental · Curanilahue</span></div>'+
-      '<p class="sub" style="margin:16px auto 0;max-width:44ch">Escribe tu nombre y crea tu avatar para guardar tu progreso.</p>'+
+      '<div class="by">✏️ Diseñada por la profesora Aylen Pereira</div>'+
+      '<p class="sub" style="margin:14px auto 0;max-width:44ch">Escribe tu nombre para guardar tu progreso y tus desafíos.</p>'+
       '<div class="name-form">'+
-        '<div class="av-preview" id="avPrev" style="background:'+selColor+'">'+selEmoji+'</div>'+
         '<input class="name-input" id="nameIn" maxlength="20" placeholder="Escribe tu nombre" autocomplete="off">'+
-        '<div class="av-picker"><div class="pl">Elige tu personaje</div><div class="av-grid" id="avGrid">'+AV_EMOJIS.map(function(e){return '<button type="button" class="av-opt'+(e===selEmoji?' sel':'')+'" data-emoji="'+e+'">'+e+'</button>';}).join('')+'</div>'+
-        '<div class="pl" style="margin-top:14px">Elige un color</div><div class="av-colors" id="avColors">'+AV_COLORS.map(function(c){return '<button type="button" class="av-color'+(c===selColor?' sel':'')+'" data-color="'+c+'" style="background:'+c+'" aria-label="color"></button>';}).join('')+'</div></div>'+
-        '<button class="btn" id="startBtn" style="margin-top:18px">Comenzar a practicar ›</button>'+
+        '<button class="btn" id="startBtn">Comenzar a practicar ›</button>'+
       '</div>'+
-      (recent.length?'<div class="recent"><span class="sub" style="width:100%;margin:16px 0 0;font-size:.8rem">O continúa como:</span>'+recent.map(function(n){var col=avatarColor(n);return '<button class="r" data-name="'+esc(n)+'"><span style="display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;color:#fff;font-size:.7rem;vertical-align:middle;margin-right:5px;background:'+(col||'var(--accent)')+'">'+avatarEmoji(n)+'</span>'+esc(n)+'</button>';}).join('')+'</div>':'')+
+      (recent.length?'<div class="recent"><span class="sub" style="width:100%;margin:14px 0 0;font-size:.8rem">O continúa como:</span>'+recent.map(function(n){return '<button class="r" data-name="'+esc(n)+'">'+esc(n)+'</button>';}).join('')+'</div>':'')+
       '<div><button class="tlink" id="teacherBtn">👩‍🏫 Panel de la profesora</button></div>'+
     '</div></section>';
     var input=document.getElementById('nameIn');
     if(CURRENT) input.value=CURRENT;
-    var prev=document.getElementById('avPrev');
-    function refresh(){prev.textContent=selEmoji;prev.style.background=selColor;}
-    bindAll('#avGrid .av-opt',function(b){selEmoji=b.getAttribute('data-emoji');Array.prototype.forEach.call(main.querySelectorAll('#avGrid .av-opt'),function(x){x.classList.toggle('sel',x===b);});refresh();});
-    bindAll('#avColors .av-color',function(b){selColor=b.getAttribute('data-color');Array.prototype.forEach.call(main.querySelectorAll('#avColors .av-color'),function(x){x.classList.toggle('sel',x===b);});refresh();});
-    function go(){ if(input.value.trim()){ setStudent(input.value,{emoji:selEmoji,color:selColor}); screenHome(); } else input.focus(); }
+    function go(){ if(input.value.trim()){ setStudent(input.value); screenHome(); } else input.focus(); }
     document.getElementById('startBtn').addEventListener('click',go);
     input.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
     Array.prototype.forEach.call(main.querySelectorAll('.recent .r'),function(b){b.addEventListener('click',function(){setStudent(b.getAttribute('data-name'));screenHome();});});
-    document.getElementById('teacherBtn').addEventListener('click',function(){screenTeacherGate();});
+    document.getElementById('teacherBtn').addEventListener('click',function(){screenTeacher();});
     if(window.matchMedia('(pointer:fine)').matches) input.focus();
   }
 
@@ -573,19 +478,15 @@
       '<button class="back" data-home>‹ Volver a niveles</button>'+
       '<p class="eyebrow">'+L.who+'</p><h2 class="lead">'+L.name+'</h2>'+
       '<div class="card prog-card"><div class="ring" style="--p:'+p.pct+'"><span>'+p.pct+'%</span></div><div class="pt"><b>Tu progreso, '+esc(CURRENT)+'</b><span>'+p.done+' de '+p.total+' desafíos completados</span></div><button class="mini-link" data-chal>Ver desafíos ›</button></div>'+
-      '<div class="tog-label">Modo de juego</div>'+
       '<div class="mode-toggle" role="group" aria-label="Modo de juego"><button data-mode="practice"'+(MODE==='practice'?' class="on"':'')+'>🎯 Práctica</button><button data-mode="timed"'+(MODE==='timed'?' class="on"':'')+'>⏱️ Contrarreloj</button></div>'+
-      '<div class="tog-label">Cómo responder</div>'+
-      '<div class="mode-toggle" role="group" aria-label="Forma de responder"><button data-amode="write"'+(ANSWERMODE==='write'?' class="on"':'')+'>✍️ Escribir</button><button data-amode="choices"'+(ANSWERMODE==='choices'?' class="on"':'')+'>🔘 Alternativas</button></div>'+
-      '<p class="sub">Elige un contenido para estudiar y practicar:</p>'+
+      '<p class="sub">Elige un contenido para practicar:</p>'+
       '<div class="contents">'+L.contents.map(function(c){var dc=doneCount(lv,c.id);
         return '<button class="content-btn" data-content="'+c.id+'"><div class="ico">'+c.ico+'</div><div class="txt"><b>'+c.title+'</b><span>'+c.desc+'</span></div><div class="dots">'+[0,1,2,3].map(function(i){return '<i class="'+(i<dc?'on':'')+'"></i>';}).join('')+'</div></button>';
       }).join('')+'</div></section>';
     main.querySelector('[data-home]').addEventListener('click',screenHome);
     main.querySelector('[data-chal]').addEventListener('click',function(){screenChallenges(lv);});
     bindAll('[data-mode]',function(b){MODE=b.getAttribute('data-mode');store.set('mode',MODE);screenMenu(lv);});
-    bindAll('[data-amode]',function(b){ANSWERMODE=b.getAttribute('data-amode');store.set('answerMode',ANSWERMODE);screenMenu(lv);});
-    Array.prototype.forEach.call(main.querySelectorAll('.content-btn'),function(b){b.addEventListener('click',function(){var c=L.contents.filter(function(x){return x.id===b.getAttribute('data-content');})[0];screenContent(lv,c);});});
+    Array.prototype.forEach.call(main.querySelectorAll('.content-btn'),function(b){b.addEventListener('click',function(){var c=L.contents.filter(function(x){return x.id===b.getAttribute('data-content');})[0];if(c.tables)screenConfig(lv,c);else startQuiz(lv,c,null);});});
   }
 
   function screenChallenges(lv){
@@ -609,23 +510,9 @@
     Array.prototype.forEach.call(main.querySelectorAll('.chip'),function(b){b.addEventListener('click',function(){startQuiz(lv,c,parseInt(b.getAttribute('data-fixed'),10)||null);});});
   }
 
-  function screenContent(lv,c){
-    var L=LEVELS[lv];setTrack(L.track);var g=guideFor(lv,c);
-    main.innerHTML='<section class="screen">'+
-      '<button class="back" data-back>‹ Volver a '+L.name+'</button>'+
-      '<p class="eyebrow">'+L.name+' · Guía de estudio</p><h2 class="lead">'+c.ico+' '+c.title+'</h2>'+
-      '<div class="study-hint">📖 Estudia primero y luego practica</div>'+
-      '<div class="card guide"><div class="g-head">📚 ¿Cómo se hace?</div>'+(g?guideHTML(g):'<p class="sub">Aprende practicando. Durante los ejercicios usa la 💡 para ver una pista.</p>')+'</div>'+
-      '<div class="btn-row" style="margin-top:18px"><button class="btn" data-practice>▶️ Practicar ahora</button><button class="btn ghost" data-back2>‹ Volver</button></div>'+
-    '</section>';
-    main.querySelector('[data-back]').addEventListener('click',function(){screenMenu(lv);});
-    main.querySelector('[data-back2]').addEventListener('click',function(){screenMenu(lv);});
-    main.querySelector('[data-practice]').addEventListener('click',function(){if(c.tables)screenConfig(lv,c);else startQuiz(lv,c,null);});
-  }
-
   // ===== JUEGO =====
   function nextQuestion(){var c=state.content;return c.tables?genTabla(c.tables,state.fixed):c.gen();}
-  function startQuiz(lv,c,fixed){setTrack(LEVELS[lv].track);state={levelId:lv,content:c,fixed:fixed||null,index:0,score:0,streak:0,bestStreak:0,locked:false,current:null,timed:MODE==='timed',roundStart:Date.now(),timer:null,answerMode:ANSWERMODE,tip:(guideFor(lv,c)||{}).tip};renderQuiz();loadQuestion();}
+  function startQuiz(lv,c,fixed){setTrack(LEVELS[lv].track);state={levelId:lv,content:c,fixed:fixed||null,index:0,score:0,streak:0,bestStreak:0,locked:false,current:null,timed:MODE==='timed',roundStart:Date.now(),timer:null};renderQuiz();loadQuestion();}
 
   function renderQuiz(){
     var label=state.content.title+(state.fixed?(' · tabla del '+state.fixed):(state.content.tables?' · mezcladas':''));
@@ -634,34 +521,25 @@
       '<div class="progress"><i id="qbar"></i></div>'+
       (state.timed?'<div class="timerbar"><i id="qtimer"></i></div>':'')+
       '<div class="card qcard">'+
-        '<button class="hintbtn" id="hintBtn" title="Ayuda con pistas" aria-label="Pista de ayuda">💡</button>'+
         '<div class="streak" id="qstreak">🔥 racha 0</div>'+
         '<p class="eyebrow" style="margin-bottom:2px">'+label+'</p>'+
         '<div class="question" id="qtext">—</div>'+
         '<div class="qhint" id="qhint"></div>'+
-        '<div class="hintpop hidden" id="hintPop"></div>'+
-        '<div id="qplay">'+(state.answerMode==='choices'?
-          ('<div class="choices" id="qchoices"></div>'+
-           '<div class="feedback" id="qfb"></div>'+
-           '<div class="typehint">Toca la alternativa correcta 👆</div>')
-          :
-          ('<input class="ans-input" id="qans" inputmode="numeric" enterkeyhint="go" autocomplete="off" placeholder="Tu respuesta" aria-label="Escribe tu respuesta">'+
-           '<div class="feedback" id="qfb"></div>'+
-           '<div class="typehint">Puedes escribir con el teclado o pinchar los números 👇</div>'+
-           '<div class="keypad">'+[1,2,3,4,5,6,7,8,9].map(function(n){return '<button class="key" data-k="'+n+'">'+n+'</button>';}).join('')+'<button class="key sign" data-k="sign" title="Positivo o negativo">±</button><button class="key" data-k="0">0</button><button class="key del" data-k="del" title="Borrar">⌫</button><button class="key enter" data-k="enter">✓ Responder</button></div>')
-        )+'</div>'+
+        '<div id="qplay">'+
+          '<input class="ans-input" id="qans" inputmode="numeric" enterkeyhint="go" autocomplete="off" placeholder="Tu respuesta" aria-label="Escribe tu respuesta">'+
+          '<div class="feedback" id="qfb"></div>'+
+          '<div class="typehint">Puedes escribir con el teclado o pinchar los números 👇</div>'+
+          '<div class="keypad">'+[1,2,3,4,5,6,7,8,9].map(function(n){return '<button class="key" data-k="'+n+'">'+n+'</button>';}).join('')+'<button class="key sign" data-k="sign" title="Positivo o negativo">±</button><button class="key" data-k="0">0</button><button class="key del" data-k="del" title="Borrar">⌫</button><button class="key enter" data-k="enter">✓ Responder</button></div>'+
+        '</div>'+
         '<div id="qexplain" class="ex-panel hidden"></div>'+
       '</div></section>';
     main.querySelector('[data-quit]').addEventListener('click',function(){clearTimer();screenMenu(state.levelId);});
     Array.prototype.forEach.call(main.querySelectorAll('.key'),function(b){b.addEventListener('click',function(){handleKey(b.getAttribute('data-k'));});});
-    document.getElementById('hintBtn').addEventListener('click',toggleHint);
     var inp=document.getElementById('qans');
-    if(inp){
-      inp.addEventListener('input',function(){
-        var v=inp.value.replace(/[^0-9-]/g,''),neg=v.charAt(0)==='-';v=v.replace(/-/g,'');if(neg)v='-'+v;v=v.slice(0,neg?8:7);inp.value=v;syncFilled();
-      });
-      inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submit();}});
-    }
+    inp.addEventListener('input',function(){
+      var v=inp.value.replace(/[^0-9-]/g,''),neg=v.charAt(0)==='-';v=v.replace(/-/g,'');if(neg)v='-'+v;v=v.slice(0,neg?8:7);inp.value=v;syncFilled();
+    });
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submit();}});
   }
 
   function syncFilled(){var inp=document.getElementById('qans');inp.classList.toggle('filled', inp.value!==''&&inp.value!=='-');}
@@ -674,21 +552,11 @@
     else{qt.textContent=p;qt.className='question'+((/[a-zA-Zx√]/.test(p)||p.length>9)?' sm':'');}
     document.getElementById('qhint').textContent=state.current.hint||'';
     document.getElementById('qnum').textContent=state.index+1;
+    var inp=document.getElementById('qans');inp.value='';inp.className='ans-input';inp.disabled=false;
     var fb=document.getElementById('qfb');fb.textContent='';fb.className='feedback';
     document.getElementById('qbar').style.width=(state.index/ROUND*100)+'%';
-    var pop=document.getElementById('hintPop');pop.classList.add('hidden');
-    var hb=document.getElementById('hintBtn');if(hb)hb.classList.remove('on');
-    if(state.answerMode==='choices'){ renderChoices(); }
-    else { var inp=document.getElementById('qans'); inp.value=''; inp.className='ans-input'; inp.disabled=false; if(window.matchMedia('(pointer:fine)').matches) inp.focus(); }
+    if(window.matchMedia('(pointer:fine)').matches) inp.focus();
     if(state.timed) startTimer();
-  }
-
-  function toggleHint(){
-    var pop=document.getElementById('hintPop'),hb=document.getElementById('hintBtn');
-    if(pop.classList.contains('hidden')){
-      pop.innerHTML='<b>💡 Pista para este ejercicio</b><br>'+(state.current.hint?state.current.hint+'.':'Piensa con calma qué operación necesitas.')+(state.tip?'<br><br><span style="color:var(--muted)"><b>Recuerda:</b> '+state.tip+'</span>':'');
-      pop.classList.remove('hidden');if(hb)hb.classList.add('on');
-    }else{pop.classList.add('hidden');if(hb)hb.classList.remove('on');}
   }
 
   function handleKey(k){
@@ -705,43 +573,19 @@
     if(state.locked)return;
     var inp=document.getElementById('qans'),raw=inp.value;
     if(raw===''||raw==='-')return;
-    state.locked=true;inp.disabled=true;
-    var ok=(parseInt(raw,10)===state.current.answer);
-    inp.className='ans-input '+(ok?'good':'bad');
-    scoreAndNext(ok);
-  }
-  function submitChoice(val,btn){
-    if(state.locked)return;state.locked=true;
-    var ok=(val===state.current.answer);
-    btn.classList.add(ok?'good':'bad');
-    Array.prototype.forEach.call(main.querySelectorAll('#qchoices .choice'),function(b){b.disabled=true;if(!ok&&parseInt(b.getAttribute('data-val'),10)===state.current.answer)b.classList.add('good');});
-    scoreAndNext(ok);
-  }
-  function scoreAndNext(ok){
-    clearTimer();
+    state.locked=true;inp.disabled=true;clearTimer();
+    var val=parseInt(raw,10);
     var fb=document.getElementById('qfb'),st=document.getElementById('qstreak');
-    if(ok){
+    if(val===state.current.answer){
       state.score++;state.streak++;state.bestStreak=Math.max(state.bestStreak,state.streak);
-      fb.className='feedback good';fb.textContent=pick(['¡Correcto! 🎉','¡Muy bien! ✅','¡Excelente! 🌟','¡Así se hace! 💪']);
+      inp.className='ans-input good';fb.className='feedback good';fb.textContent=pick(['¡Correcto! 🎉','¡Muy bien! ✅','¡Excelente! 🌟','¡Así se hace! 💪']);
       document.getElementById('qscore').textContent=state.score;
       if(state.streak>=2){st.textContent='🔥 racha '+state.streak;st.classList.add('on');}
       setTimeout(advance,800);
     }else{
-      state.streak=0;fb.className='feedback bad';fb.textContent='Casi… veamos cómo se hace 👇';st.classList.remove('on');
+      state.streak=0;inp.className='ans-input bad';fb.className='feedback bad';fb.textContent='Casi… veamos cómo se hace 👇';st.classList.remove('on');
       setTimeout(showExplain,850);
     }
-  }
-  function shuffleArr(a){for(var i=a.length-1;i>0;i--){var j=rnd(0,i),t=a[i];a[i]=a[j];a[j]=t;}return a;}
-  function makeChoices(ans){
-    var arr=[ans],seen={},g=0;seen[ans]=1;var deltas=[1,-1,2,-2,3,-3,5,-5,10,-10,4,-4];
-    while(arr.length<4&&g++<80){var d=deltas[rnd(0,deltas.length-1)],c=ans+d;if(c===ans||seen[c])continue;if(c<0&&ans>=0)continue;seen[c]=1;arr.push(c);}
-    while(arr.length<4){var c2=ans+arr.length*7+1;if(seen[c2])c2=ans+arr.length*13+5;seen[c2]=1;arr.push(c2);}
-    return shuffleArr(arr);
-  }
-  function renderChoices(){
-    var host=document.getElementById('qchoices');
-    host.innerHTML=makeChoices(state.current.answer).map(function(v){return '<button class="choice" data-val="'+v+'">'+v+'</button>';}).join('');
-    Array.prototype.forEach.call(host.querySelectorAll('.choice'),function(b){b.addEventListener('click',function(){submitChoice(parseInt(b.getAttribute('data-val'),10),b);});});
   }
 
   function showExplain(){
@@ -795,94 +639,14 @@
     },100);
   }
   function timeUp(){
-    if(state.locked)return;state.locked=true;state.streak=0;clearTimer();
-    var inp=document.getElementById('qans');if(inp){inp.disabled=true;inp.className='ans-input bad';}
-    var ch=document.getElementById('qchoices');if(ch){Array.prototype.forEach.call(ch.querySelectorAll('.choice'),function(b){b.disabled=true;if(parseInt(b.getAttribute('data-val'),10)===state.current.answer)b.classList.add('good');});}
+    if(state.locked)return;state.locked=true;state.streak=0;
+    var inp=document.getElementById('qans');inp.disabled=true;inp.className='ans-input bad';
     var fb=document.getElementById('qfb');fb.className='feedback bad';fb.textContent='⏱️ ¡Se acabó el tiempo! Veamos cómo se hace 👇';
     document.getElementById('qstreak').classList.remove('on');
     setTimeout(showExplain,750);
   }
 
-  // ===== PANEL DE LA PROFESORA (con clave) =====
-  function norm(s){return String(s||'').trim().toLowerCase();}
-  var QUESTIONS=['¿Nombre de tu primera mascota?','¿En qué ciudad naciste?','¿Cuál es tu comida favorita?','¿Nombre de tu mejor amigo(a) de infancia?','¿Nombre de tu colegio de infancia?'];
-  function screenTeacherGate(err){
-    app.removeAttribute('data-track');logo.textContent='×';clearTimer();
-    var pin=store.get('teacherPin');
-    if(pin){ // ingresar
-      main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
-        '<div class="lock">🔒</div><h2 class="lead">Panel de la profesora</h2>'+
-        '<p class="sub">Ingresa la clave para ver el progreso del curso.</p>'+
-        '<div class="name-form" style="margin-top:4px">'+
-          '<input class="name-input" id="pinIn" type="password" inputmode="numeric" maxlength="12" placeholder="Clave" autocomplete="off">'+
-          '<button class="btn" id="pinBtn">Entrar</button>'+
-          '<div class="err">'+(err||'')+'</div>'+
-          '<button class="tlink" id="forgot" style="margin:6px auto 0">¿Olvidaste tu clave?</button>'+
-        '</div></div></section>';
-      main.querySelector('[data-back]').addEventListener('click',screenWelcome);
-      var inp=document.getElementById('pinIn');
-      function ok(){ if(inp.value.trim()===store.get('teacherPin')) screenTeacher(); else screenTeacherGate('Clave incorrecta. Intenta de nuevo.'); }
-      document.getElementById('pinBtn').addEventListener('click',ok);
-      inp.addEventListener('keydown',function(e){if(e.key==='Enter')ok();});
-      document.getElementById('forgot').addEventListener('click',function(){ if(store.get('teacherA')) screenTeacherRecover(); else screenTeacherReset('No hay pregunta de recuperación guardada. Crea una nueva clave.'); });
-      if(window.matchMedia('(pointer:fine)').matches) inp.focus();
-    } else { // crear
-      main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
-        '<div class="lock">🔒</div><h2 class="lead">Crea la clave del panel</h2>'+
-        '<p class="sub">Define una clave (mínimo 4 caracteres) y una pregunta de recuperación por si la olvidas.</p>'+
-        '<div class="name-form" style="margin-top:4px">'+
-          '<input class="name-input" id="pinIn" type="password" inputmode="numeric" maxlength="12" placeholder="Nueva clave" autocomplete="off">'+
-          '<select class="name-input" id="qSel">'+QUESTIONS.map(function(q){return '<option>'+q+'</option>';}).join('')+'</select>'+
-          '<input class="name-input" id="aIn" maxlength="30" placeholder="Respuesta secreta" autocomplete="off">'+
-          '<button class="btn" id="pinBtn">Crear y entrar</button>'+
-          '<div class="err">'+(err||'')+'</div>'+
-        '</div></div></section>';
-      main.querySelector('[data-back]').addEventListener('click',screenWelcome);
-      function crear(){
-        var v=document.getElementById('pinIn').value.trim(), q=document.getElementById('qSel').value, a=document.getElementById('aIn').value.trim();
-        if(v.length<4){screenTeacherGate('La clave debe tener al menos 4 caracteres.');return;}
-        if(!a){screenTeacherGate('Escribe una respuesta secreta para poder recuperar la clave.');return;}
-        store.set('teacherPin',v);store.set('teacherQ',q);store.set('teacherA',norm(a));screenTeacher();
-      }
-      document.getElementById('pinBtn').addEventListener('click',crear);
-      if(window.matchMedia('(pointer:fine)').matches) document.getElementById('pinIn').focus();
-    }
-  }
-  function screenTeacherRecover(err){
-    app.removeAttribute('data-track');logo.textContent='×';
-    main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
-      '<div class="lock">🔑</div><h2 class="lead">Recuperar clave</h2>'+
-      '<p class="sub">Responde tu pregunta de recuperación:</p>'+
-      '<p style="font-weight:700;margin:0 0 4px">'+esc(store.get('teacherQ')||'')+'</p>'+
-      '<div class="name-form" style="margin-top:4px">'+
-        '<input class="name-input" id="aIn" maxlength="30" placeholder="Tu respuesta" autocomplete="off">'+
-        '<button class="btn" id="okBtn">Verificar</button>'+
-        '<div class="err">'+(err||'')+'</div>'+
-      '</div></div></section>';
-    main.querySelector('[data-back]').addEventListener('click',function(){screenTeacherGate();});
-    var inp=document.getElementById('aIn');
-    function ok(){ if(norm(inp.value)===store.get('teacherA')) screenTeacherReset('¡Respuesta correcta! Ahora crea tu nueva clave.'); else screenTeacherRecover('Respuesta incorrecta. Intenta otra vez.'); }
-    document.getElementById('okBtn').addEventListener('click',ok);
-    inp.addEventListener('keydown',function(e){if(e.key==='Enter')ok();});
-    if(window.matchMedia('(pointer:fine)').matches) inp.focus();
-  }
-  function screenTeacherReset(msg){
-    app.removeAttribute('data-track');logo.textContent='×';
-    main.innerHTML='<section class="screen"><button class="back" data-back>‹ Volver</button><div class="card gate">'+
-      '<div class="lock">🔒</div><h2 class="lead">Nueva clave</h2>'+
-      '<p class="sub">'+(msg||'Crea una nueva clave (mínimo 4 caracteres).')+'</p>'+
-      '<div class="name-form" style="margin-top:4px">'+
-        '<input class="name-input" id="pinIn" type="password" inputmode="numeric" maxlength="12" placeholder="Nueva clave" autocomplete="off">'+
-        '<button class="btn" id="okBtn">Guardar y entrar</button>'+
-        '<div class="err" id="rerr"></div>'+
-      '</div></div></section>';
-    main.querySelector('[data-back]').addEventListener('click',function(){ store.get('teacherPin')?screenTeacherGate():screenWelcome(); });
-    var inp=document.getElementById('pinIn');
-    function ok(){ var v=inp.value.trim(); if(v.length<4){document.getElementById('rerr').textContent='La clave debe tener al menos 4 caracteres.';return;} store.set('teacherPin',v); screenTeacher(); }
-    document.getElementById('okBtn').addEventListener('click',ok);
-    inp.addEventListener('keydown',function(e){if(e.key==='Enter')ok();});
-    if(window.matchMedia('(pointer:fine)').matches) inp.focus();
-  }
+  // ===== PANEL DE LA PROFESORA =====
   function screenTeacher(pending){
     app.removeAttribute('data-track');logo.textContent='×';clearTimer();
     var list=students();
@@ -891,10 +655,9 @@
       '<p class="eyebrow">Panel de la profesora Aylen Pereira</p>'+
       '<h2 class="lead">Progreso del curso</h2>'+
       '<p class="sub">'+(list.length?list.length+' alumno(s) registrados en este dispositivo. Toca un alumno para ver el detalle.':'Aún no hay alumnos registrados en este dispositivo.')+'</p>'+
-      '<button class="tlink" data-changepin style="margin:0 0 16px">🔑 Cambiar la clave del panel</button>'+
       list.map(function(n){
         var tot=studentTotals(n), conf=(pending&&keyify(pending.stu)===keyify(n))?pending.action:null;
-        return '<div class="card tstudent"><div class="th"><span class="av" style="background:'+(avatarColor(n)||'')+'">'+avatarEmoji(n)+'</span><div style="flex:1;min-width:0"><b>'+esc(n)+'</b><small>'+tot.done+' de '+tot.total+' desafíos · '+tot.pct+'%</small></div></div>'+
+        return '<div class="card tstudent"><div class="th"><span class="av">'+esc(n.charAt(0).toUpperCase())+'</span><div style="flex:1;min-width:0"><b>'+esc(n)+'</b><small>'+tot.done+' de '+tot.total+' desafíos · '+tot.pct+'%</small></div></div>'+
           '<div class="lvl-bar"><i style="width:'+tot.pct+'%"></i></div>'+
           (conf?'<div class="tconfirm">'+(conf==='delete'?'¿Eliminar a <b>'+esc(n)+'</b> y todo su progreso?':'¿Reiniciar el progreso de <b>'+esc(n)+'</b>?')+'<div class="row"><button class="tbtn danger" data-do="'+conf+'" data-stu="'+esc(n)+'">Sí, '+(conf==='delete'?'eliminar':'reiniciar')+'</button><button class="tbtn" data-cancel>Cancelar</button></div></div>'
             :'<div class="tactions"><button class="tbtn" data-detail="'+esc(n)+'">Ver detalle</button><button class="tbtn" data-reset="'+esc(n)+'">Reiniciar</button><button class="tbtn danger" data-del="'+esc(n)+'">Eliminar</button></div>')+
@@ -902,7 +665,6 @@
       }).join('')+
     '</section>';
     main.querySelector('[data-back]').addEventListener('click',screenWelcome);
-    bindAll('[data-changepin]',function(){screenTeacherReset('Crea tu nueva clave del panel.');});
     bindAll('[data-detail]',function(b){screenTeacherDetail(b.getAttribute('data-detail'));});
     bindAll('[data-reset]',function(b){screenTeacher({stu:b.getAttribute('data-reset'),action:'reset'});});
     bindAll('[data-del]',function(b){screenTeacher({stu:b.getAttribute('data-del'),action:'delete'});});
